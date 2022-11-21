@@ -1,5 +1,6 @@
 package juan_parquestematicos;
 
+import BBDD.BD_INTERMEDIARIO;
 import Enum.*;
 import Ventanas.*;
 import Clases.*;
@@ -15,11 +16,18 @@ public class Main {
     public static PARQUES parqueSeleccionado;
 
     public static void main(String[] args) {
+        try{
+            BD_INTERMEDIARIO.comprobarBasesDeDatos();
+        }catch(Exception ex){
+            System.out.println("Ha ocurrido un error al comprobar el funcionamiento de las bases de datos");
+            System.exit(0);
+        }
+        
         //        MYSQL_AgenciaBD bdMysql = new MYSQL_AgenciaBD();
 //          DB4O_AgenciaBD bdDB4O = new DB4O_AgenciaBD();
 //          SQLITE_AgenciaBD sqlite = new SQLITE_AgenciaBD();
-        vSeleccionParque = new VSeleccionParque();
-        vSeleccionParque.setVisible(true);
+//        vSeleccionParque = new VSeleccionParque();
+//        vSeleccionParque.setVisible(true);
     }
     
     public static void SeleccionarAgencia(PARQUES agencia){

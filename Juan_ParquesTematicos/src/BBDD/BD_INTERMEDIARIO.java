@@ -1,26 +1,31 @@
 package BBDD;
 
-import BBDD.mysql.MYSQL_AgenciaBD;
-import BBDD.db4o.DB4O_AgenciaBD;
-import BBDD.sqlite.SQLITE_AgenciaBD;
-import Clases.Agencia;
-import Enum.EnumAgencias;
+import BBDD.mysql.MYSQL_ParqueBD;
+import BBDD.db4o.DB4O_ParqueBD;
+import BBDD.mysql.MYSQL_BD;
+import BBDD.sqlite.SQLITE_ParqueBD;
+import Clases.*;
+import Enum.PARQUES;
 
 public class BD_INTERMEDIARIO {
     
-    public static Agencia obtenerAgencia(EnumAgencias enumAgencia){
-        Agencia agencia = null;
-        switch(enumAgencia){
-            case el_caminante:
-                agencia = MYSQL_AgenciaBD.getAgencia();
+    public static void comprobarBasesDeDatos() throws Exception{
+        MYSQL_BD.ComprobarYPrepararBD();
+    }
+    
+    public static Parque obtenerAgencia(PARQUES enumParque){
+        Parque parque = null;
+        switch(enumParque){
+            case Warner:
+                parque = MYSQL_ParqueBD.getParque();
                 break;
-            case viajes_araba:
-                agencia = SQLITE_AgenciaBD.getAgencia();
+            case Disney:
+                parque = SQLITE_ParqueBD.getParque();
                 break;
-            case viajes_eroski:
-                agencia = DB4O_AgenciaBD.getAgencia();
+            case Universal:
+                parque = DB4O_ParqueBD.getParque();
                 break;
         }
-        return agencia;
+        return parque;
     }
 }

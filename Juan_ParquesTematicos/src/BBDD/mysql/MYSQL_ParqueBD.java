@@ -1,17 +1,17 @@
 package BBDD.mysql;
 
-import Clases.Agencia;
+import Clases.*;
 import java.sql.*;
 
 public class MYSQL_ParqueBD {
     
-    private static String url = "jdbc:mysql://localhost:3306/ad_agenciasturismo";
+    private static String url = "jdbc:mysql://localhost:3306/ad_parques_tematicos?autoReconnect=true&useSSL=false";
     private static String username = "root";
     private static String password = "12345Abcde";
     
     public MYSQL_ParqueBD() throws Exception{
         Connection conexion = DriverManager.getConnection(url,username,password);
-        String sql = "SELECT * FROM AGENCIA";
+        String sql = "SELECT * FROM PARQUE";
         Statement state = conexion.createStatement();
         ResultSet result = state.executeQuery(sql);
         while(result.next()){
@@ -32,11 +32,11 @@ public class MYSQL_ParqueBD {
         }
     }
     
-    public static Agencia getAgencia(){
+    public static Parque getParque(){
         try{
             Connection conexion = conectarBD();
-            Agencia agencia = new Agencia();
-            String sql = "SELECT * FROM AGENCIA";
+            Parque agencia = new Parque();
+            String sql = "SELECT * FROM PARQUE";
             Statement state = conexion.createStatement();
             ResultSet result = state.executeQuery(sql);
             while(result.next()){

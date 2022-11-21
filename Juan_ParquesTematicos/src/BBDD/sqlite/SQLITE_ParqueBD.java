@@ -1,11 +1,11 @@
 package BBDD.sqlite;
 
-import Clases.Agencia;
+import Clases.*;
 import java.sql.*;
 
 public class SQLITE_ParqueBD {
     
-    public final static String url = "jdbc:sqlite:C:/sqlite/ad_agenciasTurismo.db";
+    public final static String url = "jdbc:sqlite:C:/sqlite/ad_parques_tematicos.db";
     
     public SQLITE_ParqueBD(){
         Connection conn = null;
@@ -36,24 +36,24 @@ public class SQLITE_ParqueBD {
         }
     }
     
-    public static Agencia getAgencia(){
+    public static Parque getParque(){
         try{
             Connection conexion = conectarBD();
-            Agencia agencia = new Agencia();
-            String sql = "SELECT * FROM AGENCIA";
+            Parque parque = new Parque();
+            String sql = "SELECT * FROM PARQUE";
             Statement state = conexion.createStatement();
             ResultSet result = state.executeQuery(sql);
             while(result.next()){
-                agencia.setId(result.getInt("id"));
-                agencia.setNombre(result.getString("nombre"));
-                agencia.setFecha_apertura(result.getDate("fecha_apertura"));
-                agencia.setDireccion(result.getString("direccion"));
+                parque.setId(result.getInt("id"));
+                parque.setNombre(result.getString("nombre"));
+                parque.setFecha_apertura(result.getDate("fecha_apertura"));
+                parque.setDireccion(result.getString("direccion"));
                 result.close();
                 state.close();
                 conexion.close();
-                return agencia;
+                return parque;
             }
-            return agencia;
+            return parque;
         }catch(Exception ex){
             return null;
         }
