@@ -184,7 +184,7 @@ public class MYSQL_BD {
         }
     }
     
-    private static Connection conectarBD(){
+    public static Connection conectarBD(){
         try{
             return DriverManager.getConnection(url,username,password);
         }catch(Exception ex){

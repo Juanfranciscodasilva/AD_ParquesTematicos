@@ -5,12 +5,8 @@ import java.sql.*;
 
 public class MYSQL_ParqueBD {
     
-    private static String url = "jdbc:mysql://localhost:3306/ad_parques_tematicos?autoReconnect=true&useSSL=false";
-    private static String username = "root";
-    private static String password = "12345Abcde";
-    
     public MYSQL_ParqueBD() throws Exception{
-        Connection conexion = DriverManager.getConnection(url,username,password);
+        Connection conexion = MYSQL_BD.conectarBD();
         String sql = "SELECT * FROM PARQUE";
         Statement state = conexion.createStatement();
         ResultSet result = state.executeQuery(sql);
@@ -24,17 +20,9 @@ public class MYSQL_ParqueBD {
         conexion.close();
     }
     
-    private static Connection conectarBD(){
-        try{
-            return DriverManager.getConnection(url,username,password);
-        }catch(Exception ex){
-            return null;
-        }
-    }
-    
     public static Parque getParque(){
         try{
-            Connection conexion = conectarBD();
+            Connection conexion = MYSQL_BD.conectarBD();
             Parque agencia = new Parque();
             String sql = "SELECT * FROM PARQUE";
             Statement state = conexion.createStatement();
