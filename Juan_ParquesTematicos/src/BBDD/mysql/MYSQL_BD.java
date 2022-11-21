@@ -124,7 +124,6 @@ public class MYSQL_BD {
                 sql.append("AFORO INTEGER DEFAULT 0, ");
                 sql.append("DESCRIPCION VARCHAR(150), ");
                 sql.append("LUGAR VARCHAR(50) NOT NULL, ");
-                sql.append("PRECIO DECIMAL DEFAULT 0, ");
                 sql.append("BAJA BOOLEAN DEFAULT 0, ");
                 sql.append("EMPLEADO_FK INTEGER, ");
                 sql.append("FOREIGN KEY (EMPLEADO_FK) REFERENCES EMPLE(ID) ");
