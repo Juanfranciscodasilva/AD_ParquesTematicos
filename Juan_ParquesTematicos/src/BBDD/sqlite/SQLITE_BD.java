@@ -82,7 +82,7 @@ public class SQLITE_BD {
                 System.out.println("SQLITE: no se ha detectado la tabla \"EMPLE\"");
                 StringBuilder sql = new StringBuilder();
                 sql.append("CREATE TABLE EMPLE( ");
-                sql.append("ID INTEGER PRIMARY KEY AUTOINCREMENT, ");
+                sql.append("DNI VARCHAR(15) PRIMARY KEY, ");
                 sql.append("NOMBRE VARCHAR(50) NOT NULL, ");
                 sql.append("APELLIDO VARCHAR(50) NOT NULL, ");
                 sql.append("FECHA_NACIMIENTO DATE NOT NULL, ");
@@ -107,7 +107,7 @@ public class SQLITE_BD {
                 System.out.println("SQLITE: no se ha detectado la tabla \"CLIENTES\"");
                 StringBuilder sql = new StringBuilder();
                 sql.append("CREATE TABLE CLIENTES( ");
-                sql.append("ID INTEGER PRIMARY KEY AUTOINCREMENT, ");
+                sql.append("DNI VARCHAR(15) PRIMARY KEY, ");
                 sql.append("NOMBRE VARCHAR(50) NOT NULL, ");
                 sql.append("APELLIDO VARCHAR(50) NOT NULL, ");
                 sql.append("FECHA_NACIMIENTO DATE NOT NULL, ");
@@ -135,8 +135,8 @@ public class SQLITE_BD {
                 sql.append("DESCRIPCION VARCHAR(150), ");
                 sql.append("LUGAR VARCHAR(50) NOT NULL, ");
                 sql.append("BAJA BOOLEAN DEFAULT 0, ");
-                sql.append("EMPLEADO_FK INTEGER, ");
-                sql.append("FOREIGN KEY (EMPLEADO_FK) REFERENCES EMPLE(ID) ");
+                sql.append("EMPLEADO_FK VARCHAR(15), ");
+                sql.append("FOREIGN KEY (EMPLEADO_FK) REFERENCES EMPLE(DNI) ");
                 sql.append("); ");
                 Statement state = con.createStatement();
                 state.executeUpdate(sql.toString());
@@ -155,10 +155,10 @@ public class SQLITE_BD {
                 StringBuilder sql = new StringBuilder();
                 sql.append("CREATE TABLE ESPECTACULO_CLIENTE( ");
                 sql.append("ID_ESPECTACULO INTEGER NOT NULL, ");
-                sql.append("ID_CLIENTE INTEGER NOT NULL, ");
+                sql.append("DNI_CLIENTE INTEGER NOT NULL, ");
                 sql.append("FOREIGN KEY (ID_ESPECTACULO) REFERENCES ESPECTACULOS(ID), ");
-                sql.append("FOREIGN KEY (ID_CLIENTE) REFERENCES CLIENTES(ID), ");
-                sql.append("PRIMARY KEY (ID_ESPECTACULO,ID_CLIENTE) ");
+                sql.append("FOREIGN KEY (DNI_CLIENTE) REFERENCES CLIENTES(DNI), ");
+                sql.append("PRIMARY KEY (ID_ESPECTACULO,DNI_CLIENTE) ");
                 sql.append("); ");
                 Statement state = con.createStatement();
                 state.executeUpdate(sql.toString());
