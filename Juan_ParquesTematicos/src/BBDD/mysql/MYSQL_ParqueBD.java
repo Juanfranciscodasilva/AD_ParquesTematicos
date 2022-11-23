@@ -5,21 +5,6 @@ import java.sql.*;
 
 public class MYSQL_ParqueBD {
     
-    public MYSQL_ParqueBD() throws Exception{
-        Connection conexion = MYSQL_BD.conectarBD();
-        String sql = "SELECT * FROM PARQUE";
-        Statement state = conexion.createStatement();
-        ResultSet result = state.executeQuery(sql);
-        while(result.next()){
-            System.out.println(result.getString("nombre"));
-            System.out.println(result.getString("fecha_apertura"));
-            System.out.println(result.getString("id"));
-        }
-        result.close();
-        state.close();
-        conexion.close();
-    }
-    
     public static Parque getParque(){
         try{
             Connection conexion = MYSQL_BD.conectarBD();

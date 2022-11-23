@@ -16,6 +16,7 @@ public class MYSQL_BD {
         Connection conexion = conectarBD();
         if(conexion != null){
             ComprobarTablas(conexion);
+            conexion.close();
         }else{
             System.out.println("MYSQL: Ha ocurrido un error al hacer la conexión con la BD MySql");
             throw new Exception("Ha ocurrido un error al hacer la conexión con la BD MySql");

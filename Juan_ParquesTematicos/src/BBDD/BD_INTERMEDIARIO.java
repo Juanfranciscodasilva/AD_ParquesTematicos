@@ -17,16 +17,16 @@ public class BD_INTERMEDIARIO {
         SQLITE_BD.ComprobarYPrepararBD();
     }
     
-    public static Parque obtenerAgencia(PARQUES enumParque){
+    public static Parque obtenerParque(PARQUES enumParque){
         Parque parque = null;
         switch(enumParque){
             case Warner:
                 parque = MYSQL_ParqueBD.getParque();
                 break;
-            case Disney:
+            case Universal:
                 parque = SQLITE_ParqueBD.getParque();
                 break;
-            case Universal:
+            case Disney:
                 parque = DB4O_ParqueBD.getParque();
                 break;
         }

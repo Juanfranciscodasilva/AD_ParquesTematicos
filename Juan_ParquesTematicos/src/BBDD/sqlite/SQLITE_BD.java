@@ -14,10 +14,6 @@ public class SQLITE_BD {
         
     public static Connection conectarBD(){
         try{
-//            File f = new File(filePathString);
-//            if(f.exists() && !f.isDirectory()) { 
-//                // do something
-//            }
             return DriverManager.getConnection(url);
         }catch(Exception ex){
             System.out.println(ex.getMessage());
@@ -29,6 +25,7 @@ public class SQLITE_BD {
         Connection conexion = conectarBD();
         if(conexion != null){
             ComprobarTablas(conexion);
+            conexion.close();
         }else{
             System.out.println("SQLITE: Ha ocurrido un error al hacer la conexión con la BD SQLite");
             throw new Exception("Ha ocurrido un error al hacer la conexión con la BD SQLite");
@@ -177,7 +174,7 @@ public class SQLITE_BD {
         try{
             StringBuilder sql = new StringBuilder();
             sql.append("INSERT INTO PARQUE VALUES( ");
-            sql.append("null,'Warner',DATE(),'Direccion de prueba para la Warner' );");
+            sql.append("null,'Universal',DATE(),'Direccion test para Universal' );");
             Statement state = con.createStatement();
             state.executeUpdate(sql.toString());
         }catch(Exception ex){

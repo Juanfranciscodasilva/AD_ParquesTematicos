@@ -2,31 +2,10 @@ package BBDD.sqlite;
 
 import Clases.*;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 public class SQLITE_ParqueBD {
-    
-    public final static String url = "jdbc:sqlite:C:/sqlite/ad_parques_tematicos.db";
-    
-    public SQLITE_ParqueBD(){
-        Connection conn = null;
-        try {
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-//            String sql = "INSERT INTO agencia VALUES(null,?,?,?)";
-//
-//            PreparedStatement pstmt = conn.prepareStatement(sql);
-//            pstmt.setString(1, "Viajes Araba");
-//            java.util.Date utilDate = new java.util.Date();
-//            Date date = new Date(utilDate.getTime());
-//            pstmt.setDate(2, date);
-//            pstmt.setString(3, "C/ ejemplo araba 7");
-//            pstmt.executeUpdate();
-            
-            
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
     
     public static Parque getParque(){
         try{
@@ -38,7 +17,8 @@ public class SQLITE_ParqueBD {
             while(result.next()){
                 parque.setId(result.getInt("id"));
                 parque.setNombre(result.getString("nombre"));
-                parque.setFecha_apertura(result.getDate("fecha_apertura"));
+                LocalDate localDate = LocalDate.parse(result.getString("fecha_apertura"));
+                parque.setFecha_apertura(Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
                 parque.setDireccion(result.getString("direccion"));
                 result.close();
                 state.close();
@@ -47,6 +27,7 @@ public class SQLITE_ParqueBD {
             }
             return parque;
         }catch(Exception ex){
+            System.out.println(ex.getMessage());
             return null;
         }
     }

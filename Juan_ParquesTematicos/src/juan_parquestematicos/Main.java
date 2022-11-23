@@ -4,11 +4,13 @@ import BBDD.BD_INTERMEDIARIO;
 import Enum.*;
 import Ventanas.*;
 import Clases.*;
+import javax.swing.JOptionPane;
 
 public class Main {
     
     public static VSeleccionParque vSeleccionParque;
     public static VPrincipal vPrincipal;
+    public static VDatosParque vDatosParque;
 //    public static VDatosAgencia vDatosAgencia;
 //    public static VCrearCliente vCrearCliente;
 //    public static VCrearEmpleado vCrearEmpleado;
@@ -22,12 +24,8 @@ public class Main {
             System.out.println("Ha ocurrido un error al comprobar el funcionamiento de las bases de datos");
             System.exit(0);
         }
-        
-        //        MYSQL_AgenciaBD bdMysql = new MYSQL_AgenciaBD();
-//          DB4O_AgenciaBD bdDB4O = new DB4O_AgenciaBD();
-//          SQLITE_AgenciaBD sqlite = new SQLITE_AgenciaBD();
-//        vSeleccionParque = new VSeleccionParque();
-//        vSeleccionParque.setVisible(true);
+        vSeleccionParque = new VSeleccionParque();
+        vSeleccionParque.setVisible(true);
     }
     
     public static void SeleccionarAgencia(PARQUES agencia){
@@ -49,19 +47,25 @@ public class Main {
         vSeleccionParque.setVisible(true);
     }
     
-    public static void abrirVentanaDatosAgencia(){
-//        vPrincipal.setVisible(false);
-//        vPrincipal.dispose();
-//        Agencia agencia = BD_INTERMEDIARIO.obtenerAgencia(agenciaSeleccionada);
-//        vDatosAgencia = new VDatosAgencia(agencia);
-//        vDatosAgencia.setVisible(true);
+    public static void abrirVentanaDatosParque(){
+        
+        Parque parque = BD_INTERMEDIARIO.obtenerParque(parqueSeleccionado);
+        if(parque != null){
+            vPrincipal.setVisible(false);
+            vPrincipal.dispose();
+            vDatosParque = new VDatosParque(parque);
+            vDatosParque.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null,"Ha ocurrido un error al obtener los datos del parque");
+        }
+        
     }
     
-    public static void cerrarVentanaDatosAgencia(){
-//        vPrincipal = new VPrincipal(agenciaSeleccionada);
-//        vPrincipal.setVisible(true);
-//        vDatosAgencia.setVisible(false);
-//        vDatosAgencia.dispose();
+    public static void cerrarVentanaDatosParque(){
+        vPrincipal = new VPrincipal(parqueSeleccionado);
+        vPrincipal.setVisible(true);
+        vDatosParque.setVisible(false);
+        vDatosParque.dispose();
     }
     
     public static void abrirCrearCliente(){

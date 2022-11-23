@@ -8,23 +8,24 @@ import java.util.Date;
 
 public class DB4O_ParqueBD {
     
-    public DB4O_ParqueBD(){
-        
-    }
-    
     public static Parque getParque(){
-//        try{
-//            ObjectContainer db = openConnection();
-//            ObjectSet<Agencia> result = db.queryByExample(new Agencia());
-//            while (result.hasNext()) {
-//                Agencia age = result.next();
-//                return age;
-//            }
-//            return null;
-//        }catch(Exception ex){
-//            return null;
-//        }
-return null;
+        ObjectContainer db = null;
+        try{
+            db = DB4O_BD.conectarBD();
+            ObjectSet<Parque> result = db.queryByExample(new Parque());
+            while (result.hasNext()) {
+                Parque parque = result.next();
+                return parque;
+            }
+            return null;
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return null;
+        }finally{
+            if(db != null){
+                db.close();
+            }
+        }
     }
     
     
