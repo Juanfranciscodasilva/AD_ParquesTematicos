@@ -1,24 +1,37 @@
-package BBDD.mysql;
+package BBDD.sqlite;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import Clases.*;
+import java.sql.*;
 
-public class MYSQL_BD {
+public class SQLITE_BD {
     
-    private static String url = "jdbc:mysql://localhost:3306/ad_parques_tematicos";
-    private static String username = "root";
-    private static String password = "12345Abcde";
+    public final static String rutaLocalBD = "C:/sqlite/ad_parques_tematicos.db";
+    public final static String url = "jdbc:sqlite:"+rutaLocalBD;
+    
+    public SQLITE_BD(){
+
+    }
+        
+    public static Connection conectarBD(){
+        try{
+//            File f = new File(filePathString);
+//            if(f.exists() && !f.isDirectory()) { 
+//                // do something
+//            }
+            return DriverManager.getConnection(url);
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return null;
+        }
+    }
     
     public static void ComprobarYPrepararBD() throws Exception{
         Connection conexion = conectarBD();
         if(conexion != null){
             ComprobarTablas(conexion);
         }else{
-            System.out.println("MYSQL: Ha ocurrido un error al hacer la conexión con la BD MySql");
-            throw new Exception("Ha ocurrido un error al hacer la conexión con la BD MySql");
+            System.out.println("SQLITE: Ha ocurrido un error al hacer la conexión con la BD SQLite");
+            throw new Exception("Ha ocurrido un error al hacer la conexión con la BD SQLite");
         }
     }
     
@@ -38,27 +51,27 @@ public class MYSQL_BD {
     private static void ComprobarTablaPARQUE(Connection con) throws Exception{
         if(!ExisteTabla(con, "PARQUE")){
             try{
-                System.out.println("MYSQL: no se ha detectado la tabla \"PARQUE\"");
+                System.out.println("SQLITE: no se ha detectado la tabla \"PARQUE\"");
                 StringBuilder sql = new StringBuilder();
                 sql.append("CREATE TABLE PARQUE( ");
-                sql.append("ID INTEGER PRIMARY KEY AUTO_INCREMENT, ");
+                sql.append("ID INTEGER PRIMARY KEY AUTOINCREMENT, ");
                 sql.append("NOMBRE VARCHAR(50) NOT NULL, ");
                 sql.append("FECHA_APERTURA DATE NOT NULL, ");
                 sql.append("DIRECCION VARCHAR(100) NOT NULL ");
                 sql.append("); ");
                 Statement state = con.createStatement();
                 state.executeUpdate(sql.toString());
-                System.out.println("MYSQL: Se ha creado la tabla \"PARQUE\"");
+                System.out.println("SQLITE: Se ha creado la tabla \"PARQUE\"");
             }catch(Exception ex){
-                System.out.println("MYSQL: Ha ocurrido un error al crear la tabla \"PARQUE\"");
+                System.out.println("SQLITE: Ha ocurrido un error al crear la tabla \"PARQUE\"");
                 throw ex;
             }
             
             try{
                 InsertarParque(con);
-                System.out.println("MYSQL: Se ha insertado el parque correspondiente");
+                System.out.println("SQLITE: Se ha insertado el parque correspondiente");
             }catch(Exception ex){
-                System.out.println("MYSQL: Ha ocurrido un error al cargar el parque");
+                System.out.println("SQLITE: Ha ocurrido un error al cargar el parque");
                 throw ex;
             }
         }else{
@@ -69,10 +82,10 @@ public class MYSQL_BD {
     private static void ComprobarTablaEMPLEADOS(Connection con) throws Exception{
         if(!ExisteTabla(con, "EMPLE")){
             try{
-                System.out.println("MYSQL: no se ha detectado la tabla \"EMPLE\"");
+                System.out.println("SQLITE: no se ha detectado la tabla \"EMPLE\"");
                 StringBuilder sql = new StringBuilder();
                 sql.append("CREATE TABLE EMPLE( ");
-                sql.append("ID INTEGER PRIMARY KEY AUTO_INCREMENT, ");
+                sql.append("ID INTEGER PRIMARY KEY AUTOINCREMENT, ");
                 sql.append("NOMBRE VARCHAR(50) NOT NULL, ");
                 sql.append("APELLIDO VARCHAR(50) NOT NULL, ");
                 sql.append("FECHA_NACIMIENTO DATE NOT NULL, ");
@@ -83,9 +96,9 @@ public class MYSQL_BD {
                 sql.append("); ");
                 Statement state = con.createStatement();
                 state.executeUpdate(sql.toString());
-                System.out.println("MYSQL: Se ha creado la tabla \"EMPLE\"");
+                System.out.println("SQLITE: Se ha creado la tabla \"EMPLE\"");
             }catch(Exception ex){
-                System.out.println("MYSQL: Ha ocurrido un error al crear la tabla \"EMPLE\"");
+                System.out.println("SQLITE: Ha ocurrido un error al crear la tabla \"EMPLE\"");
                 throw ex;
             }
         }
@@ -94,10 +107,10 @@ public class MYSQL_BD {
     private static void ComprobarTablaCLIENTES(Connection con) throws Exception{
         if(!ExisteTabla(con, "CLIENTES")){
             try{
-                System.out.println("MYSQL: no se ha detectado la tabla \"CLIENTES\"");
+                System.out.println("SQLITE: no se ha detectado la tabla \"CLIENTES\"");
                 StringBuilder sql = new StringBuilder();
                 sql.append("CREATE TABLE CLIENTES( ");
-                sql.append("ID INTEGER PRIMARY KEY AUTO_INCREMENT, ");
+                sql.append("ID INTEGER PRIMARY KEY AUTOINCREMENT, ");
                 sql.append("NOMBRE VARCHAR(50) NOT NULL, ");
                 sql.append("APELLIDO VARCHAR(50) NOT NULL, ");
                 sql.append("FECHA_NACIMIENTO DATE NOT NULL, ");
@@ -105,9 +118,9 @@ public class MYSQL_BD {
                 sql.append("); ");
                 Statement state = con.createStatement();
                 state.executeUpdate(sql.toString());
-                System.out.println("MYSQL: Se ha creado la tabla \"CLIENTES\"");
+                System.out.println("SQLITE: Se ha creado la tabla \"CLIENTES\"");
             }catch(Exception ex){
-                System.out.println("MYSQL: Ha ocurrido un error al crear la tabla \"CLIENTES\"");
+                System.out.println("SQLITE: Ha ocurrido un error al crear la tabla \"CLIENTES\"");
                 throw ex;
             }
         }
@@ -116,10 +129,10 @@ public class MYSQL_BD {
     private static void ComprobarTablaESPECTACULOS(Connection con) throws Exception{
         if(!ExisteTabla(con, "ESPECTACULOS")){
             try{
-                System.out.println("MYSQL: no se ha detectado la tabla \"ESPECTACULOS\"");
+                System.out.println("SQLITE: no se ha detectado la tabla \"ESPECTACULOS\"");
                 StringBuilder sql = new StringBuilder();
                 sql.append("CREATE TABLE ESPECTACULOS( ");
-                sql.append("ID INTEGER PRIMARY KEY AUTO_INCREMENT, ");
+                sql.append("ID INTEGER PRIMARY KEY AUTOINCREMENT, ");
                 sql.append("NOMBRE VARCHAR(50) NOT NULL, ");
                 sql.append("AFORO INTEGER DEFAULT 0, ");
                 sql.append("DESCRIPCION VARCHAR(150), ");
@@ -130,9 +143,9 @@ public class MYSQL_BD {
                 sql.append("); ");
                 Statement state = con.createStatement();
                 state.executeUpdate(sql.toString());
-                System.out.println("MYSQL: Se ha creado la tabla \"ESPECTACULOS\"");
+                System.out.println("SQLITE: Se ha creado la tabla \"ESPECTACULOS\"");
             }catch(Exception ex){
-                System.out.println("MYSQL: Ha ocurrido un error al crear la tabla \"ESPECTACULOS\"");
+                System.out.println("SQLITE: Ha ocurrido un error al crear la tabla \"ESPECTACULOS\"");
                 throw ex;
             }
         }
@@ -141,7 +154,7 @@ public class MYSQL_BD {
     private static void ComprobarTablaESPECTACULO_CLIENTE(Connection con) throws Exception{
         if(!ExisteTabla(con, "ESPECTACULO_CLIENTE")){
             try{
-                System.out.println("MYSQL: no se ha detectado la tabla \"ESPECTACULO_CLIENTE\"");
+                System.out.println("SQLITE: no se ha detectado la tabla \"ESPECTACULO_CLIENTE\"");
                 StringBuilder sql = new StringBuilder();
                 sql.append("CREATE TABLE ESPECTACULO_CLIENTE( ");
                 sql.append("ID_ESPECTACULO INTEGER NOT NULL, ");
@@ -152,10 +165,10 @@ public class MYSQL_BD {
                 sql.append("); ");
                 Statement state = con.createStatement();
                 state.executeUpdate(sql.toString());
-                System.out.println("MYSQL: Se ha creado la tabla \"ESPECTACULO_CLIENTE\"");
+                System.out.println("SQLITE: Se ha creado la tabla \"ESPECTACULO_CLIENTE\"");
             }catch(Exception ex){
-                System.out.println("MYSQL: Ha ocurrido un error al crear la tabla \"ESPECTACULO_CLIENTE\"");
-                throw ex; 
+                System.out.println("SQLITE: Ha ocurrido un error al crear la tabla \"ESPECTACULO_CLIENTE\"");
+                throw ex;
             }
         }
     }
@@ -164,7 +177,7 @@ public class MYSQL_BD {
         try{
             StringBuilder sql = new StringBuilder();
             sql.append("INSERT INTO PARQUE VALUES( ");
-            sql.append("null,'Warner',SYSDATE(),'Direccion de prueba para la Warner' );");
+            sql.append("null,'Warner',DATE(),'Direccion de prueba para la Warner' );");
             Statement state = con.createStatement();
             state.executeUpdate(sql.toString());
         }catch(Exception ex){
@@ -180,15 +193,6 @@ public class MYSQL_BD {
             return true;
         }else{
             return false;
-        }
-    }
-    
-    public static Connection conectarBD(){
-        try{
-            return DriverManager.getConnection(url,username,password);
-        }catch(Exception ex){
-            System.out.println(ex.getMessage());
-            return null;
         }
     }
 }

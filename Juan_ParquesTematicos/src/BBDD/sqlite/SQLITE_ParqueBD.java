@@ -27,18 +27,10 @@ public class SQLITE_ParqueBD {
             System.out.println(e.getMessage());
         }
     }
-        
-    private static Connection conectarBD(){
-        try{
-            return DriverManager.getConnection(url);
-        }catch(Exception ex){
-            return null;
-        }
-    }
     
     public static Parque getParque(){
         try{
-            Connection conexion = conectarBD();
+            Connection conexion = SQLITE_BD.conectarBD();
             Parque parque = new Parque();
             String sql = "SELECT * FROM PARQUE";
             Statement state = conexion.createStatement();
