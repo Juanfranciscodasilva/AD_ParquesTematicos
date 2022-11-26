@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 public class VvmeCliente extends javax.swing.JFrame {
     private Cliente cli;
     private List<Cliente> listaClientes;
+    private List<Cliente> listaClientesFlitrada;
     private int opcion;
     public VvmeCliente() {
         initComponents();
@@ -55,6 +56,7 @@ public class VvmeCliente extends javax.swing.JFrame {
         bCancelarCerrar = new javax.swing.JButton();
         eTitulo = new javax.swing.JLabel();
         ckBaja = new java.awt.Checkbox();
+        ckMostrarBaja = new java.awt.Checkbox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,6 +97,13 @@ public class VvmeCliente extends javax.swing.JFrame {
 
         ckBaja.setEnabled(false);
 
+        ckMostrarBaja.setLabel("Mostrar también clientes de baja");
+        ckMostrarBaja.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ckMostrarBajaItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,20 +124,22 @@ public class VvmeCliente extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(tNacimiento)
-                        .addComponent(cbDNI, 0, 242, Short.MAX_VALUE)
-                        .addComponent(tNombre)
-                        .addComponent(tApellido))
-                    .addComponent(ckBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tNacimiento)
+                    .addComponent(cbDNI, 0, 242, Short.MAX_VALUE)
+                    .addComponent(tNombre)
+                    .addComponent(tApellido)
+                    .addComponent(ckBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ckMostrarBaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(eTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(1, 1, 1)
+                .addComponent(ckMostrarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cbDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -152,7 +163,7 @@ public class VvmeCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bCancelarCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bEliminarModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -200,7 +211,7 @@ public class VvmeCliente extends javax.swing.JFrame {
         int index = cbDNI.getSelectedIndex()-1;
         Cliente cli = null;
         if(index > -1){
-            cli = this.listaClientes.get(index);
+            cli = this.listaClientesFlitrada.get(index);
         }
         if(cli == null){
             LimpiarCampos();
@@ -211,6 +222,10 @@ public class VvmeCliente extends javax.swing.JFrame {
             bEliminarModificar.setEnabled(true);
         }
     }//GEN-LAST:event_cbDNIActionPerformed
+
+    private void ckMostrarBajaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckMostrarBajaItemStateChanged
+        rellenarComboClientes();
+    }//GEN-LAST:event_ckMostrarBajaItemStateChanged
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -266,11 +281,21 @@ public class VvmeCliente extends javax.swing.JFrame {
     }
     
     public void rellenarComboClientes(){
+        cbDNI.removeAllItems();
+        listaClientesFlitrada = new ArrayList<>();
         if(this.listaClientes != null && !this.listaClientes.isEmpty()){
              cbDNI.addItem("-----Elegir cliente-----");
             try{
                 for(Cliente cli : this.listaClientes){
-                    cbDNI.addItem(cli.getDni());
+                    if(cli.isBaja()){
+                        if(ckMostrarBaja.getState()){
+                            cbDNI.addItem(cli.getDni());
+                            listaClientesFlitrada.add(cli);
+                        }
+                    }else{
+                        cbDNI.addItem(cli.getDni());
+                        listaClientesFlitrada.add(cli);
+                    }
                 }
             }catch(Exception e){
                 System.out.println("ha ocurrido un error "+ e.getMessage());
@@ -298,6 +323,7 @@ public class VvmeCliente extends javax.swing.JFrame {
     private javax.swing.JButton bEliminarModificar;
     private javax.swing.JComboBox<String> cbDNI;
     private java.awt.Checkbox ckBaja;
+    private java.awt.Checkbox ckMostrarBaja;
     private javax.swing.JLabel eTitulo;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
