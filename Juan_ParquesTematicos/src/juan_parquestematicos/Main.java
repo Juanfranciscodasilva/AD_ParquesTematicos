@@ -4,6 +4,8 @@ import BBDD.BD_INTERMEDIARIO;
 import Enum.*;
 import Ventanas.*;
 import Clases.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class Main {
@@ -11,8 +13,8 @@ public class Main {
     public static VSeleccionParque vSeleccionParque;
     public static VPrincipal vPrincipal;
     public static VDatosParque vDatosParque;
-//    public static VDatosAgencia vDatosAgencia;
-//    public static VCrearCliente vCrearCliente;
+    public static VCrearCliente vCrearCliente;
+    public static VvmeCliente vVmeCliente;
 //    public static VCrearEmpleado vCrearEmpleado;
     
     public static PARQUES parqueSeleccionado;
@@ -28,8 +30,9 @@ public class Main {
         vSeleccionParque.setVisible(true);
     }
     
-    public static void SeleccionarAgencia(PARQUES agencia){
-        parqueSeleccionado = agencia;
+    public static void SeleccionarParque(PARQUES parque){
+        parqueSeleccionado = parque;
+        BD_INTERMEDIARIO.parqueSeleccionado = parque;
         abrirVentanaPrincipal();
     }
     
@@ -48,8 +51,7 @@ public class Main {
     }
     
     public static void abrirVentanaDatosParque(){
-        
-        Parque parque = BD_INTERMEDIARIO.obtenerParque(parqueSeleccionado);
+        Parque parque = BD_INTERMEDIARIO.obtenerParque();
         if(parque != null){
             vPrincipal.setVisible(false);
             vPrincipal.dispose();
@@ -69,17 +71,39 @@ public class Main {
     }
     
     public static void abrirCrearCliente(){
-//        vPrincipal.setVisible(false);
-//        vPrincipal.dispose();
-//        vCrearCliente = new VCrearCliente();
-//        vCrearCliente.setVisible(true);
+        vPrincipal.setVisible(false);
+        vPrincipal.dispose();
+        vCrearCliente = new VCrearCliente();
+        vCrearCliente.setVisible(true);
     }
     
     public static void cerrarCrearCliente(){
-//        vPrincipal = new VPrincipal(agenciaSeleccionada);
-//        vPrincipal.setVisible(true);
-//        vCrearCliente.setVisible(false);
-//        vCrearCliente.dispose();
+        vPrincipal = new VPrincipal(parqueSeleccionado);
+        vPrincipal.setVisible(true);
+        vCrearCliente.setVisible(false);
+        vCrearCliente.dispose();
+    }
+    
+    public static void abrirVMECliente(int opcion){
+        try{
+//            List<Cliente> campamentos = CampamentosBD.getAllCampamentos();
+            List<Cliente> clientes = BD_INTERMEDIARIO.obtenerAllClientes();
+            if(vPrincipal != null){
+                vPrincipal.setVisible(false);
+                vPrincipal.dispose();
+            }
+            vVmeCliente = new VvmeCliente(opcion, clientes);
+            vVmeCliente.setVisible(true);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al abrir la ventana. Intentalo de nuevo.","",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public static void cerrarVMECliente(){
+        vVmeCliente.setVisible(false);
+        vVmeCliente.dispose();
+        vPrincipal = new VPrincipal();
+        vPrincipal.setVisible(true);
     }
     
     public static void abrirCrearEmpleado(){
@@ -94,6 +118,10 @@ public class Main {
 //        vPrincipal.setVisible(true);
 //        vCrearEmpleado.setVisible(false);
 //        vCrearEmpleado.dispose();
+    }
+    
+    public static Response insertarCliente(Cliente cli){
+        return BD_INTERMEDIARIO.insertarCliente(cli);
     }
     
     public static void cerrarPrograma(){

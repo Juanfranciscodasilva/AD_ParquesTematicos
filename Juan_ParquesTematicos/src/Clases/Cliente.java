@@ -6,7 +6,6 @@ import java.util.Date;
 
 public class Cliente implements Serializable {
  
-    private int id;
     private String dni;
     private String nombre;
     private String apellido1;
@@ -18,8 +17,7 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
-    public Cliente(int id, String dni, String nombre, String apellido1, Date fechaNacimiento, boolean baja) {
-        this.id = id;
+    public Cliente(String dni, String nombre, String apellido1, Date fechaNacimiento, boolean baja) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -27,8 +25,7 @@ public class Cliente implements Serializable {
         this.baja = baja;
     }
     
-    public Cliente(int id, String dni, String nombre, String apellido1, Date fechaNacimiento) {
-        this.id = id;
+    public Cliente(String dni, String nombre, String apellido1, Date fechaNacimiento) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -39,14 +36,6 @@ public class Cliente implements Serializable {
         this.nombre = nombre;
         this.apellido1 = apellido1;
         this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getDni() {
@@ -88,4 +77,11 @@ public class Cliente implements Serializable {
     public void setBaja(boolean baja) {
         this.baja = baja;
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "dni=" + dni + ", nombre=" + nombre + ", apellido1=" + apellido1 + ", fechaNacimiento=" + fechaNacimiento + ", baja=" + baja + '}';
+    }
+    
+    
 }

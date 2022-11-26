@@ -87,15 +87,15 @@ public class VSeleccionParque extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btWarnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btWarnerActionPerformed
-        Main.SeleccionarAgencia(PARQUES.Warner);
+        Main.SeleccionarParque(PARQUES.Warner);
     }//GEN-LAST:event_btWarnerActionPerformed
 
     private void btDisneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDisneyActionPerformed
-        Main.SeleccionarAgencia(PARQUES.Disney);
+        Main.SeleccionarParque(PARQUES.Disney);
     }//GEN-LAST:event_btDisneyActionPerformed
 
     private void btUniversalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUniversalActionPerformed
-        Main.SeleccionarAgencia(PARQUES.Universal);
+        Main.SeleccionarParque(PARQUES.Universal);
     }//GEN-LAST:event_btUniversalActionPerformed
 
     public static void main(String args[]) {

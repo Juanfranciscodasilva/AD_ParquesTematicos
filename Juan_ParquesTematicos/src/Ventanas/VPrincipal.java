@@ -139,6 +139,11 @@ public class VPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu5);
 
         jMenu2.setText("Clientes");
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
 
         AltaCliente.setText("Alta de cliente");
         AltaCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -164,7 +169,7 @@ public class VPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(BajaCliente);
 
-        VerVisitasGuiadasDelCliente.setText("Ver visitas guiadas del cliente");
+        VerVisitasGuiadasDelCliente.setText("Ver espectáculos del cliente");
         VerVisitasGuiadasDelCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 VerVisitasGuiadasDelClienteActionPerformed(evt);
@@ -270,11 +275,11 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_VerEspectaculoActionPerformed
 
     private void ModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarClienteActionPerformed
-
+        Main.abrirVMECliente(1);
     }//GEN-LAST:event_ModificarClienteActionPerformed
 
     private void BajaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BajaClienteActionPerformed
-
+        Main.abrirVMECliente(0);
     }//GEN-LAST:event_BajaClienteActionPerformed
 
     private void VerVisitasGuiadasDelClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerVisitasGuiadasDelClienteActionPerformed
@@ -292,6 +297,10 @@ public class VPrincipal extends javax.swing.JFrame {
     private void AltaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AltaEmpleadoActionPerformed
         Main.abrirCrearEmpleado();
     }//GEN-LAST:event_AltaEmpleadoActionPerformed
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+        Main.abrirVMECliente(0);
+    }//GEN-LAST:event_jMenu2ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -174,32 +174,32 @@ public class VCrearCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void AceptarModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarModificarActionPerformed
-//        if(validarDatos()){
-//            String dni = tDni.getText();
-//            String nombre = tNombre.getText();
-//            String apellido1 = tApellido1.getText();
-//            Date nacimiento = tNacimiento.getDate();
-//            
-//            Cliente c = new Cliente();
-//            c.setDni(dni.toUpperCase());
-//            c.setNombre(nombre);
-//            c.setApellido1(apellido1);
-//            c.setFechaNacimiento(nacimiento);
-//            
-//            Response respuesta = null;
-//            respuesta = Main.insertarCliente(c);
-//            if(respuesta != null){
-//                if(respuesta.isCorrecto()){
-//                    JOptionPane.showMessageDialog(null, "Se ha insertado al cliente correctamente.");
-//                    Main.cerrarCrearCliente();
-//                }else{
-//                    JOptionPane.showMessageDialog(null,respuesta.getMensajeError(),"", JOptionPane.ERROR_MESSAGE);
-//                }
-//            }else{
-//                JOptionPane.showMessageDialog(null,"Ha ocurrido un error insesperado. Vuelve a intentarlo.","", JOptionPane.ERROR_MESSAGE);
-//            }
-//            
-//        }
+        if(validarDatos()){
+            String dni = tDni.getText();
+            String nombre = tNombre.getText();
+            String apellido1 = tApellido1.getText();
+            Date nacimiento = tNacimiento.getDate();
+            
+            Cliente c = new Cliente();
+            c.setDni(dni.toUpperCase());
+            c.setNombre(nombre);
+            c.setApellido1(apellido1);
+            c.setFechaNacimiento(nacimiento);
+            
+            Response respuesta = null;
+            respuesta = Main.insertarCliente(c);
+            if(respuesta != null){
+                if(respuesta.isCorrecto()){
+                    JOptionPane.showMessageDialog(null, "Se ha insertado al cliente correctamente.");
+                    Main.cerrarCrearCliente();
+                }else{
+                    JOptionPane.showMessageDialog(null,respuesta.getMensajeError(),"", JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null,"Ha ocurrido un error insesperado. Vuelve a intentarlo.","", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }
     }//GEN-LAST:event_AceptarModificarActionPerformed
 
     public static void main(String args[]) {
