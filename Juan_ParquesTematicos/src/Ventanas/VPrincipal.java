@@ -128,9 +128,19 @@ public class VPrincipal extends javax.swing.JFrame {
         jMenu5.add(AltaEmpleado);
 
         ModificarEmpleado.setText("Modificar empleado");
+        ModificarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ModificarEmpleadoActionPerformed(evt);
+            }
+        });
         jMenu5.add(ModificarEmpleado);
 
         BajaEmpleado.setText("Baja de empleado");
+        BajaEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BajaEmpleadoActionPerformed(evt);
+            }
+        });
         jMenu5.add(BajaEmpleado);
 
         EmpleadoVisitas.setText("Visitas en responsabilidad");
@@ -301,6 +311,14 @@ public class VPrincipal extends javax.swing.JFrame {
     private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
         Main.abrirVMECliente(0);
     }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void ModificarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarEmpleadoActionPerformed
+        Main.abrirVMEEmpleado(1);
+    }//GEN-LAST:event_ModificarEmpleadoActionPerformed
+
+    private void BajaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BajaEmpleadoActionPerformed
+        Main.abrirVMEEmpleado(0);
+    }//GEN-LAST:event_BajaEmpleadoActionPerformed
 
     /**
      * @param args the command line arguments

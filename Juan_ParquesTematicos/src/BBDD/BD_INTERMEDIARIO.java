@@ -1,12 +1,8 @@
 package BBDD;
 
-import BBDD.db4o.DB4O_BD;
-import BBDD.mysql.MYSQL_ParqueBD;
-import BBDD.db4o.DB4O_ParqueBD;
-import BBDD.mysql.MYSQL_BD;
-import BBDD.mysql.MYSQL_ClienteBD;
-import BBDD.sqlite.SQLITE_BD;
-import BBDD.sqlite.SQLITE_ParqueBD;
+import BBDD.db4o.*;
+import BBDD.mysql.*;
+import BBDD.sqlite.*;
 import Clases.*;
 import Enum.PARQUES;
 import java.util.ArrayList;
@@ -98,7 +94,7 @@ public class BD_INTERMEDIARIO {
         }catch(Exception ex){
             System.out.println(ex.getMessage());
             response.setCorrecto(false);
-            response.setMensajeError("Ha ocurrido un error al insertar el cliente");
+            response.setMensajeError("Ha ocurrido un error al modificar el cliente");
         }
         return response;
     }
@@ -120,7 +116,94 @@ public class BD_INTERMEDIARIO {
         }catch(Exception ex){
             System.out.println(ex.getMessage());
             response.setCorrecto(false);
-            response.setMensajeError("Ha ocurrido un error al insertar el cliente");
+            response.setMensajeError("Ha ocurrido un error al eliminar el cliente");
+        }
+        return response;
+    }
+    
+    public static List<Empleado> obtenerAllEmpleados() throws Exception{
+        List<Empleado> empleados = new ArrayList<>();
+        try{
+            switch(parqueSeleccionado){
+            case Warner:
+                empleados = MYSQL_EmpleadoBD.getAllEmpleados();
+                break;
+            case Universal:
+                
+                break;
+            case Disney:
+                
+                break;
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            throw ex;
+        }
+        return empleados;
+    }
+    
+    public static Response insertarEmpleado(Empleado emple){
+        Response response = new Response();
+        try{
+            switch(parqueSeleccionado){
+            case Warner:
+                MYSQL_EmpleadoBD.insertEmpleado(emple);
+                break;
+            case Universal:
+                
+                break;
+            case Disney:
+                
+                break;
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            response.setCorrecto(false);
+            response.setMensajeError("Ha ocurrido un error al insertar el empleado");
+        }
+        return response;
+    }
+    
+    public static Response modificarEmpleado(Empleado emple){
+        Response response = new Response();
+        try{
+            switch(parqueSeleccionado){
+            case Warner:
+                MYSQL_EmpleadoBD.updateEmpleado(emple);
+                break;
+            case Universal:
+                
+                break;
+            case Disney:
+                
+                break;
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            response.setCorrecto(false);
+            response.setMensajeError("Ha ocurrido un error al modificar el empleado");
+        }
+        return response;
+    }
+    
+    public static Response eliminarEmpleado(Empleado emple){
+        Response response = new Response();
+        try{
+            switch(parqueSeleccionado){
+            case Warner:
+                MYSQL_EmpleadoBD.deleteEmpleado(emple);
+                break;
+            case Universal:
+                
+                break;
+            case Disney:
+                
+                break;
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            response.setCorrecto(false);
+            response.setMensajeError("Ha ocurrido un error al eliminar el empleado");
         }
         return response;
     }

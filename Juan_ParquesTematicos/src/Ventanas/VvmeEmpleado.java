@@ -1,6 +1,6 @@
 package Ventanas;
 
-import Clases.Cliente;
+import Clases.Empleado;
 import Clases.Response;
 import juan_parquestematicos.Main;
 import java.text.DateFormat;
@@ -9,32 +9,38 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-public class VvmeCliente extends javax.swing.JFrame {
-    private Cliente cli;
-    private List<Cliente> listaClientes;
+public class VvmeEmpleado extends javax.swing.JFrame {
+    private Empleado e;
+    private List<Empleado> listaEmpleados;
     private int opcion;
-    public VvmeCliente() {
+    public VvmeEmpleado() {
         initComponents();
         setLocationRelativeTo(null);
         tNombre.setEditable(false);
         tApellido.setEditable(false);
         tNacimiento.setEditable(false);
+        tNacionalidad.setEditable(false);
+        tContratacion.setEditable(false);
+        tCargo.setEditable(false);
         ckBaja.setEnabled(false);
-        this.listaClientes = new ArrayList<>();
+        this.listaEmpleados = new ArrayList<>();
         bEliminarModificar.setEnabled(false);
     }
     
-    public VvmeCliente(int opcion, List<Cliente> listaClientes) {
+    public VvmeEmpleado(int opcion, List<Empleado> listaEmpleados) {
         initComponents();
         setLocationRelativeTo(null);
         tNombre.setEditable(false);
         tApellido.setEditable(false);
         tNacimiento.setEditable(false);
+        tNacionalidad.setEditable(false);
+        tContratacion.setEditable(false);
+        tCargo.setEditable(false);
         ckBaja.setEnabled(false);
         this.opcion = opcion;
-        this.listaClientes = listaClientes;
+        this.listaEmpleados = listaEmpleados;
         AjustarVentanaOpcion();
-        rellenarComboClientes();
+        rellenarComboEmpleados();
         bEliminarModificar.setEnabled(false);
     }
 
@@ -55,6 +61,12 @@ public class VvmeCliente extends javax.swing.JFrame {
         bCancelarCerrar = new javax.swing.JButton();
         eTitulo = new javax.swing.JLabel();
         ckBaja = new java.awt.Checkbox();
+        jLabel7 = new javax.swing.JLabel();
+        tNacionalidad = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        tContratacion = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        tCargo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,34 +107,52 @@ public class VvmeCliente extends javax.swing.JFrame {
 
         ckBaja.setEnabled(false);
 
+        jLabel7.setText("Nacionalidad");
+
+        jLabel8.setText("Contratación");
+
+        jLabel9.setText("Cargo");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(eTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(bEliminarModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bCancelarCerrar)
-                .addGap(55, 55, 55))
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bEliminarModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(102, 102, 102)
+                        .addComponent(bCancelarCerrar))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(tNacimiento)
-                        .addComponent(cbDNI, 0, 242, Short.MAX_VALUE)
-                        .addComponent(tNombre)
-                        .addComponent(tApellido))
-                    .addComponent(ckBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(ckBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel7))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(tNacimiento)
+                                .addComponent(cbDNI, 0, 242, Short.MAX_VALUE)
+                                .addComponent(tNombre)
+                                .addComponent(tApellido)
+                                .addComponent(tNacionalidad, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel8)
+                                .addComponent(jLabel9))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tCargo)
+                                .addComponent(tContratacion)))))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,69 +174,81 @@ public class VvmeCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(22, 22, 22)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tContratacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(ckBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bCancelarCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bEliminarModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(bEliminarModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bCancelarCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void bCancelarCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarCerrarActionPerformed
-        Main.cerrarVMECliente();
+        Main.cerrarVMEEmpleado();
     }//GEN-LAST:event_bCancelarCerrarActionPerformed
 
     private void bEliminarModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarModificarActionPerformed
         if(this.opcion==0){
-            int eleccion = JOptionPane.showConfirmDialog(null, "Se va a dar de baja el cliente ¿Prefieres dar de baja eliminando completamente al cliente? ", "Dar de baja o eliminar completamente", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+            int eleccion = JOptionPane.showConfirmDialog(null, "Se va a dar de baja el empleado ¿Prefieres dar de baja eliminando completamente al empleado? ", "Dar de baja o eliminar completamente", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
             if(eleccion == 0){
-                Response respuesta = Main.eliminarCliente(cli); 
+                Response respuesta = Main.eliminarEmpleado(e); 
                 if(respuesta != null){
                     if(!respuesta.isCorrecto()){
                         JOptionPane.showMessageDialog(null, respuesta.getMensajeError(),"", JOptionPane.ERROR_MESSAGE);
                     }else{
-                        JOptionPane.showMessageDialog(null, "Se ha eliminado el cliente correctamente.");
-                        Main.cerrarVMECliente();
+                        JOptionPane.showMessageDialog(null, "Se ha eliminado el empleado correctamente.");
+                        Main.cerrarVMEEmpleado();
                     }
                 }else{
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado. Vuelve a intentarlo.","", JOptionPane.ERROR_MESSAGE);
                 }
             }else if(eleccion == 1){
-                cli.setBaja(true);
-                Response respuesta = Main.modificarCliente(cli); 
+                e.setBaja(true);
+                Response respuesta = Main.modificarEmpleado(e); 
                 if(respuesta != null){
                     if(!respuesta.isCorrecto()){
                         JOptionPane.showMessageDialog(null,respuesta.getMensajeError(),"", JOptionPane.ERROR_MESSAGE);
                     }else{
-                        JOptionPane.showMessageDialog(null, "Se ha dado de baja el cliente correctamente.");
-                        Main.cerrarVMECliente();
+                        JOptionPane.showMessageDialog(null, "Se ha dado de baja el empleado correctamente.");
+                        Main.cerrarVMEEmpleado();
                     }
                 }else{
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado. Vuelve a intentarlo.","", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }else if(opcion==1){
-            Main.abrirModificarCliente(cli);
+            Main.abrirModificarEmpleado(e);
         }
     }//GEN-LAST:event_bEliminarModificarActionPerformed
 
     private void cbDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDNIActionPerformed
         int index = cbDNI.getSelectedIndex()-1;
-        Cliente cli = null;
+        Empleado emple = null;
         if(index > -1){
-            cli = this.listaClientes.get(index);
+            emple = this.listaEmpleados.get(index);
         }
-        if(cli == null){
+        if(emple == null){
             LimpiarCampos();
             bEliminarModificar.setEnabled(false);
         }else{
-            this.cli = cli;
+            this.e = emple;
             AutocompletarDatos();
             bEliminarModificar.setEnabled(true);
         }
@@ -226,14 +268,22 @@ public class VvmeCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VvmeCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VvmeEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VvmeCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VvmeEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VvmeCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VvmeEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VvmeCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VvmeEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -246,31 +296,31 @@ public class VvmeCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VvmeCliente().setVisible(true);
+                new VvmeEmpleado().setVisible(true);
             }
         });
     }
     
     public void AjustarVentanaOpcion(){
         if(this.opcion == 0){
-            eTitulo.setText("Baja de cliente");
+            eTitulo.setText("Baja de empleado");
             bEliminarModificar.setText("Dar de baja");
         }else if(this.opcion == 1){
-            eTitulo.setText("Modificar cliente");
+            eTitulo.setText("Modificar empleado");
             bEliminarModificar.setText("Modificar");
         }else{
             bEliminarModificar.setVisible(false);
             bCancelarCerrar.setText("Cerrar");
-            eTitulo.setText("Info. clientes registrados");
+            eTitulo.setText("Info. empleados registrados");
         }
     }
     
-    public void rellenarComboClientes(){
-        if(this.listaClientes != null && !this.listaClientes.isEmpty()){
-             cbDNI.addItem("-----Elegir cliente-----");
+    public void rellenarComboEmpleados(){
+        if(this.listaEmpleados != null && !this.listaEmpleados.isEmpty()){
+             cbDNI.addItem("-----Elegir empleado-----");
             try{
-                for(Cliente cli : this.listaClientes){
-                    cbDNI.addItem(cli.getDni());
+                for(Empleado emple : this.listaEmpleados){
+                    cbDNI.addItem(emple.getDni());
                 }
             }catch(Exception e){
                 System.out.println("ha ocurrido un error "+ e.getMessage());
@@ -282,15 +332,21 @@ public class VvmeCliente extends javax.swing.JFrame {
         tNombre.setText("");
         tApellido.setText("");
         tNacimiento.setText("");
+        tNacionalidad.setText("");
+        tContratacion.setText("");
+        tCargo.setText("");
         ckBaja.setState(false);
     }
     
     public void AutocompletarDatos(){
         DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        tNombre.setText(cli.getNombre());
-        tApellido.setText(cli.getApellido1());
-        tNacimiento.setText(formato.format(cli.getFechaNacimiento()));
-        ckBaja.setState(cli.isBaja());
+        tNombre.setText(e.getNombre());
+        tApellido.setText(e.getApellido1());
+        tNacimiento.setText(formato.format(e.getFechaNacimiento()));
+        tNacionalidad.setText(e.getNacionalidad());
+        tContratacion.setText(formato.format(e.getFechaContratacion()));
+        tCargo.setText(e.getCargo());
+        ckBaja.setState(e.isBaja());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -304,8 +360,14 @@ public class VvmeCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField tApellido;
+    private javax.swing.JTextField tCargo;
+    private javax.swing.JTextField tContratacion;
     private javax.swing.JTextField tNacimiento;
+    private javax.swing.JTextField tNacionalidad;
     private javax.swing.JTextField tNombre;
     // End of variables declaration//GEN-END:variables
 

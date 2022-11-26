@@ -15,6 +15,8 @@ public class Main {
     public static VDatosParque vDatosParque;
     public static VCrearCliente vCrearCliente;
     public static VvmeCliente vVmeCliente;
+    public static VCrearEmpleado vCrearEmpleado;
+    public static VvmeEmpleado vVmeEmpleado;
 //    public static VCrearEmpleado vCrearEmpleado;
     
     public static PARQUES parqueSeleccionado;
@@ -106,7 +108,7 @@ public class Main {
     public static void cerrarVMECliente(){
         vVmeCliente.setVisible(false);
         vVmeCliente.dispose();
-        vPrincipal = new VPrincipal();
+        vPrincipal = new VPrincipal(parqueSeleccionado);
         vPrincipal.setVisible(true);
     }
     
@@ -118,17 +120,50 @@ public class Main {
     }
     
     public static void abrirCrearEmpleado(){
-//        vPrincipal.setVisible(false);
-//        vPrincipal.dispose();
-//        vCrearEmpleado = new VCrearEmpleado();
-//        vCrearEmpleado.setVisible(true);
+        vPrincipal.setVisible(false);
+        vPrincipal.dispose();
+        vCrearEmpleado = new VCrearEmpleado(0,null);
+        vCrearEmpleado.setVisible(true);
     }
     
-    public static void cerrarCrearEmpleado(){
-//        vPrincipal = new VPrincipal(agenciaSeleccionada);
-//        vPrincipal.setVisible(true);
-//        vCrearEmpleado.setVisible(false);
-//        vCrearEmpleado.dispose();
+    public static void cerrarCrearEmpleado(int opcion){
+        vCrearEmpleado.setVisible(false);
+        vCrearEmpleado.dispose();
+        if(opcion==1){
+            abrirVMEEmpleado(1);
+        }else{
+            vPrincipal = new VPrincipal(parqueSeleccionado);
+            vPrincipal.setVisible(true);
+        }
+        
+    }
+    
+    public static void abrirVMEEmpleado(int opcion){
+        try{
+            List<Empleado> empleados = BD_INTERMEDIARIO.obtenerAllEmpleados();
+            if(vPrincipal != null){
+                vPrincipal.setVisible(false);
+                vPrincipal.dispose();
+            }
+            vVmeEmpleado = new VvmeEmpleado(opcion, empleados);
+            vVmeEmpleado.setVisible(true);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al abrir la ventana. Intentalo de nuevo.","",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public static void cerrarVMEEmpleado(){
+        vVmeEmpleado.setVisible(false);
+        vVmeEmpleado.dispose();
+        vPrincipal = new VPrincipal(parqueSeleccionado);
+        vPrincipal.setVisible(true);
+    }
+    
+    public static void abrirModificarEmpleado(Empleado emple){
+        vVmeEmpleado.setVisible(false);
+        vVmeEmpleado.dispose();
+        vCrearEmpleado = new VCrearEmpleado(1, emple);
+        vCrearEmpleado.setVisible(true);
     }
     
     public static Response insertarCliente(Cliente cli){
@@ -139,8 +174,20 @@ public class Main {
         return BD_INTERMEDIARIO.modificarCliente(cli);
     }
     
-    public static Response EliminarCliente(Cliente cli){
+    public static Response eliminarCliente(Cliente cli){
         return BD_INTERMEDIARIO.eliminarCliente(cli);
+    }
+    
+    public static Response insertarEmpleado(Empleado emple){
+        return BD_INTERMEDIARIO.insertarEmpleado(emple);
+    }
+    
+    public static Response modificarEmpleado(Empleado emple){
+        return BD_INTERMEDIARIO.modificarEmpleado(emple);
+    }
+    
+    public static Response eliminarEmpleado(Empleado emple){
+        return BD_INTERMEDIARIO.eliminarEmpleado(emple);
     }
     
     public static void cerrarPrograma(){
