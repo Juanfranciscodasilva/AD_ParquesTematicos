@@ -30,6 +30,56 @@ public class MYSQL_ClienteBD {
        
     }
     
+    public static void updateCliente(Cliente cli) throws SQLException{
+            Connection con = MYSQL_BD.conectarBD();
+            StringBuilder sql = new StringBuilder();
+            sql.append("UPDATE CLIENTES SET ");
+            sql.append("NOMBRE = ?, APELLIDO = ?, FECHA_NACIMIENTO = ?, ");
+            sql.append("BAJA = ? WHERE DNI = ? ");
+            PreparedStatement state = con.prepareStatement(sql.toString());
+        try{
+            state.setString(1, cli.getNombre());
+            state.setString(2, cli.getApellido1());
+            state.setDate(3, new java.sql.Date(cli.getFechaNacimiento().getTime()));
+            state.setBoolean(4, cli.isBaja());
+            state.setString(5, cli.getDni());
+            state.executeUpdate();
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if(state != null){
+                state.close();
+            }
+            if(con != null){
+                con.close();
+            }
+        }
+    }
+    
+    public static void deleteCliente(Cliente cli) throws SQLException{
+//            Connection con = MYSQL_BD.conectarBD();
+//            StringBuilder sql = new StringBuilder();
+//            sql.append("DELETE FROM CLIENTES WHERE DNI = ? ");
+//            PreparedStatement state = con.prepareStatement(sql.toString());
+//        try{
+//            state.setString(1, cli.getNombre());
+//            state.setString(2, cli.getApellido1());
+//            state.setDate(3, new java.sql.Date(cli.getFechaNacimiento().getTime()));
+//            state.setBoolean(4, cli.isBaja());
+//            state.setString(5, cli.getDni());
+//            state.executeUpdate();
+//        }catch(Exception ex){
+//            throw ex;
+//        }finally{
+//            if(state != null){
+//                state.close();
+//            }
+//            if(con != null){
+//                con.close();
+//            }
+//        }
+    }
+    
     public static List<Cliente> getAllClientes() throws SQLException, Exception{
         List<Cliente> clientes = new ArrayList<>();
         Connection con = null;

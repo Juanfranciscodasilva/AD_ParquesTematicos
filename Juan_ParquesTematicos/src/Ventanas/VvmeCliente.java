@@ -163,19 +163,37 @@ public class VvmeCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_bCancelarCerrarActionPerformed
 
     private void bEliminarModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarModificarActionPerformed
-//        if(this.opcion==0){
-//            if(JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar el campamento?", "", JOptionPane.WARNING_MESSAGE) == 0){
-//                Response respuesta = Main.EliminarCampamento(camp); 
-//                if(!respuesta.isCorrecto()){
-//                    JOptionPane.showMessageDialog(null, respuesta.getMensajeError(),"", JOptionPane.ERROR_MESSAGE);
-//                }else{
-//                    JOptionPane.showMessageDialog(null, "Se ha eliminado el campamento correctamente.");
-//                    Main.cerrarVerModificarEliminarCamp();
-//                }
-//            }
-//        }else if(opcion==1){
-//            Main.entrarAModificacionDeCampamento(camp);
-//        }
+        if(this.opcion==0){
+            int eleccion = JOptionPane.showConfirmDialog(null, "Se va a dar de baja el cliente ¿Prefieres dar de baja eliminando completamente al cliente? ", "Dar de baja o eliminar completamente", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+            if(eleccion == 0){
+                Response respuesta = Main.EliminarCliente(cli); 
+                if(respuesta != null){
+                    if(!respuesta.isCorrecto()){
+                        JOptionPane.showMessageDialog(null, respuesta.getMensajeError(),"", JOptionPane.ERROR_MESSAGE);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Se ha eliminado el cliente correctamente.");
+                        Main.cerrarVMECliente();
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado. Vuelve a intentarlo.","", JOptionPane.ERROR_MESSAGE);
+                }
+            }else if(eleccion == 1){
+                cli.setBaja(true);
+                Response respuesta = Main.modificarCliente(cli); 
+                if(respuesta != null){
+                    if(!respuesta.isCorrecto()){
+                        JOptionPane.showMessageDialog(null,respuesta.getMensajeError(),"", JOptionPane.ERROR_MESSAGE);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Se ha dado de baja el cliente correctamente.");
+                        Main.cerrarVMECliente();
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado. Vuelve a intentarlo.","", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else if(opcion==1){
+            Main.abrirModificarCliente(cli);
+        }
     }//GEN-LAST:event_bEliminarModificarActionPerformed
 
     private void cbDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDNIActionPerformed

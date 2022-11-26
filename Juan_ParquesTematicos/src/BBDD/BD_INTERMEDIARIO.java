@@ -80,4 +80,48 @@ public class BD_INTERMEDIARIO {
         }
         return response;
     }
+    
+    public static Response modificarCliente(Cliente cli){
+        Response response = new Response();
+        try{
+            switch(parqueSeleccionado){
+            case Warner:
+                MYSQL_ClienteBD.updateCliente(cli);
+                break;
+            case Universal:
+                
+                break;
+            case Disney:
+                
+                break;
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            response.setCorrecto(false);
+            response.setMensajeError("Ha ocurrido un error al insertar el cliente");
+        }
+        return response;
+    }
+    
+    public static Response eliminarCliente(Cliente cli){
+        Response response = new Response();
+        try{
+            switch(parqueSeleccionado){
+            case Warner:
+                MYSQL_ClienteBD.deleteCliente(cli);
+                break;
+            case Universal:
+                
+                break;
+            case Disney:
+                
+                break;
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            response.setCorrecto(false);
+            response.setMensajeError("Ha ocurrido un error al insertar el cliente");
+        }
+        return response;
+    }
 }

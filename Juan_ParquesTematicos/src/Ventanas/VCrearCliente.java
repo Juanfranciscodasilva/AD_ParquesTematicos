@@ -10,6 +10,9 @@ public class VCrearCliente extends javax.swing.JFrame {
     
     private final String dniChars="TRWAGMYFPDXBNJZSQVHLCKE";   
     
+    private static int opcion;
+    private static Cliente c;
+    
     public VCrearCliente() {
         initComponents();
         setLocationRelativeTo(null);
@@ -17,6 +20,18 @@ public class VCrearCliente extends javax.swing.JFrame {
         NoNombre.setVisible(false);
         NoApellido1.setVisible(false);
         NoNacimiento.setVisible(false);
+    }
+    
+    public VCrearCliente(int opcion, Cliente cli) {
+        initComponents();
+        setLocationRelativeTo(null);
+        NoDni.setVisible(false);
+        NoNombre.setVisible(false);
+        NoApellido1.setVisible(false);
+        NoNacimiento.setVisible(false);
+        this.opcion = opcion;
+        this.c = cli;
+        AdaptarVentanaOpcion();
     }
     
 
@@ -33,7 +48,7 @@ public class VCrearCliente extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         tDni = new javax.swing.JTextField();
         tNombre = new javax.swing.JTextField();
-        AceptarModificar = new javax.swing.JButton();
+        bAceptar = new javax.swing.JButton();
         bCancelar = new javax.swing.JButton();
         NoApellido1 = new javax.swing.JLabel();
         NoDni = new javax.swing.JLabel();
@@ -57,10 +72,10 @@ public class VCrearCliente extends javax.swing.JFrame {
 
         jLabel6.setText("Apellido:");
 
-        AceptarModificar.setText("Aceptar y crear");
-        AceptarModificar.addActionListener(new java.awt.event.ActionListener() {
+        bAceptar.setText("Aceptar y crear");
+        bAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AceptarModificarActionPerformed(evt);
+                bAceptarActionPerformed(evt);
             }
         });
 
@@ -100,7 +115,7 @@ public class VCrearCliente extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(43, 43, 43)
-                                .addComponent(AceptarModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(50, 50, 50)
                                 .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
@@ -161,7 +176,7 @@ public class VCrearCliente extends javax.swing.JFrame {
                 .addComponent(NoNacimiento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AceptarModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23))
         );
@@ -170,10 +185,10 @@ public class VCrearCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
-        Main.cerrarCrearCliente();
+        Main.cerrarCrearCliente(opcion);
     }//GEN-LAST:event_bCancelarActionPerformed
 
-    private void AceptarModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarModificarActionPerformed
+    private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
         if(validarDatos()){
             String dni = tDni.getText();
             String nombre = tNombre.getText();
@@ -187,20 +202,31 @@ public class VCrearCliente extends javax.swing.JFrame {
             c.setFechaNacimiento(nacimiento);
             
             Response respuesta = null;
-            respuesta = Main.insertarCliente(c);
-            if(respuesta != null){
+            
+            
+            if(this.opcion == 1){
+                respuesta = Main.modificarCliente(c);
                 if(respuesta.isCorrecto()){
-                    JOptionPane.showMessageDialog(null, "Se ha insertado al cliente correctamente.");
-                    Main.cerrarCrearCliente();
-                }else{
-                    JOptionPane.showMessageDialog(null,respuesta.getMensajeError(),"", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Se ha modificado el cliente correctamente.");
                 }
             }else{
-                JOptionPane.showMessageDialog(null,"Ha ocurrido un error insesperado. Vuelve a intentarlo.","", JOptionPane.ERROR_MESSAGE);
+                respuesta = Main.insertarCliente(c);
+                if(respuesta.isCorrecto()){
+                    JOptionPane.showMessageDialog(null, "Se ha insertado el cliente correctamente.");
+                }
+            }
+            if(respuesta != null){
+                if(!respuesta.isCorrecto()){
+                    JOptionPane.showMessageDialog(null,respuesta.getMensajeError(),"", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    Main.cerrarCrearCliente(this.opcion);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado. Vuelve a intentarlo.","", JOptionPane.ERROR_MESSAGE);
             }
             
         }
-    }//GEN-LAST:event_AceptarModificarActionPerformed
+    }//GEN-LAST:event_bAceptarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -313,13 +339,35 @@ public class VCrearCliente extends javax.swing.JFrame {
              return false;
          }
      }
+     
+     private void AdaptarVentanaOpcion(){
+         if(opcion == 1){
+            tTitulo.setText("Modificar Cliente");
+            tDni.setEditable(false);
+            bAceptar.setText("Aceptar y modificar");
+            RellenarDatosDelCliente();
+        }else{
+            tTitulo.setText("Crear Cliente");
+            bAceptar.setText("Aceptar y crear");
+            tDni.setEditable(true);
+        }
+     }
+     
+     private void RellenarDatosDelCliente(){
+         if(c != null){
+            tDni.setText(c.getDni());
+            tNombre.setText(c.getNombre());
+            tApellido1.setText(c.getApellido1());
+            tNacimiento.setDate(c.getFechaNacimiento());
+        }
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AceptarModificar;
     private javax.swing.JLabel NoApellido1;
     private javax.swing.JLabel NoDni;
     private javax.swing.JLabel NoNacimiento;
     private javax.swing.JLabel NoNombre;
+    private javax.swing.JButton bAceptar;
     private javax.swing.JButton bCancelar;
     private javax.swing.JLabel eNombre;
     private com.toedter.calendar.JCalendar jCalendar1;

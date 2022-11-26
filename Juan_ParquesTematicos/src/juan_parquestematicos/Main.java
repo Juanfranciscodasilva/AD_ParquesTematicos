@@ -73,20 +73,24 @@ public class Main {
     public static void abrirCrearCliente(){
         vPrincipal.setVisible(false);
         vPrincipal.dispose();
-        vCrearCliente = new VCrearCliente();
+        vCrearCliente = new VCrearCliente(0,null);
         vCrearCliente.setVisible(true);
     }
     
-    public static void cerrarCrearCliente(){
-        vPrincipal = new VPrincipal(parqueSeleccionado);
-        vPrincipal.setVisible(true);
+    public static void cerrarCrearCliente(int opcion){
         vCrearCliente.setVisible(false);
         vCrearCliente.dispose();
+        if(opcion==1){
+            abrirVMECliente(1);
+        }else{
+            vPrincipal = new VPrincipal(parqueSeleccionado);
+            vPrincipal.setVisible(true);
+        }
+        
     }
     
     public static void abrirVMECliente(int opcion){
         try{
-//            List<Cliente> campamentos = CampamentosBD.getAllCampamentos();
             List<Cliente> clientes = BD_INTERMEDIARIO.obtenerAllClientes();
             if(vPrincipal != null){
                 vPrincipal.setVisible(false);
@@ -104,6 +108,13 @@ public class Main {
         vVmeCliente.dispose();
         vPrincipal = new VPrincipal();
         vPrincipal.setVisible(true);
+    }
+    
+    public static void abrirModificarCliente(Cliente cli){
+        vVmeCliente.setVisible(false);
+        vVmeCliente.dispose();
+        vCrearCliente = new VCrearCliente(1, cli);
+        vCrearCliente.setVisible(true);
     }
     
     public static void abrirCrearEmpleado(){
@@ -124,18 +135,16 @@ public class Main {
         return BD_INTERMEDIARIO.insertarCliente(cli);
     }
     
+    public static Response modificarCliente(Cliente cli){
+        return BD_INTERMEDIARIO.modificarCliente(cli);
+    }
+    
+    public static Response EliminarCliente(Cliente cli){
+        return BD_INTERMEDIARIO.eliminarCliente(cli);
+    }
+    
     public static void cerrarPrograma(){
         System.exit(0);
     }
-    
-//    public static Response insertarCliente(Cliente cli){
-//        //TODO mandar a insertar a BD
-//        return new Response();
-//    }
-//    
-//    public static Response insertarEmpleado(Empleado emple){
-//        //TODO mandar a insertar a BD
-//        return new Response();
-//    }
     
 }
