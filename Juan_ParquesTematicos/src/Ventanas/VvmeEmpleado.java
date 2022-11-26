@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 public class VvmeEmpleado extends javax.swing.JFrame {
     private Empleado e;
     private List<Empleado> listaEmpleados;
+    private List<Empleado> listaEmpleFiltrados;
     private int opcion;
     public VvmeEmpleado() {
         initComponents();
@@ -24,6 +25,7 @@ public class VvmeEmpleado extends javax.swing.JFrame {
         tCargo.setEditable(false);
         ckBaja.setEnabled(false);
         this.listaEmpleados = new ArrayList<>();
+        listaEmpleFiltrados = new ArrayList<>();
         bEliminarModificar.setEnabled(false);
     }
     
@@ -39,6 +41,7 @@ public class VvmeEmpleado extends javax.swing.JFrame {
         ckBaja.setEnabled(false);
         this.opcion = opcion;
         this.listaEmpleados = listaEmpleados;
+        listaEmpleFiltrados = new ArrayList<>();
         AjustarVentanaOpcion();
         rellenarComboEmpleados();
         bEliminarModificar.setEnabled(false);
@@ -67,6 +70,7 @@ public class VvmeEmpleado extends javax.swing.JFrame {
         tContratacion = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         tCargo = new javax.swing.JTextField();
+        ckMostrarBaja = new java.awt.Checkbox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,7 +107,7 @@ public class VvmeEmpleado extends javax.swing.JFrame {
 
         eTitulo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         eTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eTitulo.setText("Info. campamentos registrados");
+        eTitulo.setText("Info. empleados registrados");
 
         ckBaja.setEnabled(false);
 
@@ -112,6 +116,13 @@ public class VvmeEmpleado extends javax.swing.JFrame {
         jLabel8.setText("Contratación");
 
         jLabel9.setText("Cargo");
+
+        ckMostrarBaja.setLabel("Mostrar también empleados de baja");
+        ckMostrarBaja.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ckMostrarBajaItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,33 +143,37 @@ public class VvmeEmpleado extends javax.swing.JFrame {
                             .addComponent(ckBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel8)
+                                .addComponent(jLabel9))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tCargo)
+                                .addComponent(tContratacion)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel3)
                                 .addComponent(jLabel2)
                                 .addComponent(jLabel5)
                                 .addComponent(jLabel6)
                                 .addComponent(jLabel7))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tNacimiento)
-                                .addComponent(cbDNI, 0, 242, Short.MAX_VALUE)
-                                .addComponent(tNombre)
-                                .addComponent(tApellido)
-                                .addComponent(tNacionalidad, javax.swing.GroupLayout.Alignment.TRAILING)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel8)
-                                .addComponent(jLabel9))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(tCargo)
-                                .addComponent(tContratacion)))))
-                .addContainerGap(57, Short.MAX_VALUE))
+                                .addComponent(ckMostrarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tNacimiento)
+                                    .addComponent(cbDNI, 0, 242, Short.MAX_VALUE)
+                                    .addComponent(tNombre)
+                                    .addComponent(tApellido)
+                                    .addComponent(tNacionalidad, javax.swing.GroupLayout.Alignment.TRAILING))))))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(eTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(9, 9, 9)
+                .addComponent(ckMostrarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cbDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -194,7 +209,7 @@ public class VvmeEmpleado extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bEliminarModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bCancelarCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -242,7 +257,7 @@ public class VvmeEmpleado extends javax.swing.JFrame {
         int index = cbDNI.getSelectedIndex()-1;
         Empleado emple = null;
         if(index > -1){
-            emple = this.listaEmpleados.get(index);
+            emple = this.listaEmpleFiltrados.get(index);
         }
         if(emple == null){
             LimpiarCampos();
@@ -253,6 +268,10 @@ public class VvmeEmpleado extends javax.swing.JFrame {
             bEliminarModificar.setEnabled(true);
         }
     }//GEN-LAST:event_cbDNIActionPerformed
+
+    private void ckMostrarBajaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckMostrarBajaItemStateChanged
+        rellenarComboEmpleados();
+    }//GEN-LAST:event_ckMostrarBajaItemStateChanged
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -316,11 +335,22 @@ public class VvmeEmpleado extends javax.swing.JFrame {
     }
     
     public void rellenarComboEmpleados(){
+        cbDNI.removeAllItems();
+        listaEmpleFiltrados = new ArrayList<>();
         if(this.listaEmpleados != null && !this.listaEmpleados.isEmpty()){
              cbDNI.addItem("-----Elegir empleado-----");
             try{
                 for(Empleado emple : this.listaEmpleados){
-                    cbDNI.addItem(emple.getDni());
+                    if(emple.isBaja()){
+                        if(ckMostrarBaja.getState()){
+                            cbDNI.addItem(emple.getDni());
+                            listaEmpleFiltrados.add(emple);
+                        }
+                    }else{
+                        cbDNI.addItem(emple.getDni());
+                        listaEmpleFiltrados.add(emple);
+                    }
+                    
                 }
             }catch(Exception e){
                 System.out.println("ha ocurrido un error "+ e.getMessage());
@@ -354,6 +384,7 @@ public class VvmeEmpleado extends javax.swing.JFrame {
     private javax.swing.JButton bEliminarModificar;
     private javax.swing.JComboBox<String> cbDNI;
     private java.awt.Checkbox ckBaja;
+    private java.awt.Checkbox ckMostrarBaja;
     private javax.swing.JLabel eTitulo;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

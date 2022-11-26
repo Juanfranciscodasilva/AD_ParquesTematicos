@@ -163,7 +163,7 @@
           <Font name="Dialog" size="24" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Info. campamentos registrados"/>
+        <Property name="text" type="java.lang.String" value="Info. clientes registrados"/>
       </Properties>
     </Component>
     <Component class="java.awt.Checkbox" name="ckBaja">

@@ -91,7 +91,7 @@ public class VvmeCliente extends javax.swing.JFrame {
 
         eTitulo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         eTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eTitulo.setText("Info. campamentos registrados");
+        eTitulo.setText("Info. clientes registrados");
 
         ckBaja.setEnabled(false);
 

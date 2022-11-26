@@ -38,23 +38,6 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="ckBaja" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="tNacimiento" max="32767" attributes="0"/>
-                              <Component id="cbDNI" pref="242" max="32767" attributes="0"/>
-                              <Component id="tNombre" max="32767" attributes="0"/>
-                              <Component id="tApellido" alignment="0" max="32767" attributes="0"/>
-                              <Component id="tNacionalidad" alignment="1" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
@@ -66,9 +49,29 @@
                               <Component id="tContratacion" max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="ckMostrarBaja" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="tNacimiento" max="32767" attributes="0"/>
+                                  <Component id="cbDNI" pref="242" max="32767" attributes="0"/>
+                                  <Component id="tNombre" max="32767" attributes="0"/>
+                                  <Component id="tApellido" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="tNacionalidad" alignment="1" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="57" max="32767" attributes="0"/>
+              <EmptySpace pref="53" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -76,7 +79,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="eTitulo" min="-2" pref="50" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+              <Component id="ckMostrarBaja" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbDNI" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -121,7 +126,7 @@
                   <Component id="bEliminarModificar" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="bCancelarCerrar" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="19" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -196,7 +201,7 @@
           <Font name="Dialog" size="24" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Info. campamentos registrados"/>
+        <Property name="text" type="java.lang.String" value="Info. empleados registrados"/>
       </Properties>
     </Component>
     <Component class="java.awt.Checkbox" name="ckBaja">
@@ -224,6 +229,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tCargo">
+    </Component>
+    <Component class="java.awt.Checkbox" name="ckMostrarBaja">
+      <Properties>
+        <Property name="label" type="java.lang.String" value="Mostrar tambi&#xe9;n empleados de baja"/>
+      </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ckMostrarBajaItemStateChanged"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
