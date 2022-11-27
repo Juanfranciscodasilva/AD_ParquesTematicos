@@ -8,6 +8,8 @@ public class Espectaculo {
     private String lugar;
     private boolean baja;
     
+    private Empleado encargado;
+    
     //TODO añadir el empleado¿?
 
     public Espectaculo() {
@@ -60,6 +62,16 @@ public class Espectaculo {
     public void setBaja(boolean baja) {
         this.baja = baja;
     }
+
+    public Empleado getEncargado() {
+        return encargado;
+    }
+
+    public void setEncargado(Empleado encargado) {
+        this.encargado = encargado;
+    }
+
+    
     
     
     

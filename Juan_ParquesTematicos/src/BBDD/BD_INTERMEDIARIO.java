@@ -142,6 +142,27 @@ public class BD_INTERMEDIARIO {
         return empleados;
     }
     
+    public static List<Empleado> obtenerEmpleadosActivos() throws Exception{
+        List<Empleado> empleados = new ArrayList<>();
+        try{
+            switch(parqueSeleccionado){
+            case Warner:
+                empleados = MYSQL_EmpleadoBD.getEmpleadosBajaFalse();
+                break;
+            case Universal:
+                
+                break;
+            case Disney:
+                
+                break;
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            throw ex;
+        }
+        return empleados;
+    }
+    
     public static Response insertarEmpleado(Empleado emple){
         Response response = new Response();
         try{
@@ -192,6 +213,72 @@ public class BD_INTERMEDIARIO {
             switch(parqueSeleccionado){
             case Warner:
                 MYSQL_EmpleadoBD.deleteEmpleado(emple);
+                break;
+            case Universal:
+                
+                break;
+            case Disney:
+                
+                break;
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            response.setCorrecto(false);
+            response.setMensajeError("Ha ocurrido un error al eliminar el empleado");
+        }
+        return response;
+    }
+    
+    public static Response insertarEspectaculo(Espectaculo espe){
+        Response response = new Response();
+        try{
+            switch(parqueSeleccionado){
+            case Warner:
+                MYSQL_EspectaculoBD.insertEspectaculo(espe);
+                break;
+            case Universal:
+                
+                break;
+            case Disney:
+                
+                break;
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            response.setCorrecto(false);
+            response.setMensajeError("Ha ocurrido un error al insertar el empleado");
+        }
+        return response;
+    }
+    
+    public static Response modificarEspectaculo(Espectaculo espe){
+        Response response = new Response();
+        try{
+            switch(parqueSeleccionado){
+            case Warner:
+                MYSQL_EspectaculoBD.updateEspectaculo(espe);
+                break;
+            case Universal:
+                
+                break;
+            case Disney:
+                
+                break;
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            response.setCorrecto(false);
+            response.setMensajeError("Ha ocurrido un error al modificar el empleado");
+        }
+        return response;
+    }
+    
+    public static Response eliminarEspectaculo(Espectaculo espe){
+        Response response = new Response();
+        try{
+            switch(parqueSeleccionado){
+            case Warner:
+                MYSQL_EspectaculoBD.deleteEspectaculo(espe);
                 break;
             case Universal:
                 

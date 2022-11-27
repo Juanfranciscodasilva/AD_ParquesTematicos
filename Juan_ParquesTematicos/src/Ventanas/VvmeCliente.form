@@ -23,13 +23,13 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="eTitulo" alignment="0" pref="397" max="32767" attributes="0"/>
+          <Component id="eTitulo" alignment="0" pref="437" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
               <Component id="bEliminarModificar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="bCancelarCerrar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
@@ -41,13 +41,15 @@
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="tNacimiento" max="32767" attributes="0"/>
-                  <Component id="cbDNI" pref="242" max="32767" attributes="0"/>
-                  <Component id="tNombre" max="32767" attributes="0"/>
-                  <Component id="tApellido" alignment="0" max="32767" attributes="0"/>
-                  <Component id="ckBaja" min="-2" max="-2" attributes="0"/>
-                  <Component id="ckMostrarBaja" alignment="0" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="ckMostrarBaja" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="tNacimiento" max="32767" attributes="0"/>
+                      <Component id="cbDNI" pref="242" max="32767" attributes="0"/>
+                      <Component id="tNombre" max="32767" attributes="0"/>
+                      <Component id="tApellido" alignment="0" max="32767" attributes="0"/>
+                      <Component id="ckBaja" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -57,9 +59,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="eTitulo" min="-2" pref="50" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
               <Component id="ckMostrarBaja" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbDNI" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -84,12 +86,12 @@
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   <Component id="ckBaja" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="bCancelarCerrar" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="bEliminarModificar" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="bCancelarCerrar" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="13" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -172,9 +174,9 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="java.awt.Checkbox" name="ckMostrarBaja">
+    <Component class="javax.swing.JCheckBox" name="ckMostrarBaja">
       <Properties>
-        <Property name="label" type="java.lang.String" value="Mostrar tambi&#xe9;n clientes de baja"/>
+        <Property name="text" type="java.lang.String" value="Mostrar tambi&#xe9;n clientes de baja"/>
       </Properties>
       <Events>
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ckMostrarBajaItemStateChanged"/>

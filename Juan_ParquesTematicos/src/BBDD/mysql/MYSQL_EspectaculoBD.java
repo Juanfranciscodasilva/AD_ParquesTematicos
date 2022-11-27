@@ -5,20 +5,18 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MYSQL_EmpleadoBD {
+public class MYSQL_EspectaculoBD {
     
-    public static void insertEmpleado(Empleado emple) throws SQLException{
+    public static void insertEspectaculo(Espectaculo espe) throws SQLException{
             Connection con = MYSQL_BD.conectarBD();
-            String sql = "INSERT INTO EMPLE VALUES(?,?,?,?,?,?,?,0)";
+            String sql = "INSERT INTO ESPECTACULOS VALUES(null,?,?,?,?,0,?)";
             PreparedStatement state = con.prepareStatement(sql);
         try{
-            state.setString(1, emple.getDni());
-            state.setString(2, emple.getNombre());
-            state.setString(3, emple.getApellido1());
-            state.setDate(4, new java.sql.Date(emple.getFechaNacimiento().getTime()));
-            state.setDate(5, new java.sql.Date(emple.getFechaContratacion().getTime()));
-            state.setString(6, emple.getNacionalidad());
-            state.setString(7, emple.getCargo());
+            state.setString(1, espe.getNombre());
+            state.setInt(2, espe.getAforo());
+            state.setString(3, espe.getDescripcion());
+            state.setString(4, espe.getLugar());
+            state.setString(5, espe.getEncargado().getDni());
             state.executeUpdate();
         }catch(Exception ex){
             throw ex;
@@ -33,37 +31,37 @@ public class MYSQL_EmpleadoBD {
        
     }
     
-    public static void updateEmpleado(Empleado emple) throws SQLException{
-            Connection con = MYSQL_BD.conectarBD();
-            StringBuilder sql = new StringBuilder();
-            sql.append("UPDATE EMPLE SET ");
-            sql.append("NOMBRE = ?, APELLIDO = ?, FECHA_NACIMIENTO = ?, ");
-            sql.append("FECHA_CONTRATO = ?, NACIONALIDAD = ?, CARGO = ?,  ");
-            sql.append("BAJA = ? WHERE DNI = ?");
-            PreparedStatement state = con.prepareStatement(sql.toString());
-        try{
-            state.setString(1, emple.getNombre());
-            state.setString(2, emple.getApellido1());
-            state.setDate(3, new java.sql.Date(emple.getFechaNacimiento().getTime()));
-            state.setDate(4, new java.sql.Date(emple.getFechaContratacion().getTime()));
-            state.setString(5, emple.getNacionalidad());
-            state.setString(6, emple.getCargo());
-            state.setBoolean(7, emple.isBaja());
-            state.setString(8, emple.getDni());
-            state.executeUpdate();
-        }catch(Exception ex){
-            throw ex;
-        }finally{
-            if(state != null){
-                state.close();
-            }
-            if(con != null){
-                con.close();
-            }
-        }
+    public static void updateEspectaculo(Espectaculo espe) throws SQLException{
+//            Connection con = MYSQL_BD.conectarBD();
+//            StringBuilder sql = new StringBuilder();
+//            sql.append("UPDATE EMPLE SET ");
+//            sql.append("NOMBRE = ?, APELLIDO = ?, FECHA_NACIMIENTO = ?, ");
+//            sql.append("FECHA_CONTRATO = ?, NACIONALIDAD = ?, CARGO = ?,  ");
+//            sql.append("BAJA = ? WHERE DNI = ?");
+//            PreparedStatement state = con.prepareStatement(sql.toString());
+//        try{
+//            state.setString(1, emple.getNombre());
+//            state.setString(2, emple.getApellido1());
+//            state.setDate(3, new java.sql.Date(emple.getFechaNacimiento().getTime()));
+//            state.setDate(4, new java.sql.Date(emple.getFechaContratacion().getTime()));
+//            state.setString(5, emple.getNacionalidad());
+//            state.setString(6, emple.getCargo());
+//            state.setBoolean(7, emple.isBaja());
+//            state.setString(8, emple.getDni());
+//            state.executeUpdate();
+//        }catch(Exception ex){
+//            throw ex;
+//        }finally{
+//            if(state != null){
+//                state.close();
+//            }
+//            if(con != null){
+//                con.close();
+//            }
+//        }
     }
     
-    public static void deleteEmpleado(Empleado emple) throws SQLException{
+    public static void deleteEspectaculo(Espectaculo espe) throws SQLException{
 //            Connection con = MYSQL_BD.conectarBD();
 //            StringBuilder sql = new StringBuilder();
 //            sql.append("DELETE FROM CLIENTES WHERE DNI = ? ");

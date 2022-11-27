@@ -10,8 +10,8 @@ public class VCrearEmpleado extends javax.swing.JFrame {
     
     private final String dniChars="TRWAGMYFPDXBNJZSQVHLCKE";   
     
-    private static int opcion;
-    private static Empleado e;
+    private int opcion;
+    private Empleado e;
     
     public VCrearEmpleado() {
         initComponents();

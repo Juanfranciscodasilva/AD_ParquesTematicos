@@ -10,8 +10,8 @@ public class VCrearCliente extends javax.swing.JFrame {
     
     private final String dniChars="TRWAGMYFPDXBNJZSQVHLCKE";   
     
-    private static int opcion;
-    private static Cliente c;
+    private int opcion;
+    private Cliente c;
     
     public VCrearCliente() {
         initComponents();

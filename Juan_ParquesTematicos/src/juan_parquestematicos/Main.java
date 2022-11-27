@@ -17,6 +17,7 @@ public class Main {
     public static VvmeCliente vVmeCliente;
     public static VCrearEmpleado vCrearEmpleado;
     public static VvmeEmpleado vVmeEmpleado;
+    public static VCrearEspectaculo vCrearEspectaculo;
 //    public static VCrearEmpleado vCrearEmpleado;
     
     public static PARQUES parqueSeleccionado;
@@ -166,6 +167,32 @@ public class Main {
         vCrearEmpleado.setVisible(true);
     }
     
+    public static void abrirCrearEspectaculo(){
+         try{
+            List<Empleado> empleados = BD_INTERMEDIARIO.obtenerEmpleadosActivos();
+            if(vPrincipal != null){
+                vPrincipal.setVisible(false);
+                vPrincipal.dispose();
+            }
+            vCrearEspectaculo = new VCrearEspectaculo(0,null,empleados);
+            vCrearEspectaculo.setVisible(true);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al abrir la ventana. Intentalo de nuevo.","",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public static void cerrarCrearEspectaculo(int opcion){
+        vCrearEspectaculo.setVisible(false);
+        vCrearEspectaculo.dispose();
+        if(opcion==1){
+//            abrirVMEEspectaculo(1);
+        }else{
+            vPrincipal = new VPrincipal(parqueSeleccionado);
+            vPrincipal.setVisible(true);
+        }
+        
+    }
+    
     public static Response insertarCliente(Cliente cli){
         return BD_INTERMEDIARIO.insertarCliente(cli);
     }
@@ -188,6 +215,18 @@ public class Main {
     
     public static Response eliminarEmpleado(Empleado emple){
         return BD_INTERMEDIARIO.eliminarEmpleado(emple);
+    }
+    
+    public static Response insertarEspectaculo(Espectaculo espe){
+        return BD_INTERMEDIARIO.insertarEspectaculo(espe);
+    }
+    
+    public static Response modificarEspectaculo(Espectaculo espe){
+        return BD_INTERMEDIARIO.modificarEspectaculo(espe);
+    }
+    
+    public static Response eliminarEspectaculo(Espectaculo espe){
+        return BD_INTERMEDIARIO.eliminarEspectaculo(espe);
     }
     
     public static void cerrarPrograma(){
