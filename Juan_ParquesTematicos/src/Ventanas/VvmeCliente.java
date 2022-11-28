@@ -15,7 +15,7 @@ import javax.swing.KeyStroke;
 public class VvmeCliente extends javax.swing.JFrame {
     private Cliente cli;
     private List<Cliente> listaClientes;
-    private List<Cliente> listaClientesFlitrada;
+    private List<Cliente> listaClientesFiltrada;
     private int opcion;
     public VvmeCliente() {
         initComponents();
@@ -224,7 +224,7 @@ public class VvmeCliente extends javax.swing.JFrame {
         int index = cbDNI.getSelectedIndex()-1;
         Cliente cli = null;
         if(index > -1){
-            cli = this.listaClientesFlitrada.get(index);
+            cli = this.listaClientesFiltrada.get(index);
         }
         if(cli == null){
             LimpiarCampos();
@@ -295,19 +295,14 @@ public class VvmeCliente extends javax.swing.JFrame {
     
     public void rellenarComboClientes(){
         cbDNI.removeAllItems();
-        listaClientesFlitrada = new ArrayList<>();
+        listaClientesFiltrada = new ArrayList<>();
         if(this.listaClientes != null && !this.listaClientes.isEmpty()){
              cbDNI.addItem("-----Elegir cliente-----");
             try{
                 for(Cliente cli : this.listaClientes){
-                    if(cli.isBaja()){
-                        if(ckMostrarBaja.isSelected()){
-                            cbDNI.addItem(cli.getDni());
-                            listaClientesFlitrada.add(cli);
-                        }
-                    }else{
+                    if((cli.isBaja() && ckMostrarBaja.isSelected()) || !cli.isBaja()){
                         cbDNI.addItem(cli.getDni());
-                        listaClientesFlitrada.add(cli);
+                        listaClientesFiltrada.add(cli);
                     }
                 }
             }catch(Exception e){

@@ -32,33 +32,32 @@ public class MYSQL_EspectaculoBD {
     }
     
     public static void updateEspectaculo(Espectaculo espe) throws SQLException{
-//            Connection con = MYSQL_BD.conectarBD();
-//            StringBuilder sql = new StringBuilder();
-//            sql.append("UPDATE EMPLE SET ");
-//            sql.append("NOMBRE = ?, APELLIDO = ?, FECHA_NACIMIENTO = ?, ");
-//            sql.append("FECHA_CONTRATO = ?, NACIONALIDAD = ?, CARGO = ?,  ");
-//            sql.append("BAJA = ? WHERE DNI = ?");
-//            PreparedStatement state = con.prepareStatement(sql.toString());
-//        try{
-//            state.setString(1, emple.getNombre());
-//            state.setString(2, emple.getApellido1());
-//            state.setDate(3, new java.sql.Date(emple.getFechaNacimiento().getTime()));
-//            state.setDate(4, new java.sql.Date(emple.getFechaContratacion().getTime()));
-//            state.setString(5, emple.getNacionalidad());
-//            state.setString(6, emple.getCargo());
-//            state.setBoolean(7, emple.isBaja());
-//            state.setString(8, emple.getDni());
-//            state.executeUpdate();
-//        }catch(Exception ex){
-//            throw ex;
-//        }finally{
-//            if(state != null){
-//                state.close();
-//            }
-//            if(con != null){
-//                con.close();
-//            }
-//        }
+            Connection con = MYSQL_BD.conectarBD();
+            StringBuilder sql = new StringBuilder();
+            sql.append("UPDATE ESPECTACULOS SET ");
+            sql.append("NOMBRE = ?, AFORO = ?, DESCRIPCION = ?, ");
+            sql.append("LUGAR = ?, BAJA = ?, EMPLEADO_FK = ? ");
+            sql.append("WHERE ID = ?");
+            PreparedStatement state = con.prepareStatement(sql.toString());
+        try{
+            state.setString(1, espe.getNombre());
+            state.setInt(2, espe.getAforo());
+            state.setString(3, espe.getDescripcion());
+            state.setString(4, espe.getLugar());
+            state.setBoolean(5, espe.isBaja());
+            state.setString(6, espe.getEncargado().getDni());
+            state.setInt(7, espe.getId());
+            state.executeUpdate();
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if(state != null){
+                state.close();
+            }
+            if(con != null){
+                con.close();
+            }
+        }
     }
     
     public static void deleteEspectaculo(Espectaculo espe) throws SQLException{
@@ -85,26 +84,23 @@ public class MYSQL_EspectaculoBD {
 //        }
     }
     
-    public static List<Empleado> getAllEmpleados() throws SQLException, Exception{
-        List<Empleado> empleados = new ArrayList<>();
+    public static List<Espectaculo> getAllEspectaculos() throws SQLException, Exception{
+        List<Espectaculo> espectaculos = new ArrayList<>();
         Connection con = null;
-        String sql = "SELECT * FROM EMPLE";
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT e.id, e.nombre, e.aforo, e.descripcion, e.lugar, ");
+        sql.append("e.baja, em.dni, em.nombre, em.apellido, em.fecha_nacimiento, ");
+        sql.append("em.fecha_contrato, em.nacionalidad, em.cargo, em.baja ");
+        sql.append("FROM ESPECTACULOS e ");
+        sql.append("LEFT JOIN EMPLE em ON e.EMPLEADO_FK = em.DNI ");
         Statement state = null;
         try{
             con = MYSQL_BD.conectarBD();
             state = con.createStatement();
-            ResultSet result = state.executeQuery(sql);
+            ResultSet result = state.executeQuery(sql.toString());
             while(result.next()){
-                Empleado emple = new Empleado();
-                emple.setDni(result.getString("DNI"));
-                emple.setNombre(result.getString("NOMBRE"));
-                emple.setApellido1(result.getString("APELLIDO"));
-                emple.setFechaNacimiento(result.getDate("FECHA_NACIMIENTO"));
-                emple.setFechaContratacion(result.getDate("FECHA_CONTRATO"));
-                emple.setNacionalidad(result.getString("NACIONALIDAD"));
-                emple.setCargo(result.getString("CARGO"));
-                emple.setBaja(result.getBoolean("BAJA"));
-                empleados.add(emple);
+                Espectaculo espec = mappearSelectAllWithEncargado(result);
+                espectaculos.add(espec);
             }
             result.close();
         }catch(Exception ex){
@@ -117,29 +113,50 @@ public class MYSQL_EspectaculoBD {
                 con.close();
             }
         }
-        return empleados;
+        return espectaculos;
     }
     
-    public static List<Empleado> getEmpleadosBajaFalse() throws SQLException, Exception{
-        List<Empleado> empleados = new ArrayList<>();
+    public static Espectaculo mappearSelectAllWithEncargado(ResultSet result) throws Exception{
+        Espectaculo espec = new Espectaculo();
+        if(result != null){
+            espec.setId(result.getInt("e.ID"));
+            espec.setNombre(result.getString("e.NOMBRE"));
+            espec.setAforo(result.getInt("e.AFORO"));
+            espec.setDescripcion(result.getString("e.DESCRIPCION"));
+            espec.setLugar(result.getString("e.LUGAR"));
+            espec.setBaja(result.getBoolean("e.BAJA"));
+            Empleado emple = new Empleado();
+            emple.setDni(result.getString("em.DNI"));
+            emple.setNombre(result.getString("em.NOMBRE"));
+            emple.setApellido1(result.getString("em.APELLIDO"));
+            emple.setFechaNacimiento(result.getDate("em.FECHA_NACIMIENTO"));
+            emple.setFechaContratacion(result.getDate("em.FECHA_CONTRATO"));
+            emple.setNacionalidad(result.getString("em.NACIONALIDAD"));
+            emple.setCargo(result.getString("em.CARGO"));
+            emple.setBaja(result.getBoolean("em.BAJA"));
+            espec.setEncargado(emple);
+        }
+        return espec;
+    }
+    
+    public static List<Espectaculo> getEspectaculosBajaFalse() throws SQLException, Exception{
+        List<Espectaculo> espectaculos = new ArrayList<>();
         Connection con = null;
-        String sql = "SELECT * FROM EMPLE WHERE BAJA = 0";
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT e.id, e.nombre, e.aforo, e.descripcion, e.lugar, ");
+        sql.append("e.baja, em.dni, em.nombre, em.apellido, em.fecha_nacimiento, ");
+        sql.append("em.fecha_contrato, em.nacionalidad, em.cargo, em.baja ");
+        sql.append("FROM ESPECTACULOS e ");
+        sql.append("LEFT JOIN EMPLE em ON e.EMPLEADO_FK = em.DNI ");
+        sql.append("WHERE e.baja = 0");
         Statement state = null;
         try{
             con = MYSQL_BD.conectarBD();
             state = con.createStatement();
-            ResultSet result = state.executeQuery(sql);
+            ResultSet result = state.executeQuery(sql.toString());
             while(result.next()){
-                Empleado emple = new Empleado();
-                emple.setDni(result.getString("DNI"));
-                emple.setNombre(result.getString("NOMBRE"));
-                emple.setApellido1(result.getString("APELLIDO"));
-                emple.setFechaNacimiento(result.getDate("FECHA_NACIMIENTO"));
-                emple.setFechaContratacion(result.getDate("FECHA_CONTRATO"));
-                emple.setNacionalidad(result.getString("NACIONALIDAD"));
-                emple.setCargo(result.getString("CARGO"));
-                emple.setBaja(result.getBoolean("BAJA"));
-                empleados.add(emple);
+                Espectaculo espec = mappearSelectAllWithEncargado(result);
+                espectaculos.add(espec);
             }
             result.close();
         }catch(Exception ex){
@@ -152,6 +169,6 @@ public class MYSQL_EspectaculoBD {
                 con.close();
             }
         }
-        return empleados;
+        return espectaculos;
     }
 }

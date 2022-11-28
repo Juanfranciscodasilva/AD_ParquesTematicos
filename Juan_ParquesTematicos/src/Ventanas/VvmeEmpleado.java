@@ -338,16 +338,10 @@ public class VvmeEmpleado extends javax.swing.JFrame {
              cbDNI.addItem("-----Elegir empleado-----");
             try{
                 for(Empleado emple : this.listaEmpleados){
-                    if(emple.isBaja()){
-                        if(ckMostrarBaja.isSelected()){
-                            cbDNI.addItem(emple.getDni());
-                            listaEmpleFiltrados.add(emple);
-                        }
-                    }else{
+                    if((emple.isBaja() && ckMostrarBaja.isSelected()) || !emple.isBaja()){
                         cbDNI.addItem(emple.getDni());
                         listaEmpleFiltrados.add(emple);
                     }
-                    
                 }
             }catch(Exception e){
                 System.out.println("ha ocurrido un error "+ e.getMessage());

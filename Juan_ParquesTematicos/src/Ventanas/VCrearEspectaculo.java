@@ -36,8 +36,8 @@ public class VCrearEspectaculo extends javax.swing.JFrame {
         this.opcion = opcion;
         this.e = espectaculo;
         this.listaEmpleados = listaEmpleados;
-        AdaptarVentanaOpcion();
         RellenarComboEmpleados();
+        AdaptarVentanaOpcion();
     }
     
 
@@ -313,11 +313,11 @@ public class VCrearEspectaculo extends javax.swing.JFrame {
 
 
                 if(this.opcion == 1){
-//                    espectaculo.setId(this.e.getId());
-//                    respuesta = Main.modificarEspectaculo(espectaculo);
-//                    if(respuesta.isCorrecto()){
-//                        JOptionPane.showMessageDialog(null, "Se ha modificado el espectáculo correctamente.");
-//                    }
+                    espectaculo.setId(this.e.getId());
+                    respuesta = Main.modificarEspectaculo(espectaculo);
+                    if(respuesta.isCorrecto()){
+                        JOptionPane.showMessageDialog(null, "Se ha modificado el espectáculo correctamente.");
+                    }
                 }else{
                     respuesta = Main.insertarEspectaculo(espectaculo);
                     if(respuesta.isCorrecto()){
@@ -487,7 +487,12 @@ public class VCrearEspectaculo extends javax.swing.JFrame {
             tAforo.setText(String.valueOf(e.getAforo()));
             tDescripcion.setText(e.getDescripcion());
             tLugar.setText(e.getLugar());
-            //TODO meter el empleado
+            for(int x = 0; x<this.listaEmpleados.size();x++){
+                Empleado emple = this.listaEmpleados.get(x);
+                if(e.getEncargado().getDni().equalsIgnoreCase(emple.getDni())){
+                    cbDniEmpleado.setSelectedIndex(x+1);
+                }
+            }
         }
      }
     

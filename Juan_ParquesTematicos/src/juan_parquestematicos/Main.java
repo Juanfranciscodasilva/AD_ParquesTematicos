@@ -19,7 +19,7 @@ public class Main {
     public static VCrearEmpleado vCrearEmpleado;
     public static VvmeEmpleado vVmeEmpleado;
     public static VCrearEspectaculo vCrearEspectaculo;
-//    public static VCrearEmpleado vCrearEmpleado;
+    public static VvmeEspectaculo vVmeEspectaculo;
     
     public static PARQUES parqueSeleccionado;
 
@@ -30,6 +30,7 @@ public class Main {
             BD_INTERMEDIARIO.comprobarBasesDeDatos();
         }catch(Exception ex){
             System.out.println("Ha ocurrido un error al comprobar el funcionamiento de las bases de datos");
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al comprobar las bases de datos. Intentalo de nuevo.","",JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }finally{
             if(vCargando != null){
@@ -69,7 +70,7 @@ public class Main {
             vDatosParque = new VDatosParque(parque);
             vDatosParque.setVisible(true);
         }else{
-            JOptionPane.showMessageDialog(null,"Ha ocurrido un error al obtener los datos del parque");
+            JOptionPane.showMessageDialog(null,"Ha ocurrido un error al obtener los datos del parque","",JOptionPane.ERROR_MESSAGE);
         }
         
     }
@@ -193,12 +194,47 @@ public class Main {
         vCrearEspectaculo.setVisible(false);
         vCrearEspectaculo.dispose();
         if(opcion==1){
-//            abrirVMEEspectaculo(1);
+            abrirVMEEspectaculo(1);
         }else{
             vPrincipal = new VPrincipal(parqueSeleccionado);
             vPrincipal.setVisible(true);
         }
         
+    }
+    
+    public static void abrirVMEEspectaculo(int opcion){
+        try{
+            List<Espectaculo> espectaculos = BD_INTERMEDIARIO.obtenerAllEspectaculos();
+            if(vPrincipal != null){
+                vPrincipal.setVisible(false);
+                vPrincipal.dispose();
+            }
+            vVmeEspectaculo = new VvmeEspectaculo(opcion, espectaculos);
+            vVmeEspectaculo.setVisible(true);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al abrir la ventana. Intentalo de nuevo.","",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public static void cerrarVMEEspectaculo(){
+        vVmeEspectaculo.setVisible(false);
+        vVmeEspectaculo.dispose();
+        vPrincipal = new VPrincipal(parqueSeleccionado);
+        vPrincipal.setVisible(true);
+    }
+    
+    public static void abrirModificarEspectaculo(Espectaculo espec){
+        try{
+            List<Empleado> empleados = BD_INTERMEDIARIO.obtenerEmpleadosActivos();
+            if(vVmeEspectaculo != null){
+                vVmeEspectaculo.setVisible(false);
+                vVmeEspectaculo.dispose();
+            }
+            vCrearEspectaculo = new VCrearEspectaculo(1,espec,empleados);
+            vCrearEspectaculo.setVisible(true);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al abrir la ventana. Intentalo de nuevo.","",JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     public static Response insertarCliente(Cliente cli){

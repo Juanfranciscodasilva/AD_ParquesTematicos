@@ -261,7 +261,7 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void BajaEspectaculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BajaEspectaculoActionPerformed
-//        Main.entrarVerModificarEliminarCamp(1);
+        Main.abrirVMEEspectaculo(0);
     }//GEN-LAST:event_BajaEspectaculoActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -277,7 +277,7 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_NuevoEspectaculoActionPerformed
 
     private void ModificarEspectaculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarEspectaculoActionPerformed
-
+        Main.abrirVMEEspectaculo(1);
     }//GEN-LAST:event_ModificarEspectaculoActionPerformed
 
     private void VerEspectaculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerEspectaculoActionPerformed
