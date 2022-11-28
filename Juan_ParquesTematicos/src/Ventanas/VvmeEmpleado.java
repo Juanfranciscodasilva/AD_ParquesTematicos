@@ -2,12 +2,15 @@ package Ventanas;
 
 import Clases.Empleado;
 import Clases.Response;
+import java.awt.event.MouseListener;
 import juan_parquestematicos.Main;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.InputMap;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
 public class VvmeEmpleado extends javax.swing.JFrame {
     private Empleado e;
@@ -23,7 +26,12 @@ public class VvmeEmpleado extends javax.swing.JFrame {
         tNacionalidad.setEditable(false);
         tContratacion.setEditable(false);
         tCargo.setEditable(false);
-        ckBaja.setEnabled(false);
+        MouseListener[] ml = (MouseListener[])ckBaja.getListeners(MouseListener.class);
+        for (int i = 0; i < ml.length; i++)
+            ckBaja.removeMouseListener( ml[i] );
+        InputMap im = ckBaja.getInputMap();
+        im.put(KeyStroke.getKeyStroke("SPACE"), "none");
+        im.put(KeyStroke.getKeyStroke("released SPACE"), "none");
         this.listaEmpleados = new ArrayList<>();
         listaEmpleFiltrados = new ArrayList<>();
         bEliminarModificar.setEnabled(false);
@@ -38,7 +46,12 @@ public class VvmeEmpleado extends javax.swing.JFrame {
         tNacionalidad.setEditable(false);
         tContratacion.setEditable(false);
         tCargo.setEditable(false);
-        ckBaja.setEnabled(false);
+        MouseListener[] ml = (MouseListener[])ckBaja.getListeners(MouseListener.class);
+        for (int i = 0; i < ml.length; i++)
+            ckBaja.removeMouseListener( ml[i] );
+        InputMap im = ckBaja.getInputMap();
+        im.put(KeyStroke.getKeyStroke("SPACE"), "none");
+        im.put(KeyStroke.getKeyStroke("released SPACE"), "none");
         this.opcion = opcion;
         this.listaEmpleados = listaEmpleados;
         listaEmpleFiltrados = new ArrayList<>();
@@ -55,7 +68,6 @@ public class VvmeEmpleado extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         tNombre = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         tApellido = new javax.swing.JTextField();
@@ -63,14 +75,14 @@ public class VvmeEmpleado extends javax.swing.JFrame {
         bEliminarModificar = new javax.swing.JButton();
         bCancelarCerrar = new javax.swing.JButton();
         eTitulo = new javax.swing.JLabel();
-        ckBaja = new java.awt.Checkbox();
         jLabel7 = new javax.swing.JLabel();
         tNacionalidad = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         tContratacion = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         tCargo = new javax.swing.JTextField();
-        ckMostrarBaja = new java.awt.Checkbox();
+        ckBaja = new javax.swing.JCheckBox();
+        ckMostrarBaja = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,8 +95,6 @@ public class VvmeEmpleado extends javax.swing.JFrame {
         jLabel2.setText("DNI");
 
         jLabel3.setText("Nombre");
-
-        jLabel4.setText("Dado de baja");
 
         jLabel5.setText("Apellido");
 
@@ -109,20 +119,16 @@ public class VvmeEmpleado extends javax.swing.JFrame {
         eTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         eTitulo.setText("Info. empleados registrados");
 
-        ckBaja.setEnabled(false);
-
         jLabel7.setText("Nacionalidad");
 
         jLabel8.setText("Contratación");
 
         jLabel9.setText("Cargo");
 
-        ckMostrarBaja.setLabel("Mostrar también empleados de baja");
-        ckMostrarBaja.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                ckMostrarBajaItemStateChanged(evt);
-            }
-        });
+        ckBaja.setText("Dado de baja");
+        ckBaja.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+
+        ckMostrarBaja.setText("Mostrar también empleados dados de baja");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -138,10 +144,6 @@ public class VvmeEmpleado extends javax.swing.JFrame {
                         .addComponent(bCancelarCerrar))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(ckBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel8)
                                 .addComponent(jLabel9))
@@ -149,6 +151,7 @@ public class VvmeEmpleado extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(tCargo)
                                 .addComponent(tContratacion)))
+                        .addComponent(ckBaja)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel3)
@@ -158,22 +161,22 @@ public class VvmeEmpleado extends javax.swing.JFrame {
                                 .addComponent(jLabel7))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(ckMostrarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ckMostrarBaja)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(tNacimiento)
                                     .addComponent(cbDNI, 0, 242, Short.MAX_VALUE)
                                     .addComponent(tNombre)
                                     .addComponent(tApellido)
                                     .addComponent(tNacionalidad, javax.swing.GroupLayout.Alignment.TRAILING))))))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(eTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
-                .addComponent(ckMostrarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
+                .addComponent(ckMostrarBaja)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cbDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -202,9 +205,7 @@ public class VvmeEmpleado extends javax.swing.JFrame {
                     .addComponent(tCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(ckBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ckBaja)
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bEliminarModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -268,10 +269,6 @@ public class VvmeEmpleado extends javax.swing.JFrame {
             bEliminarModificar.setEnabled(true);
         }
     }//GEN-LAST:event_cbDNIActionPerformed
-
-    private void ckMostrarBajaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckMostrarBajaItemStateChanged
-        rellenarComboEmpleados();
-    }//GEN-LAST:event_ckMostrarBajaItemStateChanged
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -342,7 +339,7 @@ public class VvmeEmpleado extends javax.swing.JFrame {
             try{
                 for(Empleado emple : this.listaEmpleados){
                     if(emple.isBaja()){
-                        if(ckMostrarBaja.getState()){
+                        if(ckMostrarBaja.isSelected()){
                             cbDNI.addItem(emple.getDni());
                             listaEmpleFiltrados.add(emple);
                         }
@@ -365,7 +362,7 @@ public class VvmeEmpleado extends javax.swing.JFrame {
         tNacionalidad.setText("");
         tContratacion.setText("");
         tCargo.setText("");
-        ckBaja.setState(false);
+        ckBaja.setSelected(false);
     }
     
     public void AutocompletarDatos(){
@@ -376,19 +373,18 @@ public class VvmeEmpleado extends javax.swing.JFrame {
         tNacionalidad.setText(e.getNacionalidad());
         tContratacion.setText(formato.format(e.getFechaContratacion()));
         tCargo.setText(e.getCargo());
-        ckBaja.setState(e.isBaja());
+        ckBaja.setSelected(e.isBaja());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCancelarCerrar;
     private javax.swing.JButton bEliminarModificar;
     private javax.swing.JComboBox<String> cbDNI;
-    private java.awt.Checkbox ckBaja;
-    private java.awt.Checkbox ckMostrarBaja;
+    private javax.swing.JCheckBox ckBaja;
+    private javax.swing.JCheckBox ckMostrarBaja;
     private javax.swing.JLabel eTitulo;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

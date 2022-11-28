@@ -2,12 +2,15 @@ package Ventanas;
 
 import Clases.Cliente;
 import Clases.Response;
+import java.awt.event.MouseListener;
 import juan_parquestematicos.Main;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.InputMap;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
 public class VvmeCliente extends javax.swing.JFrame {
     private Cliente cli;
@@ -20,7 +23,12 @@ public class VvmeCliente extends javax.swing.JFrame {
         tNombre.setEditable(false);
         tApellido.setEditable(false);
         tNacimiento.setEditable(false);
-        ckBaja.setEnabled(false);
+        MouseListener[] ml = (MouseListener[])ckBaja.getListeners(MouseListener.class);
+        for (int i = 0; i < ml.length; i++)
+            ckBaja.removeMouseListener( ml[i] );
+        InputMap im = ckBaja.getInputMap();
+        im.put(KeyStroke.getKeyStroke("SPACE"), "none");
+        im.put(KeyStroke.getKeyStroke("released SPACE"), "none");
         this.listaClientes = new ArrayList<>();
         bEliminarModificar.setEnabled(false);
     }
@@ -31,7 +39,12 @@ public class VvmeCliente extends javax.swing.JFrame {
         tNombre.setEditable(false);
         tApellido.setEditable(false);
         tNacimiento.setEditable(false);
-        ckBaja.setEnabled(false);
+        MouseListener[] ml = (MouseListener[])ckBaja.getListeners(MouseListener.class);
+        for (int i = 0; i < ml.length; i++)
+            ckBaja.removeMouseListener( ml[i] );
+        InputMap im = ckBaja.getInputMap();
+        im.put(KeyStroke.getKeyStroke("SPACE"), "none");
+        im.put(KeyStroke.getKeyStroke("released SPACE"), "none");
         this.opcion = opcion;
         this.listaClientes = listaClientes;
         AjustarVentanaOpcion();
@@ -47,7 +60,6 @@ public class VvmeCliente extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         tNombre = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         tApellido = new javax.swing.JTextField();
@@ -55,8 +67,8 @@ public class VvmeCliente extends javax.swing.JFrame {
         bEliminarModificar = new javax.swing.JButton();
         bCancelarCerrar = new javax.swing.JButton();
         eTitulo = new javax.swing.JLabel();
-        ckBaja = new java.awt.Checkbox();
         ckMostrarBaja = new javax.swing.JCheckBox();
+        ckBaja = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,8 +81,6 @@ public class VvmeCliente extends javax.swing.JFrame {
         jLabel2.setText("DNI");
 
         jLabel3.setText("Nombre");
-
-        jLabel4.setText("Dado de baja");
 
         jLabel5.setText("Apellido");
 
@@ -95,8 +105,6 @@ public class VvmeCliente extends javax.swing.JFrame {
         eTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         eTitulo.setText("Info. clientes registrados");
 
-        ckBaja.setEnabled(false);
-
         ckMostrarBaja.setText("Mostrar también clientes de baja");
         ckMostrarBaja.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -104,34 +112,40 @@ public class VvmeCliente extends javax.swing.JFrame {
             }
         });
 
+        ckBaja.setText("Dado de baja");
+        ckBaja.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(eTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(51, 51, 51)
                 .addComponent(bEliminarModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bCancelarCerrar)
-                .addGap(57, 57, 57))
+                .addGap(56, 56, 56))
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ckMostrarBaja)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(tNacimiento)
-                        .addComponent(cbDNI, 0, 242, Short.MAX_VALUE)
-                        .addComponent(tNombre)
-                        .addComponent(tApellido)
-                        .addComponent(ckBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ckMostrarBaja)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(tNacimiento)
+                                .addComponent(cbDNI, 0, 242, Short.MAX_VALUE)
+                                .addComponent(tNombre)
+                                .addComponent(tApellido))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(ckBaja)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -156,15 +170,13 @@ public class VvmeCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(ckBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ckBaja)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bEliminarModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bCancelarCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
 
         pack();
@@ -308,7 +320,7 @@ public class VvmeCliente extends javax.swing.JFrame {
         tNombre.setText("");
         tApellido.setText("");
         tNacimiento.setText("");
-        ckBaja.setState(false);
+        ckBaja.setSelected(false);
     }
     
     public void AutocompletarDatos(){
@@ -316,19 +328,18 @@ public class VvmeCliente extends javax.swing.JFrame {
         tNombre.setText(cli.getNombre());
         tApellido.setText(cli.getApellido1());
         tNacimiento.setText(formato.format(cli.getFechaNacimiento()));
-        ckBaja.setState(cli.isBaja());
+        ckBaja.setSelected(cli.isBaja());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCancelarCerrar;
     private javax.swing.JButton bEliminarModificar;
     private javax.swing.JComboBox<String> cbDNI;
-    private java.awt.Checkbox ckBaja;
+    private javax.swing.JCheckBox ckBaja;
     private javax.swing.JCheckBox ckMostrarBaja;
     private javax.swing.JLabel eTitulo;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField tApellido;
