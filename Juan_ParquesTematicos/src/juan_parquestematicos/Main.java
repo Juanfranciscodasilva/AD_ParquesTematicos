@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 public class Main {
     
+    public static VCargando vCargando;
     public static VSeleccionParque vSeleccionParque;
     public static VPrincipal vPrincipal;
     public static VDatosParque vDatosParque;
@@ -24,10 +25,17 @@ public class Main {
 
     public static void main(String[] args) {
         try{
+            vCargando = new VCargando();
+            vCargando.setVisible(true);
             BD_INTERMEDIARIO.comprobarBasesDeDatos();
         }catch(Exception ex){
             System.out.println("Ha ocurrido un error al comprobar el funcionamiento de las bases de datos");
             System.exit(0);
+        }finally{
+            if(vCargando != null){
+                vCargando.setVisible(false);
+                vCargando.dispose();
+            }
         }
         vSeleccionParque = new VSeleccionParque();
         vSeleccionParque.setVisible(true);
