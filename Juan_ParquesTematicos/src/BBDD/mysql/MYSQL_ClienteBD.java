@@ -90,12 +90,7 @@ public class MYSQL_ClienteBD {
             state = con.createStatement();
             ResultSet result = state.executeQuery(sql);
             while(result.next()){
-                Cliente cli = new Cliente();
-                cli.setDni(result.getString("DNI"));
-                cli.setNombre(result.getString("NOMBRE"));
-                cli.setApellido1(result.getString("APELLIDO"));
-                cli.setFechaNacimiento(result.getDate("FECHA_NACIMIENTO"));
-                cli.setBaja(result.getBoolean("BAJA"));
+                Cliente cli = mappearCliente(result);
                 clientes.add(cli);
             }
             result.close();
@@ -110,5 +105,46 @@ public class MYSQL_ClienteBD {
             }
         }
         return clientes;
+    }
+    
+    public static List<Cliente> getAllClientesFromEspectaculo(int idEspectaculo) throws SQLException, Exception{
+        List<Cliente> clientes = new ArrayList<>();
+        Connection con = null;
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT c.* FROM espectaculo_cliente ec ");
+        sql.append("LEFT JOIN clientes c ON c.DNI = ec.DNI_CLIENTE ");
+        sql.append("WHERE ec.ID_ESPECTACULO = ? ");
+        PreparedStatement state = null;
+        try{
+            con = MYSQL_BD.conectarBD();
+            state = con.prepareStatement(sql.toString());
+            state.setInt(1, idEspectaculo);
+            ResultSet result = state.executeQuery();
+            while(result.next()){
+                Cliente cli = mappearCliente(result);
+                clientes.add(cli);
+            }
+            result.close();
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if(state != null){
+                state.close();
+            }
+            if(con != null){
+                con.close();
+            }
+        }
+        return clientes;
+    }
+    
+    public static Cliente mappearCliente(ResultSet result) throws Exception{
+        Cliente cli = new Cliente();
+        cli.setDni(result.getString("DNI"));
+        cli.setNombre(result.getString("NOMBRE"));
+        cli.setApellido1(result.getString("APELLIDO"));
+        cli.setFechaNacimiento(result.getDate("FECHA_NACIMIENTO"));
+        cli.setBaja(result.getBoolean("BAJA"));
+        return cli;
     }
 }

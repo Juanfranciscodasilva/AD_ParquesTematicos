@@ -107,7 +107,7 @@ public class VPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(BajaEspectaculo);
 
-        VerEspectaculo.setText("Ver datos de espectáculo");
+        VerEspectaculo.setText("Ver clientes del espectáculo");
         VerEspectaculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 VerEspectaculoActionPerformed(evt);
@@ -281,7 +281,7 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_ModificarEspectaculoActionPerformed
 
     private void VerEspectaculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerEspectaculoActionPerformed
-
+        Main.abrirVerClientesDeEspectaculo();
     }//GEN-LAST:event_VerEspectaculoActionPerformed
 
     private void ModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarClienteActionPerformed

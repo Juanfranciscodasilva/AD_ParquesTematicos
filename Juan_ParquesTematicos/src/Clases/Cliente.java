@@ -2,7 +2,10 @@ package Clases;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class Cliente implements Serializable {
  
@@ -77,10 +80,24 @@ public class Cliente implements Serializable {
     public void setBaja(boolean baja) {
         this.baja = baja;
     }
+    
+    public int calcularEdad(){
+        if(this.fechaNacimiento != null && this.fechaNacimiento.compareTo((new Date())) < 0){
+            Calendar hoy = new GregorianCalendar();
+            Calendar nacimiento = new GregorianCalendar(Locale.GERMANY);
+            nacimiento.setTime(this.fechaNacimiento);
+            return hoy.get(Calendar.YEAR) - nacimiento.get(Calendar.YEAR);
+        }
+        return 0;
+    }
 
     @Override
     public String toString() {
         return "Cliente{" + "dni=" + dni + ", nombre=" + nombre + ", apellido1=" + apellido1 + ", fechaNacimiento=" + fechaNacimiento + ", baja=" + baja + '}';
+    }
+    
+    public String toString2(){
+        return "- "+dni+" - "+nombre+" "+apellido1+", edad: "+this.calcularEdad();
     }
     
     

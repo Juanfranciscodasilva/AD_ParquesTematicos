@@ -1,5 +1,7 @@
 package Clases;
 
+import java.util.List;
+
 public class Espectaculo {
     private int id;
     private String nombre;
@@ -10,6 +12,7 @@ public class Espectaculo {
     
     private Empleado encargado;
     
+    private List<Cliente> listaClientes;
     //TODO añadir el empleado¿?
 
     public Espectaculo() {
@@ -71,8 +74,12 @@ public class Espectaculo {
         this.encargado = encargado;
     }
 
-    
-    
-    
+    public List<Cliente> getListaClientes() {
+        return listaClientes;
+    }
+
+    public void setListaClientes(List<Cliente> listaClientes) {
+        this.listaClientes = listaClientes;
+    }
     
 }

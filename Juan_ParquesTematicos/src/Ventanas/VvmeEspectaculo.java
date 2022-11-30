@@ -463,7 +463,7 @@ public class VvmeEspectaculo extends javax.swing.JFrame {
         cbNombre.removeAllItems();
         listaEspectaculosFiltrada = new ArrayList<>();
         if(this.listaEspectaculos != null && !this.listaEspectaculos.isEmpty()){
-             cbNombre.addItem("-----Elegir campamento-----");
+             cbNombre.addItem("-----Elegir espectáculo-----");
             try{
                 for(Espectaculo e : this.listaEspectaculos){
                     if((e.isBaja() && ckMostrarBaja.isSelected()) || !e.isBaja()){

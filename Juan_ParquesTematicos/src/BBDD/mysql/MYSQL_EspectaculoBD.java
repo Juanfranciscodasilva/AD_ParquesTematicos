@@ -116,6 +116,40 @@ public class MYSQL_EspectaculoBD {
         return espectaculos;
     }
     
+    public static List<Espectaculo> getAllEspectaculosWithClientes() throws SQLException, Exception{
+        List<Espectaculo> espectaculos = new ArrayList<>();
+        Connection con = null;
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT e.id, e.nombre, e.aforo, e.descripcion, e.lugar, ");
+        sql.append("e.baja, em.dni, em.nombre, em.apellido, em.fecha_nacimiento, ");
+        sql.append("em.fecha_contrato, em.nacionalidad, em.cargo, em.baja ");
+        sql.append("FROM ESPECTACULOS e ");
+        sql.append("LEFT JOIN EMPLE em ON e.EMPLEADO_FK = em.DNI ");
+        Statement state = null;
+        try{
+            con = MYSQL_BD.conectarBD();
+            state = con.createStatement();
+            ResultSet result = state.executeQuery(sql.toString());
+            while(result.next()){
+                Espectaculo espec = mappearSelectAllWithEncargado(result);
+                List<Cliente> listaClientes = MYSQL_ClienteBD.getAllClientesFromEspectaculo(espec.getId());
+                espec.setListaClientes(listaClientes);
+                espectaculos.add(espec);
+            }
+            result.close();
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if(state != null){
+                state.close();
+            }
+            if(con != null){
+                con.close();
+            }
+        }
+        return espectaculos;
+    }
+    
     public static Espectaculo mappearSelectAllWithEncargado(ResultSet result) throws Exception{
         Espectaculo espec = new Espectaculo();
         if(result != null){

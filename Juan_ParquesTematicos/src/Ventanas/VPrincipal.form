@@ -35,7 +35,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="VerEspectaculo">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ver datos de espect&#xe1;culo"/>
+                <Property name="text" type="java.lang.String" value="Ver clientes del espect&#xe1;culo"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="VerEspectaculoActionPerformed"/>

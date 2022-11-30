@@ -315,4 +315,25 @@ public class BD_INTERMEDIARIO {
         }
         return espectaculos;
     }
+    
+    public static List<Espectaculo> obtenerAllEspectaculosConClientes() throws Exception{
+        List<Espectaculo> espectaculos = new ArrayList<>();
+        try{
+            switch(parqueSeleccionado){
+            case Warner:
+                espectaculos = MYSQL_EspectaculoBD.getAllEspectaculosWithClientes();
+                break;
+            case Universal:
+                
+                break;
+            case Disney:
+                
+                break;
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            throw ex;
+        }
+        return espectaculos;
+    }
 }

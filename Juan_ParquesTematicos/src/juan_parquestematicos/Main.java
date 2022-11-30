@@ -20,6 +20,7 @@ public class Main {
     public static VvmeEmpleado vVmeEmpleado;
     public static VCrearEspectaculo vCrearEspectaculo;
     public static VvmeEspectaculo vVmeEspectaculo;
+    public static VVerClientesDeEspectaculo vVerClientesDeEspectaculo;
     
     public static PARQUES parqueSeleccionado;
 
@@ -235,6 +236,27 @@ public class Main {
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error al abrir la ventana. Intentalo de nuevo.","",JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    public static void abrirVerClientesDeEspectaculo(){
+        try{
+            List<Espectaculo> espectaculos = BD_INTERMEDIARIO.obtenerAllEspectaculosConClientes();
+            if(vPrincipal != null){
+                vPrincipal.setVisible(false);
+                vPrincipal.dispose();
+            }
+            vVerClientesDeEspectaculo = new VVerClientesDeEspectaculo(espectaculos);
+            vVerClientesDeEspectaculo.setVisible(true);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al abrir la ventana. Intentalo de nuevo.","",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public static void cerrarVerClientesDeEspectaculo(){
+        vVerClientesDeEspectaculo.setVisible(false);
+        vVerClientesDeEspectaculo.dispose();
+        vPrincipal = new VPrincipal(parqueSeleccionado);
+        vPrincipal.setVisible(true);
     }
     
     public static Response insertarCliente(Cliente cli){
