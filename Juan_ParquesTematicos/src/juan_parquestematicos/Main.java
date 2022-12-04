@@ -21,6 +21,7 @@ public class Main {
     public static VCrearEspectaculo vCrearEspectaculo;
     public static VvmeEspectaculo vVmeEspectaculo;
     public static VVerClientesDeEspectaculo vVerClientesDeEspectaculo;
+    public static VInscribirClienteEspectaculo vInscribirClienteEspectaculo;
     
     public static PARQUES parqueSeleccionado;
 
@@ -259,6 +260,28 @@ public class Main {
         vPrincipal.setVisible(true);
     }
     
+    public static void abrirInscribirClienteEspectaculo(){
+        try{
+            List<Espectaculo> espectaculos = BD_INTERMEDIARIO.obtenerAllEspectaculosNoBajaConClientes();
+            List<Cliente> clientes = BD_INTERMEDIARIO.obtenerAllClientesNoBajaConEspectaculos();
+            if(vPrincipal != null){
+                vPrincipal.setVisible(false);
+                vPrincipal.dispose();
+            }
+            vInscribirClienteEspectaculo = new VInscribirClienteEspectaculo(espectaculos,clientes);
+            vInscribirClienteEspectaculo.setVisible(true);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al abrir la ventana. Intentalo de nuevo.","",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public static void cerrarInscribirClienteEspectaculo(){
+        vInscribirClienteEspectaculo.setVisible(false);
+        vInscribirClienteEspectaculo.dispose();
+        vPrincipal = new VPrincipal(parqueSeleccionado);
+        vPrincipal.setVisible(true);
+    }
+    
     public static Response insertarCliente(Cliente cli){
         return BD_INTERMEDIARIO.insertarCliente(cli);
     }
@@ -293,6 +316,10 @@ public class Main {
     
     public static Response eliminarEspectaculo(Espectaculo espe){
         return BD_INTERMEDIARIO.eliminarEspectaculo(espe);
+    }
+    
+    public static Response insertarInscripcionClienteEspectaculo(Espectaculo espe, Cliente cli){
+        return BD_INTERMEDIARIO.insertarInscripcionClienteEspectaculo(espe,cli);
     }
     
     public static void cerrarPrograma(){

@@ -115,6 +115,7 @@ public class VCrearEspectaculo extends javax.swing.JFrame {
         NoAforo.setText("*Aforo no válido");
 
         tDescripcion.setColumns(20);
+        tDescripcion.setLineWrap(true);
         tDescripcion.setRows(5);
         jScrollPane2.setViewportView(tDescripcion);
 
@@ -531,20 +532,14 @@ public class VCrearEspectaculo extends javax.swing.JFrame {
     private javax.swing.JButton bAceptar;
     private javax.swing.JButton bCancelar;
     private javax.swing.JComboBox<String> cbDniEmpleado;
-    private javax.swing.JComboBox<String> cbNombre;
-    private javax.swing.JComboBox<String> cbNombre1;
     private javax.swing.JLabel eNombre;
     private javax.swing.JLabel eNombre1;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

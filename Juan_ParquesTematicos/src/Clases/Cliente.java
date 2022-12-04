@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
 
 public class Cliente implements Serializable {
@@ -15,7 +16,7 @@ public class Cliente implements Serializable {
     private Date fechaNacimiento;
     private boolean baja;
     
-//    ArrayList<VisitaGuiada> visitas = new ArrayList();
+    List<Espectaculo> listaEspectaculos;
 
     public Cliente() {
     }
@@ -89,6 +90,14 @@ public class Cliente implements Serializable {
             return hoy.get(Calendar.YEAR) - nacimiento.get(Calendar.YEAR);
         }
         return 0;
+    }
+
+    public List<Espectaculo> getListaEspectaculos() {
+        return listaEspectaculos;
+    }
+
+    public void setListaEspectaculos(List<Espectaculo> listaEspectaculos) {
+        this.listaEspectaculos = listaEspectaculos;
     }
 
     @Override

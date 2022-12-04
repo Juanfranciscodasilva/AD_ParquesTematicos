@@ -107,6 +107,34 @@ public class MYSQL_ClienteBD {
         return clientes;
     }
     
+    public static List<Cliente> getAllClientesNoBajaConEspectaculos() throws SQLException, Exception{
+        List<Cliente> clientes = new ArrayList<>();
+        Connection con = null;
+        String sql = "SELECT * FROM CLIENTES WHERE BAJA = 0";
+        Statement state = null;
+        try{
+            con = MYSQL_BD.conectarBD();
+            state = con.createStatement();
+            ResultSet result = state.executeQuery(sql);
+            while(result.next()){
+                Cliente cli = mappearCliente(result);
+                List<Espectaculo> listaEspectaculos = MYSQL_EspectaculoBD.getAllEspectaculosFromCliente(cli.getDni());
+                clientes.add(cli);
+            }
+            result.close();
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if(state != null){
+                state.close();
+            }
+            if(con != null){
+                con.close();
+            }
+        }
+        return clientes;
+    }
+    
     public static List<Cliente> getAllClientesFromEspectaculo(int idEspectaculo) throws SQLException, Exception{
         List<Cliente> clientes = new ArrayList<>();
         Connection con = null;

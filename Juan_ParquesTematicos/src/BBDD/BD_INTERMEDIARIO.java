@@ -5,6 +5,7 @@ import BBDD.mysql.*;
 import BBDD.sqlite.*;
 import Clases.*;
 import Enum.PARQUES;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,27 @@ public class BD_INTERMEDIARIO {
         return clientes;
     }
     
+    public static List<Cliente> obtenerAllClientesNoBajaConEspectaculos() throws Exception{
+        List<Cliente> clientes = new ArrayList<>();
+        try{
+            switch(parqueSeleccionado){
+            case Warner:
+                clientes = MYSQL_ClienteBD.getAllClientesNoBajaConEspectaculos();
+                break;
+            case Universal:
+                
+                break;
+            case Disney:
+                
+                break;
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            throw ex;
+        }
+        return clientes;
+    }
+    
     public static Response insertarCliente(Cliente cli){
         Response response = new Response();
         try{
@@ -68,6 +90,15 @@ public class BD_INTERMEDIARIO {
             case Disney:
                 
                 break;
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+            if(ex.getSQLState().equalsIgnoreCase("23000") && ex.getErrorCode() == 1062){
+                response.setCorrecto(false);
+                response.setMensajeError("Ya hay registrado un cliente con ese DNI");
+            }else{
+                response.setCorrecto(false);
+                response.setMensajeError("Ha ocurrido un error al insertar el cliente");
             }
         }catch(Exception ex){
             System.out.println(ex.getMessage());
@@ -176,6 +207,15 @@ public class BD_INTERMEDIARIO {
             case Disney:
                 
                 break;
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+            if(ex.getSQLState().equalsIgnoreCase("23000") && ex.getErrorCode() == 1062){
+                response.setCorrecto(false);
+                response.setMensajeError("Ya hay registrado un empleado con ese DNI");
+            }else{
+                response.setCorrecto(false);
+                response.setMensajeError("Ha ocurrido un error al insertar el empleado");
             }
         }catch(Exception ex){
             System.out.println(ex.getMessage());
@@ -335,5 +375,57 @@ public class BD_INTERMEDIARIO {
             throw ex;
         }
         return espectaculos;
+    }
+    
+    public static List<Espectaculo> obtenerAllEspectaculosNoBajaConClientes() throws Exception{
+        List<Espectaculo> espectaculos = new ArrayList<>();
+        try{
+            switch(parqueSeleccionado){
+            case Warner:
+                espectaculos = MYSQL_EspectaculoBD.getAllEspectaculosNoBajaWithClientes();
+                break;
+            case Universal:
+                
+                break;
+            case Disney:
+                
+                break;
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            throw ex;
+        }
+        return espectaculos;
+    }
+    
+    public static Response insertarInscripcionClienteEspectaculo(Espectaculo espec, Cliente cli){
+        Response response = new Response();
+        try{
+            switch(parqueSeleccionado){
+            case Warner:
+                MYSQL_EspectaculoClienteBD.insertEspectaculoCliente(espec,cli);
+                break;
+            case Universal:
+                
+                break;
+            case Disney:
+                
+                break;
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+            if(ex.getSQLState().equalsIgnoreCase("23000") && ex.getErrorCode() == 1062){
+                response.setCorrecto(false);
+                response.setMensajeError("El cliente ya está inscrito en el espectáculo");
+            }else{
+                response.setCorrecto(false);
+                response.setMensajeError("Ha ocurrido un error al insertar el cliente");
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            response.setCorrecto(false);
+            response.setMensajeError("Ha ocurrido un error al insertar el empleado");
+        }
+        return response;
     }
 }

@@ -41,6 +41,7 @@ public class VPrincipal extends javax.swing.JFrame {
         ModificarEspectaculo = new javax.swing.JMenuItem();
         BajaEspectaculo = new javax.swing.JMenuItem();
         VerEspectaculo = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         AltaEmpleado = new javax.swing.JMenuItem();
         ModificarEmpleado = new javax.swing.JMenuItem();
@@ -51,6 +52,7 @@ public class VPrincipal extends javax.swing.JFrame {
         ModificarCliente = new javax.swing.JMenuItem();
         BajaCliente = new javax.swing.JMenuItem();
         VerVisitasGuiadasDelCliente = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         DatosAgencia = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -114,6 +116,14 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(VerEspectaculo);
+
+        jMenuItem4.setText("Inscribir cliente en espectáculo");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
 
@@ -186,6 +196,14 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(VerVisitasGuiadasDelCliente);
+
+        jMenuItem5.setText("Inscribir en espectáculo");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem5);
 
         jMenuBar1.add(jMenu2);
 
@@ -320,6 +338,14 @@ public class VPrincipal extends javax.swing.JFrame {
         Main.abrirVMEEmpleado(0);
     }//GEN-LAST:event_BajaEmpleadoActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        Main.abrirInscribirClienteEspectaculo();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        Main.abrirInscribirClienteEspectaculo();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -395,6 +421,8 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     // End of variables declaration//GEN-END:variables
 
     public void NoCampamentos() {
