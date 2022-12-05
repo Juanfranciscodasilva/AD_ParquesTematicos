@@ -153,7 +153,12 @@ public class VPrincipal extends javax.swing.JFrame {
         });
         jMenu5.add(BajaEmpleado);
 
-        EmpleadoVisitas.setText("Visitas en responsabilidad");
+        EmpleadoVisitas.setText("Espectáculos en responsabilidad");
+        EmpleadoVisitas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EmpleadoVisitasActionPerformed(evt);
+            }
+        });
         jMenu5.add(EmpleadoVisitas);
 
         jMenuBar1.add(jMenu5);
@@ -311,7 +316,7 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_BajaClienteActionPerformed
 
     private void VerVisitasGuiadasDelClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerVisitasGuiadasDelClienteActionPerformed
-
+        Main.abrirVerEspectaculosDeCliente();
     }//GEN-LAST:event_VerVisitasGuiadasDelClienteActionPerformed
 
     private void AltaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AltaClienteActionPerformed
@@ -345,6 +350,10 @@ public class VPrincipal extends javax.swing.JFrame {
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         Main.abrirInscribirClienteEspectaculo();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void EmpleadoVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmpleadoVisitasActionPerformed
+        Main.abrirVerEspectaculosDeEmpleado();
+    }//GEN-LAST:event_EmpleadoVisitasActionPerformed
 
     /**
      * @param args the command line arguments

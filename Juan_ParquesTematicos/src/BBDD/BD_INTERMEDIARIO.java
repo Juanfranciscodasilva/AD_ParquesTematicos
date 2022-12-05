@@ -56,6 +56,27 @@ public class BD_INTERMEDIARIO {
         return clientes;
     }
     
+    public static List<Cliente> obtenerAllClientesConEspectaculos() throws Exception{
+        List<Cliente> clientes = new ArrayList<>();
+        try{
+            switch(parqueSeleccionado){
+            case Warner:
+                clientes = MYSQL_ClienteBD.getAllClientesWithEspectaculos();
+                break;
+            case Universal:
+                
+                break;
+            case Disney:
+                
+                break;
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            throw ex;
+        }
+        return clientes;
+    }
+    
     public static List<Cliente> obtenerAllClientesNoBajaConEspectaculos() throws Exception{
         List<Cliente> clientes = new ArrayList<>();
         try{
@@ -158,6 +179,27 @@ public class BD_INTERMEDIARIO {
             switch(parqueSeleccionado){
             case Warner:
                 empleados = MYSQL_EmpleadoBD.getAllEmpleados();
+                break;
+            case Universal:
+                
+                break;
+            case Disney:
+                
+                break;
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            throw ex;
+        }
+        return empleados;
+    }
+    
+    public static List<Empleado> obtenerAllEmpleadosConEspectaculos() throws Exception{
+        List<Empleado> empleados = new ArrayList<>();
+        try{
+            switch(parqueSeleccionado){
+            case Warner:
+                empleados = MYSQL_EmpleadoBD.getAllEmpleadosWithEspectaculos();
                 break;
             case Universal:
                 

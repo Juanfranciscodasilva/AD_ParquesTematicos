@@ -284,4 +284,33 @@ public class MYSQL_EspectaculoBD {
         }
         return espectaculos;
     }
+    
+    public static List<Espectaculo> getAllEspectaculosFromEmpleado(String dniEmpleado) throws SQLException, Exception{
+        List<Espectaculo> espectaculos = new ArrayList<>();
+        Connection con = null;
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT * FROM espectaculos WHERE EMPLEADO_FK = ?");
+        PreparedStatement state = null;
+        try{
+            con = MYSQL_BD.conectarBD();
+            state = con.prepareStatement(sql.toString());
+            state.setString(1, dniEmpleado);
+            ResultSet result = state.executeQuery();
+            while(result.next()){
+                Espectaculo espe = mappearEspectaculo(result);
+                espectaculos.add(espe);
+            }
+            result.close();
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if(state != null){
+                state.close();
+            }
+            if(con != null){
+                con.close();
+            }
+        }
+        return espectaculos;
+    }
 }

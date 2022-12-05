@@ -97,15 +97,36 @@ public class MYSQL_EmpleadoBD {
             state = con.createStatement();
             ResultSet result = state.executeQuery(sql);
             while(result.next()){
-                Empleado emple = new Empleado();
-                emple.setDni(result.getString("DNI"));
-                emple.setNombre(result.getString("NOMBRE"));
-                emple.setApellido1(result.getString("APELLIDO"));
-                emple.setFechaNacimiento(result.getDate("FECHA_NACIMIENTO"));
-                emple.setFechaContratacion(result.getDate("FECHA_CONTRATO"));
-                emple.setNacionalidad(result.getString("NACIONALIDAD"));
-                emple.setCargo(result.getString("CARGO"));
-                emple.setBaja(result.getBoolean("BAJA"));
+                Empleado emple = mappearEmpleado(result);
+                empleados.add(emple);
+            }
+            result.close();
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if(state != null){
+                state.close();
+            }
+            if(con != null){
+                con.close();
+            }
+        }
+        return empleados;
+    }
+    
+    public static List<Empleado> getAllEmpleadosWithEspectaculos() throws SQLException, Exception{
+        List<Empleado> empleados = new ArrayList<>();
+        Connection con = null;
+        String sql = "SELECT * FROM EMPLE";
+        Statement state = null;
+        try{
+            con = MYSQL_BD.conectarBD();
+            state = con.createStatement();
+            ResultSet result = state.executeQuery(sql);
+            while(result.next()){
+                Empleado emple = mappearEmpleado(result);
+                List<Espectaculo> espectaculos = MYSQL_EspectaculoBD.getAllEspectaculosFromEmpleado(emple.getDni());
+                emple.setListaEspectaculos(espectaculos);
                 empleados.add(emple);
             }
             result.close();
@@ -132,15 +153,7 @@ public class MYSQL_EmpleadoBD {
             state = con.createStatement();
             ResultSet result = state.executeQuery(sql);
             while(result.next()){
-                Empleado emple = new Empleado();
-                emple.setDni(result.getString("DNI"));
-                emple.setNombre(result.getString("NOMBRE"));
-                emple.setApellido1(result.getString("APELLIDO"));
-                emple.setFechaNacimiento(result.getDate("FECHA_NACIMIENTO"));
-                emple.setFechaContratacion(result.getDate("FECHA_CONTRATO"));
-                emple.setNacionalidad(result.getString("NACIONALIDAD"));
-                emple.setCargo(result.getString("CARGO"));
-                emple.setBaja(result.getBoolean("BAJA"));
+                Empleado emple = mappearEmpleado(result);
                 empleados.add(emple);
             }
             result.close();
@@ -155,5 +168,18 @@ public class MYSQL_EmpleadoBD {
             }
         }
         return empleados;
+    }
+    
+    public static Empleado mappearEmpleado(ResultSet result) throws Exception{
+        Empleado emple = new Empleado();
+        emple.setDni(result.getString("DNI"));
+        emple.setNombre(result.getString("NOMBRE"));
+        emple.setApellido1(result.getString("APELLIDO"));
+        emple.setFechaNacimiento(result.getDate("FECHA_NACIMIENTO"));
+        emple.setFechaContratacion(result.getDate("FECHA_CONTRATO"));
+        emple.setNacionalidad(result.getString("NACIONALIDAD"));
+        emple.setCargo(result.getString("CARGO"));
+        emple.setBaja(result.getBoolean("BAJA"));
+        return emple;
     }
 }

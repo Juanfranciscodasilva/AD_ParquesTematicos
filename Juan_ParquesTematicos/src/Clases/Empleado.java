@@ -3,6 +3,7 @@ package Clases;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Empleado implements Serializable {
  
@@ -16,7 +17,7 @@ public class Empleado implements Serializable {
     private String cargo;
     private boolean baja;
     
-//    ArrayList<VisitaGuiada> visitas = new ArrayList();
+    List<Espectaculo> listaEspectaculos;
 
     public Empleado() {
     }
@@ -120,6 +121,14 @@ public class Empleado implements Serializable {
 
     public void setBaja(boolean baja) {
         this.baja = baja;
+    }
+
+    public List<Espectaculo> getListaEspectaculos() {
+        return listaEspectaculos;
+    }
+
+    public void setListaEspectaculos(List<Espectaculo> listaEspectaculos) {
+        this.listaEspectaculos = listaEspectaculos;
     }
 
 }

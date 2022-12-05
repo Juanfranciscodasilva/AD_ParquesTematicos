@@ -82,8 +82,11 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="EmpleadoVisitas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Visitas en responsabilidad"/>
+                <Property name="text" type="java.lang.String" value="Espect&#xe1;culos en responsabilidad"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EmpleadoVisitasActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

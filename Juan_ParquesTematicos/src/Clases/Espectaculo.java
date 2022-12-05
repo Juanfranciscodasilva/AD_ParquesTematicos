@@ -82,4 +82,8 @@ public class Espectaculo {
         this.listaClientes = listaClientes;
     }
     
+    public String toString2(){
+        return "- "+nombre+": "+descripcion+". En: "+lugar+" para "+aforo+" personas."+(baja ? " (de baja)":"");
+    }
+    
 }

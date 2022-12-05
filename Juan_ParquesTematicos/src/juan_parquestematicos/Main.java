@@ -22,6 +22,8 @@ public class Main {
     public static VvmeEspectaculo vVmeEspectaculo;
     public static VVerClientesDeEspectaculo vVerClientesDeEspectaculo;
     public static VInscribirClienteEspectaculo vInscribirClienteEspectaculo;
+    public static VVerEspectaculosDeCliente vVerEspectaculosDeCliente;
+    public static VVerEspectaculosDeEmpleado vVerEspectaculosDeEmpleado;
     
     public static PARQUES parqueSeleccionado;
 
@@ -278,6 +280,48 @@ public class Main {
     public static void cerrarInscribirClienteEspectaculo(){
         vInscribirClienteEspectaculo.setVisible(false);
         vInscribirClienteEspectaculo.dispose();
+        vPrincipal = new VPrincipal(parqueSeleccionado);
+        vPrincipal.setVisible(true);
+    }
+    
+    public static void abrirVerEspectaculosDeCliente(){
+        try{
+            List<Cliente> clientes = BD_INTERMEDIARIO.obtenerAllClientesConEspectaculos();
+            if(vPrincipal != null){
+                vPrincipal.setVisible(false);
+                vPrincipal.dispose();
+            }
+            vVerEspectaculosDeCliente = new VVerEspectaculosDeCliente(clientes);
+            vVerEspectaculosDeCliente.setVisible(true);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al abrir la ventana. Intentalo de nuevo.","",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public static void cerrarVerEspectaculosDeCliente(){
+        vVerEspectaculosDeCliente.setVisible(false);
+        vVerEspectaculosDeCliente.dispose();
+        vPrincipal = new VPrincipal(parqueSeleccionado);
+        vPrincipal.setVisible(true);
+    }
+    
+    public static void abrirVerEspectaculosDeEmpleado(){
+        try{
+            List<Empleado> empleados = BD_INTERMEDIARIO.obtenerAllEmpleadosConEspectaculos();
+            if(vPrincipal != null){
+                vPrincipal.setVisible(false);
+                vPrincipal.dispose();
+            }
+            vVerEspectaculosDeEmpleado = new VVerEspectaculosDeEmpleado(empleados);
+            vVerEspectaculosDeEmpleado.setVisible(true);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al abrir la ventana. Intentalo de nuevo.","",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public static void cerrarVerEspectaculosDeEmpleado(){
+        vVerEspectaculosDeEmpleado.setVisible(false);
+        vVerEspectaculosDeEmpleado.dispose();
         vPrincipal = new VPrincipal(parqueSeleccionado);
         vPrincipal.setVisible(true);
     }
