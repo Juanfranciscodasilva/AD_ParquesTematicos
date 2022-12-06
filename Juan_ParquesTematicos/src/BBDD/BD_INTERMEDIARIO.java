@@ -8,6 +8,7 @@ import Enum.PARQUES;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import org.sqlite.SQLiteException;
 
 public class BD_INTERMEDIARIO {
     
@@ -43,7 +44,7 @@ public class BD_INTERMEDIARIO {
                 clientes = MYSQL_ClienteBD.getAllClientes();
                 break;
             case Universal:
-                
+                clientes = SQLITE_ClienteBD.getAllClientes();
                 break;
             case Disney:
                 
@@ -64,7 +65,7 @@ public class BD_INTERMEDIARIO {
                 clientes = MYSQL_ClienteBD.getAllClientesWithEspectaculos();
                 break;
             case Universal:
-                
+                clientes = SQLITE_ClienteBD.getAllClientesWithEspectaculos();
                 break;
             case Disney:
                 
@@ -85,7 +86,7 @@ public class BD_INTERMEDIARIO {
                 clientes = MYSQL_ClienteBD.getAllClientesNoBajaConEspectaculos();
                 break;
             case Universal:
-                
+                clientes = SQLITE_ClienteBD.getAllClientesNoBajaConEspectaculos();
                 break;
             case Disney:
                 
@@ -106,15 +107,24 @@ public class BD_INTERMEDIARIO {
                 MYSQL_ClienteBD.insertCliente(cli);
                 break;
             case Universal:
-                
+                SQLITE_ClienteBD.insertCliente(cli);
                 break;
             case Disney:
                 
                 break;
             }
+        }catch(SQLiteException ex){
+            System.out.println(ex.getMessage());
+            if(ex.getResultCode().code == 1555){
+                response.setCorrecto(false);
+                response.setMensajeError("Ya hay registrado un cliente con ese DNI");
+            }else{
+                response.setCorrecto(false);
+                response.setMensajeError("Ha ocurrido un error al insertar el cliente");
+            }
         }catch(SQLException ex){
             System.out.println(ex.getMessage());
-            if(ex.getSQLState().equalsIgnoreCase("23000") && ex.getErrorCode() == 1062){
+            if(ex.getSQLState() != null && ex.getSQLState().equalsIgnoreCase("23000") && ex.getErrorCode() == 1062){
                 response.setCorrecto(false);
                 response.setMensajeError("Ya hay registrado un cliente con ese DNI");
             }else{
@@ -137,7 +147,7 @@ public class BD_INTERMEDIARIO {
                 MYSQL_ClienteBD.updateCliente(cli);
                 break;
             case Universal:
-                
+                SQLITE_ClienteBD.updateCliente(cli);
                 break;
             case Disney:
                 
@@ -159,7 +169,7 @@ public class BD_INTERMEDIARIO {
                 MYSQL_ClienteBD.deleteCliente(cli);
                 break;
             case Universal:
-                
+                SQLITE_ClienteBD.deleteCliente(cli);
                 break;
             case Disney:
                 
@@ -181,7 +191,7 @@ public class BD_INTERMEDIARIO {
                 empleados = MYSQL_EmpleadoBD.getAllEmpleados();
                 break;
             case Universal:
-                
+                empleados = SQLITE_EmpleadoBD.getAllEmpleados();
                 break;
             case Disney:
                 
@@ -202,7 +212,7 @@ public class BD_INTERMEDIARIO {
                 empleados = MYSQL_EmpleadoBD.getAllEmpleadosWithEspectaculos();
                 break;
             case Universal:
-                
+                empleados = SQLITE_EmpleadoBD.getAllEmpleadosWithEspectaculos();
                 break;
             case Disney:
                 
@@ -223,7 +233,7 @@ public class BD_INTERMEDIARIO {
                 empleados = MYSQL_EmpleadoBD.getEmpleadosBajaFalse();
                 break;
             case Universal:
-                
+                empleados = SQLITE_EmpleadoBD.getEmpleadosBajaFalse();
                 break;
             case Disney:
                 
@@ -244,11 +254,20 @@ public class BD_INTERMEDIARIO {
                 MYSQL_EmpleadoBD.insertEmpleado(emple);
                 break;
             case Universal:
-                
+                SQLITE_EmpleadoBD.insertEmpleado(emple);
                 break;
             case Disney:
                 
                 break;
+            }
+        }catch(SQLiteException ex){
+            System.out.println(ex.getMessage());
+            if(ex.getResultCode().code == 1555){
+                response.setCorrecto(false);
+                response.setMensajeError("Ya hay registrado un empleado con ese DNI");
+            }else{
+                response.setCorrecto(false);
+                response.setMensajeError("Ha ocurrido un error al insertar el empleado");
             }
         }catch(SQLException ex){
             System.out.println(ex.getMessage());
@@ -275,7 +294,7 @@ public class BD_INTERMEDIARIO {
                 MYSQL_EmpleadoBD.updateEmpleado(emple);
                 break;
             case Universal:
-                
+                SQLITE_EmpleadoBD.updateEmpleado(emple);
                 break;
             case Disney:
                 
@@ -297,7 +316,7 @@ public class BD_INTERMEDIARIO {
                 MYSQL_EmpleadoBD.deleteEmpleado(emple);
                 break;
             case Universal:
-                
+                SQLITE_EmpleadoBD.deleteEmpleado(emple);
                 break;
             case Disney:
                 
@@ -319,7 +338,7 @@ public class BD_INTERMEDIARIO {
                 MYSQL_EspectaculoBD.insertEspectaculo(espe);
                 break;
             case Universal:
-                
+                SQLITE_EspectaculoBD.insertEspectaculo(espe);
                 break;
             case Disney:
                 
@@ -328,7 +347,7 @@ public class BD_INTERMEDIARIO {
         }catch(Exception ex){
             System.out.println(ex.getMessage());
             response.setCorrecto(false);
-            response.setMensajeError("Ha ocurrido un error al insertar el empleado");
+            response.setMensajeError("Ha ocurrido un error al insertar el espectáculo");
         }
         return response;
     }
@@ -341,7 +360,7 @@ public class BD_INTERMEDIARIO {
                 MYSQL_EspectaculoBD.updateEspectaculo(espe);
                 break;
             case Universal:
-                
+                SQLITE_EspectaculoBD.updateEspectaculo(espe);
                 break;
             case Disney:
                 
@@ -350,7 +369,7 @@ public class BD_INTERMEDIARIO {
         }catch(Exception ex){
             System.out.println(ex.getMessage());
             response.setCorrecto(false);
-            response.setMensajeError("Ha ocurrido un error al modificar el empleado");
+            response.setMensajeError("Ha ocurrido un error al modificar el espectáculo");
         }
         return response;
     }
@@ -363,7 +382,7 @@ public class BD_INTERMEDIARIO {
                 MYSQL_EspectaculoBD.deleteEspectaculo(espe);
                 break;
             case Universal:
-                
+                SQLITE_EspectaculoBD.deleteEspectaculo(espe);
                 break;
             case Disney:
                 
@@ -372,7 +391,7 @@ public class BD_INTERMEDIARIO {
         }catch(Exception ex){
             System.out.println(ex.getMessage());
             response.setCorrecto(false);
-            response.setMensajeError("Ha ocurrido un error al eliminar el empleado");
+            response.setMensajeError("Ha ocurrido un error al eliminar el espectáculo");
         }
         return response;
     }
@@ -385,7 +404,7 @@ public class BD_INTERMEDIARIO {
                 espectaculos = MYSQL_EspectaculoBD.getAllEspectaculos();
                 break;
             case Universal:
-                
+                espectaculos = SQLITE_EspectaculoBD.getAllEspectaculos();
                 break;
             case Disney:
                 
@@ -406,7 +425,7 @@ public class BD_INTERMEDIARIO {
                 espectaculos = MYSQL_EspectaculoBD.getAllEspectaculosWithClientes();
                 break;
             case Universal:
-                
+                espectaculos = SQLITE_EspectaculoBD.getAllEspectaculosWithClientes();
                 break;
             case Disney:
                 
@@ -427,7 +446,7 @@ public class BD_INTERMEDIARIO {
                 espectaculos = MYSQL_EspectaculoBD.getAllEspectaculosNoBajaWithClientes();
                 break;
             case Universal:
-                
+                espectaculos = SQLITE_EspectaculoBD.getAllEspectaculosNoBajaWithClientes();
                 break;
             case Disney:
                 
@@ -448,11 +467,20 @@ public class BD_INTERMEDIARIO {
                 MYSQL_EspectaculoClienteBD.insertEspectaculoCliente(espec,cli);
                 break;
             case Universal:
-                
+                SQLITE_EspectaculoClienteBD.insertEspectaculoCliente(espec,cli);
                 break;
             case Disney:
                 
                 break;
+            }
+        }catch(SQLiteException ex){
+            System.out.println(ex.getMessage());
+            if(ex.getResultCode().code == 1555){
+                response.setCorrecto(false);
+                response.setMensajeError("El cliente ya está inscrito en el espectáculo");
+            }else{
+                response.setCorrecto(false);
+                response.setMensajeError("Ha ocurrido un error al inscribir el cliente en el espectáculo");
             }
         }catch(SQLException ex){
             System.out.println(ex.getMessage());
@@ -461,12 +489,34 @@ public class BD_INTERMEDIARIO {
                 response.setMensajeError("El cliente ya está inscrito en el espectáculo");
             }else{
                 response.setCorrecto(false);
-                response.setMensajeError("Ha ocurrido un error al insertar el cliente");
+                response.setMensajeError("Ha ocurrido un error al inscribir el cliente en el espectáculo");
             }
         }catch(Exception ex){
             System.out.println(ex.getMessage());
             response.setCorrecto(false);
-            response.setMensajeError("Ha ocurrido un error al insertar el empleado");
+            response.setMensajeError("Ha ocurrido un error al inscribir el cliente en el espectáculo");
+        }
+        return response;
+    }
+    
+    public static Response eliminarInscripcionClienteEspectaculo(Espectaculo espec, Cliente cli){
+        Response response = new Response();
+        try{
+            switch(parqueSeleccionado){
+            case Warner:
+                MYSQL_EspectaculoClienteBD.deleteEspectaculoCliente(espec.getId(),cli.getDni());
+                break;
+            case Universal:
+                SQLITE_EspectaculoClienteBD.deleteEspectaculoCliente(espec.getId(),cli.getDni());
+                break;
+            case Disney:
+                
+                break;
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            response.setCorrecto(false);
+            response.setMensajeError("Ha ocurrido un error al retirar el cliente del espectáculo");
         }
         return response;
     }

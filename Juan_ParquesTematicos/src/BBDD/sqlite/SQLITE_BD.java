@@ -72,7 +72,12 @@ public class SQLITE_BD {
                 throw ex;
             }
         }else{
-            //TODO comprobar que este el parque insertado
+            Parque parque = SQLITE_ParqueBD.getParque();
+            if(parque == null){
+                System.out.println("SQLITE: No se ha detectado el parque correspondiente");
+                InsertarParque(con);
+                System.out.println("SQLITE: Se ha insertado el parque correspondiente");
+            }
         }
     }
     

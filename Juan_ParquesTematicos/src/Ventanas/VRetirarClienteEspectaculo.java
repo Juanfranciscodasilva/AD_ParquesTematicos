@@ -4,30 +4,30 @@ import Clases.Cliente;
 import Clases.Espectaculo;
 import Clases.Response;
 import juan_parquestematicos.Main;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-public class VInscribirClienteEspectaculo extends javax.swing.JFrame {
-    Cliente clienteSeleccionado = new Cliente();
+public class VRetirarClienteEspectaculo extends javax.swing.JFrame {
+    Cliente clienteSeleccionado;
     Espectaculo espectaculoSeleccionado;
-    private List<Espectaculo> listaEspectaculos;
-    private List<Cliente> listaClientes;
+    private List<Espectaculo> listaAllEspectaculos;
+    private List<Cliente> listaAllClientes;
+    private List<Cliente> listaClientesFiltrados;
     
-    public VInscribirClienteEspectaculo() {
+    public VRetirarClienteEspectaculo() {
         initComponents();
         setLocationRelativeTo(null);
-        listaEspectaculos = new ArrayList<>();
-        listaClientes = new ArrayList<>();
+        cbNombre.setEnabled(false);
+        cbDni.setEnabled(false);
+        btRetirar.setVisible(false);
     }
     
-    public VInscribirClienteEspectaculo(List<Espectaculo> listaEspec,List<Cliente> listaCli) {
+    public VRetirarClienteEspectaculo(List<Espectaculo> espectaculos, List<Cliente> clientes) {
         initComponents();
         setLocationRelativeTo(null);
-        this.listaEspectaculos = listaEspec;
-        this.listaClientes = listaCli;
+        this.listaAllEspectaculos = espectaculos;
+        this.listaAllClientes = clientes;
         RellenarCombos();
     }
 
@@ -35,7 +35,7 @@ public class VInscribirClienteEspectaculo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        titulo = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         cbNombre = new javax.swing.JComboBox<>();
@@ -46,8 +46,6 @@ public class VInscribirClienteEspectaculo extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tDescripcion = new javax.swing.JTextArea();
-        Inscribir = new javax.swing.JButton();
-        Cancelar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         cbDni = new javax.swing.JComboBox<>();
@@ -57,12 +55,14 @@ public class VInscribirClienteEspectaculo extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         eApellido2 = new javax.swing.JLabel();
         tNacimiento = new javax.swing.JTextField();
+        btRetirar = new javax.swing.JButton();
+        Cancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Inscribir cliente");
+        titulo.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titulo.setText("Retirar cliente");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Espectáculo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 18))); // NOI18N
 
@@ -132,22 +132,6 @@ public class VInscribirClienteEspectaculo extends javax.swing.JFrame {
                         .addGap(40, 40, 40)))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
-
-        Inscribir.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        Inscribir.setText("Inscribir");
-        Inscribir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InscribirActionPerformed(evt);
-            }
-        });
-
-        Cancelar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        Cancelar.setText("Cancelar");
-        Cancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CancelarActionPerformed(evt);
-            }
-        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 18))); // NOI18N
 
@@ -225,38 +209,54 @@ public class VInscribirClienteEspectaculo extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
+        btRetirar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btRetirar.setText("Retirar");
+        btRetirar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRetirarActionPerformed(evt);
+            }
+        });
+
+        Cancelar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        Cancelar.setText("Cancelar");
+        Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(btRetirar)
+                        .addGap(49, 49, 49)
+                        .addComponent(Cancelar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(103, Short.MAX_VALUE)
-                .addComponent(Inscribir)
-                .addGap(49, 49, 49)
-                .addComponent(Cancelar)
-                .addGap(91, 91, 91))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1)
+                .addGap(11, 11, 11)
+                .addComponent(titulo)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Inscribir)
+                    .addComponent(btRetirar)
                     .addComponent(Cancelar))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -266,7 +266,7 @@ public class VInscribirClienteEspectaculo extends javax.swing.JFrame {
         int index = cbNombre.getSelectedIndex()-1;
         Espectaculo espec = null;
         if(index > -1){
-            espec = this.listaEspectaculos.get(index);
+            espec = this.listaAllEspectaculos.get(index);
         }
         if(espec == null){
             LimpiarCamposEspectaculo();
@@ -275,37 +275,15 @@ public class VInscribirClienteEspectaculo extends javax.swing.JFrame {
             this.espectaculoSeleccionado = espec;
             AutocompletarDatosEspectaculo();
         }
+        rellenarComboClientes();
+        
     }//GEN-LAST:event_cbNombreActionPerformed
-
-    private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
-        Main.cerrarInscribirClienteEspectaculo();
-    }//GEN-LAST:event_CancelarActionPerformed
-
-    private void InscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InscribirActionPerformed
-        if(this.espectaculoSeleccionado != null && this.clienteSeleccionado != null){
-            Response respuesta = null;
-            respuesta = Main.insertarInscripcionClienteEspectaculo(espectaculoSeleccionado, clienteSeleccionado);
-            if(respuesta != null){
-                if(respuesta.isCorrecto()){
-                    JOptionPane.showMessageDialog(null, "Se ha inscrito al cliente seleccionado en el espectáculo seleccionado.");
-                    Main.cerrarInscribirClienteEspectaculo();
-                }else{
-                    JOptionPane.showMessageDialog(null, respuesta.getMensajeError(),"", JOptionPane.ERROR_MESSAGE);
-                }
-            }else{
-                JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado. Intenalo de nuevo.","", JOptionPane.ERROR_MESSAGE);
-            }
-            
-        }else{
-            JOptionPane.showMessageDialog(null, "Tanto el espectáculo como el cliente son datos obligatorios.","", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_InscribirActionPerformed
 
     private void cbDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDniActionPerformed
         int index = cbDni.getSelectedIndex()-1;
         Cliente cli = null;
         if(index > -1){
-            cli = this.listaClientes.get(index);
+            cli = this.listaAllClientes.get(index);
         }
         if(cli == null){
             LimpiarCamposCliente();
@@ -314,15 +292,37 @@ public class VInscribirClienteEspectaculo extends javax.swing.JFrame {
             this.clienteSeleccionado = cli;
             AutocompletarDatosCliente();
         }
+        
     }//GEN-LAST:event_cbDniActionPerformed
 
     private void tNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tNombreActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRetirarActionPerformed
+        if(this.espectaculoSeleccionado != null && this.clienteSeleccionado != null){
+            Response respuesta = null;
+            respuesta = Main.retirarInscripcionClienteEspectaculo(espectaculoSeleccionado, clienteSeleccionado);
+            if(respuesta != null){
+                if(respuesta.isCorrecto()){
+                    JOptionPane.showMessageDialog(null, "Se ha retirado al cliente seleccionado del espectáculo seleccionado.");
+                    Main.cerrarRetirarClienteEspectaculo();
+                }else{
+                    JOptionPane.showMessageDialog(null, respuesta.getMensajeError(),"", JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado. Intenalo de nuevo.","", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }else{
+            JOptionPane.showMessageDialog(null, "Tanto el espectáculo como el cliente son datos obligatorios.","", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btRetirarActionPerformed
+
+    private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
+        Main.cerrarRetirarClienteEspectaculo();
+    }//GEN-LAST:event_CancelarActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -337,13 +337,13 @@ public class VInscribirClienteEspectaculo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VInscribirClienteEspectaculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VRetirarClienteEspectaculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VInscribirClienteEspectaculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VRetirarClienteEspectaculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VInscribirClienteEspectaculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VRetirarClienteEspectaculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VInscribirClienteEspectaculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VRetirarClienteEspectaculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -353,7 +353,7 @@ public class VInscribirClienteEspectaculo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VInscribirClienteEspectaculo().setVisible(true);
+                new VRetirarClienteEspectaculo().setVisible(true);
             }
         });
     }
@@ -388,10 +388,11 @@ public class VInscribirClienteEspectaculo extends javax.swing.JFrame {
     }
     
     public void rellenarComboEspectaculos(){
-        if(this.listaEspectaculos != null && !this.listaEspectaculos.isEmpty()){
-             cbNombre.addItem("-----Elegir espectáculo-----");
+        cbNombre.removeAllItems();
+        if(this.listaAllEspectaculos != null && !this.listaAllEspectaculos.isEmpty()){
+            cbNombre.addItem("-----Elegir espectáculo-----");
             try{
-                for(Espectaculo espec : this.listaEspectaculos){
+                for(Espectaculo espec : this.listaAllEspectaculos){
                     String nombre = espec.getNombre();
                     String nombreOriginal = nombre;
                     int countRepetido = 0;
@@ -411,10 +412,13 @@ public class VInscribirClienteEspectaculo extends javax.swing.JFrame {
     }
     
     public void rellenarComboClientes(){
-        if(this.listaClientes != null && !this.listaClientes.isEmpty()){
+        this.listaClientesFiltrados = new ArrayList<>();
+        cbDni.removeAllItems();
+        if(this.listaAllClientes != null && !this.listaAllClientes.isEmpty()){
             try{
+                filtrarListaClientes();
                 cbDni.addItem("-----Elegir cliente-----");
-                for(Cliente cli : this.listaClientes){
+                for(Cliente cli : this.listaClientesFiltrados){
                     cbDni.addItem(cli.getDni());
                 }
             }catch(Exception e){
@@ -422,15 +426,27 @@ public class VInscribirClienteEspectaculo extends javax.swing.JFrame {
             } 
         }
     }
+    
+    public void filtrarListaClientes(){
+        if(this.espectaculoSeleccionado != null){
+            if(this.espectaculoSeleccionado.getListaClientes() != null){
+                for(Cliente cli : this.espectaculoSeleccionado.getListaClientes()){
+                    Cliente cliEncontrado = this.listaAllClientes.stream().filter(c -> c.getDni().equalsIgnoreCase(cli.getDni())).findFirst().orElse(null);
+                    if(cliEncontrado != null){
+                        this.listaClientesFiltrados.add(cliEncontrado);
+                    }
+                }
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancelar;
-    private javax.swing.JButton Inscribir;
+    private javax.swing.JButton btRetirar;
     private javax.swing.JComboBox<String> cbDni;
     private javax.swing.JComboBox<String> cbNombre;
     private javax.swing.JLabel eApellido2;
     private javax.swing.JLabel eLugar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
@@ -446,5 +462,6 @@ public class VInscribirClienteEspectaculo extends javax.swing.JFrame {
     private javax.swing.JTextField tLugar;
     private javax.swing.JTextField tNacimiento;
     private javax.swing.JTextField tNombre;
+    private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }

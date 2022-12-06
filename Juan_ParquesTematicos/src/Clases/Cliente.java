@@ -106,7 +106,7 @@ public class Cliente implements Serializable {
     }
     
     public String toString2(){
-        return "- "+dni+" - "+nombre+" "+apellido1+", edad: "+this.calcularEdad();
+        return "- "+dni+" - "+nombre+" "+apellido1+", edad: "+this.calcularEdad()+(baja ? " (de baja)":"");
     }
     
     

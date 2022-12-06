@@ -1,0 +1,182 @@
+package BBDD.sqlite;
+
+import BBDD.mysql.*;
+import Clases.*;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class SQLITE_EmpleadoBD {
+    
+    public static void insertEmpleado(Empleado emple) throws SQLException, Exception{
+            Connection con = SQLITE_BD.conectarBD();
+            String sql = "INSERT INTO EMPLE VALUES(?,?,?,?,?,?,?,0)";
+            PreparedStatement state = con.prepareStatement(sql);
+        try{
+            state.setString(1, emple.getDni());
+            state.setString(2, emple.getNombre());
+            state.setString(3, emple.getApellido1());
+            state.setDate(4, new java.sql.Date(emple.getFechaNacimiento().getTime()));
+            state.setDate(5, new java.sql.Date(emple.getFechaContratacion().getTime()));
+            state.setString(6, emple.getNacionalidad());
+            state.setString(7, emple.getCargo());
+            state.executeUpdate();
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if(state != null){
+                state.close();
+            }
+            if(con != null){
+                con.close();
+            }
+        }
+       
+    }
+    
+    public static void updateEmpleado(Empleado emple) throws SQLException, Exception{
+            Connection con = SQLITE_BD.conectarBD();
+            StringBuilder sql = new StringBuilder();
+            sql.append("UPDATE EMPLE SET ");
+            sql.append("NOMBRE = ?, APELLIDO = ?, FECHA_NACIMIENTO = ?, ");
+            sql.append("FECHA_CONTRATO = ?, NACIONALIDAD = ?, CARGO = ?,  ");
+            sql.append("BAJA = ? WHERE DNI = ?");
+            PreparedStatement state = con.prepareStatement(sql.toString());
+        try{
+            state.setString(1, emple.getNombre());
+            state.setString(2, emple.getApellido1());
+            state.setDate(3, new java.sql.Date(emple.getFechaNacimiento().getTime()));
+            state.setDate(4, new java.sql.Date(emple.getFechaContratacion().getTime()));
+            state.setString(5, emple.getNacionalidad());
+            state.setString(6, emple.getCargo());
+            state.setBoolean(7, emple.isBaja());
+            state.setString(8, emple.getDni());
+            state.executeUpdate();
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if(state != null){
+                state.close();
+            }
+            if(con != null){
+                con.close();
+            }
+        }
+    }
+    
+    public static void deleteEmpleado(Empleado emple) throws SQLException, Exception{
+            Connection con = SQLITE_BD.conectarBD();
+            StringBuilder sql = new StringBuilder();
+            sql.append("DELETE FROM emple WHERE DNI = ? ");
+            PreparedStatement state = con.prepareStatement(sql.toString());
+        try{
+            state.setString(1, emple.getDni());
+            state.executeUpdate();
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if(state != null){
+                state.close();
+            }
+            if(con != null){
+                con.close();
+            }
+        }
+    }
+    
+    public static List<Empleado> getAllEmpleados() throws SQLException, Exception{
+        List<Empleado> empleados = new ArrayList<>();
+        Connection con = null;
+        String sql = "SELECT * FROM EMPLE";
+        Statement state = null;
+        try{
+            con = SQLITE_BD.conectarBD();
+            state = con.createStatement();
+            ResultSet result = state.executeQuery(sql);
+            while(result.next()){
+                Empleado emple = mappearEmpleado(result);
+                empleados.add(emple);
+            }
+            result.close();
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if(state != null){
+                state.close();
+            }
+            if(con != null){
+                con.close();
+            }
+        }
+        return empleados;
+    }
+    
+    public static List<Empleado> getAllEmpleadosWithEspectaculos() throws SQLException, Exception{
+        List<Empleado> empleados = new ArrayList<>();
+        Connection con = null;
+        String sql = "SELECT * FROM EMPLE";
+        Statement state = null;
+        try{
+            con = SQLITE_BD.conectarBD();
+            state = con.createStatement();
+            ResultSet result = state.executeQuery(sql);
+            while(result.next()){
+                Empleado emple = mappearEmpleado(result);
+                List<Espectaculo> espectaculos = SQLITE_EspectaculoBD.getAllEspectaculosFromEmpleado(emple.getDni());
+                emple.setListaEspectaculos(espectaculos);
+                empleados.add(emple);
+            }
+            result.close();
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if(state != null){
+                state.close();
+            }
+            if(con != null){
+                con.close();
+            }
+        }
+        return empleados;
+    }
+    
+    public static List<Empleado> getEmpleadosBajaFalse() throws SQLException, Exception{
+        List<Empleado> empleados = new ArrayList<>();
+        Connection con = null;
+        String sql = "SELECT * FROM EMPLE WHERE BAJA = 0";
+        Statement state = null;
+        try{
+            con = SQLITE_BD.conectarBD();
+            state = con.createStatement();
+            ResultSet result = state.executeQuery(sql);
+            while(result.next()){
+                Empleado emple = mappearEmpleado(result);
+                empleados.add(emple);
+            }
+            result.close();
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if(state != null){
+                state.close();
+            }
+            if(con != null){
+                con.close();
+            }
+        }
+        return empleados;
+    }
+    
+    public static Empleado mappearEmpleado(ResultSet result) throws SQLException, Exception{
+        Empleado emple = new Empleado();
+        emple.setDni(result.getString("DNI"));
+        emple.setNombre(result.getString("NOMBRE"));
+        emple.setApellido1(result.getString("APELLIDO"));
+        emple.setFechaNacimiento(result.getDate("FECHA_NACIMIENTO"));
+        emple.setFechaContratacion(result.getDate("FECHA_CONTRATO"));
+        emple.setNacionalidad(result.getString("NACIONALIDAD"));
+        emple.setCargo(result.getString("CARGO"));
+        emple.setBaja(result.getBoolean("BAJA"));
+        return emple;
+    }
+}

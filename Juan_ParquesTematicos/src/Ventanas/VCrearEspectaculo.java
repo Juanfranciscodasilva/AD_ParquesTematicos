@@ -442,7 +442,7 @@ public class VCrearEspectaculo extends javax.swing.JFrame {
             NoAforo.setText("*El aforo es obligatorio.");
             NoAforo.setVisible(true);
             valido = false;
-        }else if(!isNumeric(aforo)){
+        }else if(!isNumericMayorACero(aforo)){
             NoAforo.setText("*El aforo no es válido.");
             NoAforo.setVisible(true);
             valido = false;
@@ -460,10 +460,13 @@ public class VCrearEspectaculo extends javax.swing.JFrame {
         return valido;
     }
      
-     private boolean isNumeric(String numeroString){
+     private boolean isNumericMayorACero(String numeroString){
          try{
              int numeroConvertido = Integer.parseInt(numeroString);
-             return true;
+             if(numeroConvertido > 0){
+                 return true;
+             }
+             return false;
          }catch(Exception ex){
              return false;
          }

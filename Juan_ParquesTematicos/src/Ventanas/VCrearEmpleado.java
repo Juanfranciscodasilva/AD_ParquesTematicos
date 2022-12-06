@@ -256,7 +256,7 @@ public class VCrearEmpleado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
-        Main.cerrarCrearCliente(opcion);
+        Main.cerrarCrearEmpleado(opcion);
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed

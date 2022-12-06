@@ -129,6 +129,11 @@ public class VvmeEmpleado extends javax.swing.JFrame {
         ckBaja.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         ckMostrarBaja.setText("Mostrar también empleados dados de baja");
+        ckMostrarBaja.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ckMostrarBajaItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -273,6 +278,10 @@ public class VvmeEmpleado extends javax.swing.JFrame {
             bEliminarModificar.setEnabled(true);
         }
     }//GEN-LAST:event_cbDNIActionPerformed
+
+    private void ckMostrarBajaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckMostrarBajaItemStateChanged
+        rellenarComboEmpleados();
+    }//GEN-LAST:event_ckMostrarBajaItemStateChanged
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

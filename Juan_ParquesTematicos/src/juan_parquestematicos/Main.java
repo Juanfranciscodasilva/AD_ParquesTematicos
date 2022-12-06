@@ -24,6 +24,7 @@ public class Main {
     public static VInscribirClienteEspectaculo vInscribirClienteEspectaculo;
     public static VVerEspectaculosDeCliente vVerEspectaculosDeCliente;
     public static VVerEspectaculosDeEmpleado vVerEspectaculosDeEmpleado;
+    public static VRetirarClienteEspectaculo vRetirarClienteEspectaculo;
     
     public static PARQUES parqueSeleccionado;
 
@@ -326,6 +327,28 @@ public class Main {
         vPrincipal.setVisible(true);
     }
     
+    public static void abrirRetirarClienteEspectaculo(){
+        try{
+            List<Espectaculo> espectaculos = BD_INTERMEDIARIO.obtenerAllEspectaculosNoBajaConClientes();
+            List<Cliente> clientes = BD_INTERMEDIARIO.obtenerAllClientesNoBajaConEspectaculos();
+            if(vPrincipal != null){
+                vPrincipal.setVisible(false);
+                vPrincipal.dispose();
+            }
+            vRetirarClienteEspectaculo = new VRetirarClienteEspectaculo(espectaculos,clientes);
+            vRetirarClienteEspectaculo.setVisible(true);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al abrir la ventana. Intentalo de nuevo.","",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public static void cerrarRetirarClienteEspectaculo(){
+        vRetirarClienteEspectaculo.setVisible(false);
+        vRetirarClienteEspectaculo.dispose();
+        vPrincipal = new VPrincipal(parqueSeleccionado);
+        vPrincipal.setVisible(true);
+    }
+    
     public static Response insertarCliente(Cliente cli){
         return BD_INTERMEDIARIO.insertarCliente(cli);
     }
@@ -364,6 +387,10 @@ public class Main {
     
     public static Response insertarInscripcionClienteEspectaculo(Espectaculo espe, Cliente cli){
         return BD_INTERMEDIARIO.insertarInscripcionClienteEspectaculo(espe,cli);
+    }
+    
+    public static Response retirarInscripcionClienteEspectaculo(Espectaculo espe, Cliente cli){
+        return BD_INTERMEDIARIO.eliminarInscripcionClienteEspectaculo(espe,cli);
     }
     
     public static void cerrarPrograma(){

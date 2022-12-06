@@ -1,14 +1,15 @@
-package BBDD.mysql;
+package BBDD.sqlite;
 
 import Clases.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import org.sqlite.SQLiteException;
 
-public class MYSQL_ClienteBD {
+public class SQLITE_ClienteBD {
     
     public static void insertCliente(Cliente cli) throws SQLException, Exception{
-            Connection con = MYSQL_BD.conectarBD();
+            Connection con = SQLITE_BD.conectarBD();
             String sql = "INSERT INTO CLIENTES VALUES(?,?,?,?,0)";
             PreparedStatement state = con.prepareStatement(sql);
         try{
@@ -31,7 +32,7 @@ public class MYSQL_ClienteBD {
     }
     
     public static void updateCliente(Cliente cli) throws SQLException, Exception{
-            Connection con = MYSQL_BD.conectarBD();
+            Connection con = SQLITE_BD.conectarBD();
             StringBuilder sql = new StringBuilder();
             sql.append("UPDATE CLIENTES SET ");
             sql.append("NOMBRE = ?, APELLIDO = ?, FECHA_NACIMIENTO = ?, ");
@@ -57,12 +58,12 @@ public class MYSQL_ClienteBD {
     }
     
     public static void deleteCliente(Cliente cli) throws SQLException, Exception{
-            Connection con = MYSQL_BD.conectarBD();
+            Connection con = SQLITE_BD.conectarBD();
             StringBuilder sql = new StringBuilder();
             sql.append("DELETE FROM CLIENTES WHERE DNI = ? ");
             PreparedStatement state = con.prepareStatement(sql.toString());
         try{
-            MYSQL_EspectaculoClienteBD.deleteAllFromCliente(cli.getDni());
+            SQLITE_EspectaculoClienteBD.deleteAllFromCliente(cli.getDni());
             state.setString(1, cli.getDni());
             state.executeUpdate();
         }catch(Exception ex){
@@ -83,7 +84,7 @@ public class MYSQL_ClienteBD {
         String sql = "SELECT * FROM CLIENTES";
         Statement state = null;
         try{
-            con = MYSQL_BD.conectarBD();
+            con = SQLITE_BD.conectarBD();
             state = con.createStatement();
             ResultSet result = state.executeQuery(sql);
             while(result.next()){
@@ -110,12 +111,12 @@ public class MYSQL_ClienteBD {
         String sql = "SELECT * FROM CLIENTES";
         Statement state = null;
         try{
-            con = MYSQL_BD.conectarBD();
+            con = SQLITE_BD.conectarBD();
             state = con.createStatement();
             ResultSet result = state.executeQuery(sql);
             while(result.next()){
                 Cliente cli = mappearCliente(result);
-                List<Espectaculo> espectaculos = MYSQL_EspectaculoBD.getAllEspectaculosFromCliente(cli.getDni());
+                List<Espectaculo> espectaculos = SQLITE_EspectaculoBD.getAllEspectaculosFromCliente(cli.getDni());
                 cli.setListaEspectaculos(espectaculos);
                 clientes.add(cli);
             }
@@ -139,12 +140,12 @@ public class MYSQL_ClienteBD {
         String sql = "SELECT * FROM CLIENTES WHERE BAJA = 0";
         Statement state = null;
         try{
-            con = MYSQL_BD.conectarBD();
+            con = SQLITE_BD.conectarBD();
             state = con.createStatement();
             ResultSet result = state.executeQuery(sql);
             while(result.next()){
                 Cliente cli = mappearCliente(result);
-                List<Espectaculo> listaEspectaculos = MYSQL_EspectaculoBD.getAllEspectaculosFromCliente(cli.getDni());
+                List<Espectaculo> listaEspectaculos = SQLITE_EspectaculoBD.getAllEspectaculosFromCliente(cli.getDni());
                 cli.setListaEspectaculos(listaEspectaculos);
                 clientes.add(cli);
             }
@@ -171,7 +172,7 @@ public class MYSQL_ClienteBD {
         sql.append("WHERE ec.ID_ESPECTACULO = ? ");
         PreparedStatement state = null;
         try{
-            con = MYSQL_BD.conectarBD();
+            con = SQLITE_BD.conectarBD();
             state = con.prepareStatement(sql.toString());
             state.setInt(1, idEspectaculo);
             ResultSet result = state.executeQuery();
