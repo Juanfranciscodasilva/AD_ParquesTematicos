@@ -7,7 +7,7 @@ import java.util.List;
 
 public class MYSQL_EspectaculoBD {
     
-    public static void insertEspectaculo(Espectaculo espe) throws SQLException{
+    public static void insertEspectaculo(Espectaculo espe) throws SQLException, Exception{
             Connection con = MYSQL_BD.conectarBD();
             String sql = "INSERT INTO ESPECTACULOS VALUES(null,?,?,?,?,0,?)";
             PreparedStatement state = con.prepareStatement(sql);
@@ -31,7 +31,7 @@ public class MYSQL_EspectaculoBD {
        
     }
     
-    public static void updateEspectaculo(Espectaculo espe) throws SQLException{
+    public static void updateEspectaculo(Espectaculo espe) throws SQLException, Exception{
             Connection con = MYSQL_BD.conectarBD();
             StringBuilder sql = new StringBuilder();
             sql.append("UPDATE ESPECTACULOS SET ");
@@ -60,28 +60,25 @@ public class MYSQL_EspectaculoBD {
         }
     }
     
-    public static void deleteEspectaculo(Espectaculo espe) throws SQLException{
-//            Connection con = MYSQL_BD.conectarBD();
-//            StringBuilder sql = new StringBuilder();
-//            sql.append("DELETE FROM CLIENTES WHERE DNI = ? ");
-//            PreparedStatement state = con.prepareStatement(sql.toString());
-//        try{
-//            state.setString(1, cli.getNombre());
-//            state.setString(2, cli.getApellido1());
-//            state.setDate(3, new java.sql.Date(cli.getFechaNacimiento().getTime()));
-//            state.setBoolean(4, cli.isBaja());
-//            state.setString(5, cli.getDni());
-//            state.executeUpdate();
-//        }catch(Exception ex){
-//            throw ex;
-//        }finally{
-//            if(state != null){
-//                state.close();
-//            }
-//            if(con != null){
-//                con.close();
-//            }
-//        }
+    public static void deleteEspectaculo(Espectaculo espe) throws SQLException, Exception{
+        Connection con = MYSQL_BD.conectarBD();
+        StringBuilder sql = new StringBuilder();
+        sql.append("DELETE FROM ESPECTACULOS WHERE ID = ? ");
+        PreparedStatement state = con.prepareStatement(sql.toString());
+        try{
+            MYSQL_EspectaculoClienteBD.deleteAllFromEspectaculo(espe.getId());
+            state.setInt(1, espe.getId());
+            state.executeUpdate();
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if(state != null){
+                state.close();
+            }
+            if(con != null){
+                con.close();
+            }
+        }
     }
     
     public static List<Espectaculo> getAllEspectaculos() throws SQLException, Exception{
@@ -185,7 +182,7 @@ public class MYSQL_EspectaculoBD {
         return espectaculos;
     }
     
-    public static Espectaculo mappearEspectaculo(ResultSet result) throws Exception{
+    public static Espectaculo mappearEspectaculo(ResultSet result) throws SQLException, Exception{
         Espectaculo espec = new Espectaculo();
         if(result != null){
             espec.setId(result.getInt("ID"));
@@ -198,7 +195,7 @@ public class MYSQL_EspectaculoBD {
         return espec;
     }
     
-    public static Espectaculo mappearSelectAllWithEncargado(ResultSet result) throws Exception{
+    public static Espectaculo mappearSelectAllWithEncargado(ResultSet result) throws SQLException, Exception{
         Espectaculo espec = new Espectaculo();
         if(result != null){
             espec.setId(result.getInt("e.ID"));

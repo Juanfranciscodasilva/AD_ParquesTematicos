@@ -1,5 +1,6 @@
 package BBDD.mysql;
 
+import Clases.Parque;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -63,7 +64,12 @@ public class MYSQL_BD {
                 throw ex;
             }
         }else{
-            //TODO comprobar que este el parque insertado
+            Parque parque = MYSQL_ParqueBD.getParque();
+            if(parque == null){
+                System.out.println("MYSQL: No se ha detectado el parque correspondiente");
+                InsertarParque(con);
+                System.out.println("MYSQL: Se ha insertado el parque correspondiente");
+            }
         }
     }
     

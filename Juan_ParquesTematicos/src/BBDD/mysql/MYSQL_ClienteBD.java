@@ -7,7 +7,7 @@ import java.util.List;
 
 public class MYSQL_ClienteBD {
     
-    public static void insertCliente(Cliente cli) throws SQLException{
+    public static void insertCliente(Cliente cli) throws SQLException, Exception{
             Connection con = MYSQL_BD.conectarBD();
             String sql = "INSERT INTO CLIENTES VALUES(?,?,?,?,0)";
             PreparedStatement state = con.prepareStatement(sql);
@@ -30,7 +30,7 @@ public class MYSQL_ClienteBD {
        
     }
     
-    public static void updateCliente(Cliente cli) throws SQLException{
+    public static void updateCliente(Cliente cli) throws SQLException, Exception{
             Connection con = MYSQL_BD.conectarBD();
             StringBuilder sql = new StringBuilder();
             sql.append("UPDATE CLIENTES SET ");
@@ -56,28 +56,25 @@ public class MYSQL_ClienteBD {
         }
     }
     
-    public static void deleteCliente(Cliente cli) throws SQLException{
-//            Connection con = MYSQL_BD.conectarBD();
-//            StringBuilder sql = new StringBuilder();
-//            sql.append("DELETE FROM CLIENTES WHERE DNI = ? ");
-//            PreparedStatement state = con.prepareStatement(sql.toString());
-//        try{
-//            state.setString(1, cli.getNombre());
-//            state.setString(2, cli.getApellido1());
-//            state.setDate(3, new java.sql.Date(cli.getFechaNacimiento().getTime()));
-//            state.setBoolean(4, cli.isBaja());
-//            state.setString(5, cli.getDni());
-//            state.executeUpdate();
-//        }catch(Exception ex){
-//            throw ex;
-//        }finally{
-//            if(state != null){
-//                state.close();
-//            }
-//            if(con != null){
-//                con.close();
-//            }
-//        }
+    public static void deleteCliente(Cliente cli) throws SQLException, Exception{
+            Connection con = MYSQL_BD.conectarBD();
+            StringBuilder sql = new StringBuilder();
+            sql.append("DELETE FROM CLIENTES WHERE DNI = ? ");
+            PreparedStatement state = con.prepareStatement(sql.toString());
+        try{
+            MYSQL_EspectaculoClienteBD.deleteAllFromCliente(cli.getDni());
+            state.setString(1, cli.getDni());
+            state.executeUpdate();
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            if(state != null){
+                state.close();
+            }
+            if(con != null){
+                con.close();
+            }
+        }
     }
     
     public static List<Cliente> getAllClientes() throws SQLException, Exception{
@@ -195,7 +192,7 @@ public class MYSQL_ClienteBD {
         return clientes;
     }
     
-    public static Cliente mappearCliente(ResultSet result) throws Exception{
+    public static Cliente mappearCliente(ResultSet result) throws SQLException, Exception{
         Cliente cli = new Cliente();
         cli.setDni(result.getString("DNI"));
         cli.setNombre(result.getString("NOMBRE"));

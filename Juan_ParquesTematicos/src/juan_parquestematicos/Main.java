@@ -154,7 +154,7 @@ public class Main {
     
     public static void abrirVMEEmpleado(int opcion){
         try{
-            List<Empleado> empleados = BD_INTERMEDIARIO.obtenerAllEmpleados();
+            List<Empleado> empleados = BD_INTERMEDIARIO.obtenerAllEmpleadosConEspectaculos();
             if(vPrincipal != null){
                 vPrincipal.setVisible(false);
                 vPrincipal.dispose();

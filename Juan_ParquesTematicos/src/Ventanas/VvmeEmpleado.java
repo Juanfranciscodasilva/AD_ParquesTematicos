@@ -222,6 +222,10 @@ public class VvmeEmpleado extends javax.swing.JFrame {
 
     private void bEliminarModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarModificarActionPerformed
         if(this.opcion==0){
+            if(e.getListaEspectaculos() != null && !e.getListaEspectaculos().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Este empleado tiene espectáculos a cargo, reemplácelo antes de dar de baja.","", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
             int eleccion = JOptionPane.showConfirmDialog(null, "Se va a dar de baja el empleado ¿Prefieres dar de baja eliminando completamente al empleado? ", "Dar de baja o eliminar completamente", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
             if(eleccion == 0){
                 Response respuesta = Main.eliminarEmpleado(e); 
