@@ -1,0 +1,54 @@
+USE AD_PARQUES_TEMATICOS;
+
+CREATE TABLE `clientes` (
+  `DNI` varchar(15) NOT NULL,
+  `NOMBRE` varchar(50) NOT NULL,
+  `APELLIDO` varchar(50) NOT NULL,
+  `FECHA_NACIMIENTO` date NOT NULL,
+  `BAJA` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`DNI`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+CREATE TABLE `emple` (
+  `DNI` varchar(15) NOT NULL,
+  `NOMBRE` varchar(50) NOT NULL,
+  `APELLIDO` varchar(50) NOT NULL,
+  `FECHA_NACIMIENTO` date NOT NULL,
+  `FECHA_CONTRATO` date NOT NULL,
+  `NACIONALIDAD` varchar(50) NOT NULL,
+  `CARGO` varchar(50) NOT NULL,
+  `BAJA` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`DNI`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+CREATE TABLE `parque` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `NOMBRE` varchar(50) NOT NULL,
+  `FECHA_APERTURA` date NOT NULL,
+  `DIRECCION` varchar(100) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+
+INSERT INTO PARQUE VALUES(null,'Warner',SYSDATE(),'Direccion de prueba para la Warner' );
+
+CREATE TABLE `espectaculos` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `NOMBRE` varchar(50) NOT NULL,
+  `AFORO` int DEFAULT '0',
+  `DESCRIPCION` varchar(150) DEFAULT NULL,
+  `LUGAR` varchar(50) NOT NULL,
+  `BAJA` tinyint(1) DEFAULT '0',
+  `EMPLEADO_FK` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `EMPLEADO_FK` (`EMPLEADO_FK`),
+  CONSTRAINT `espectaculos_ibfk_1` FOREIGN KEY (`EMPLEADO_FK`) REFERENCES `emple` (`DNI`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+
+CREATE TABLE `espectaculo_cliente` (
+  `ID_ESPECTACULO` int NOT NULL,
+  `DNI_CLIENTE` varchar(15) NOT NULL,
+  PRIMARY KEY (`ID_ESPECTACULO`,`DNI_CLIENTE`),
+  KEY `DNI_CLIENTE` (`DNI_CLIENTE`),
+  CONSTRAINT `espectaculo_cliente_ibfk_1` FOREIGN KEY (`ID_ESPECTACULO`) REFERENCES `espectaculos` (`ID`),
+  CONSTRAINT `espectaculo_cliente_ibfk_2` FOREIGN KEY (`DNI_CLIENTE`) REFERENCES `clientes` (`DNI`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;

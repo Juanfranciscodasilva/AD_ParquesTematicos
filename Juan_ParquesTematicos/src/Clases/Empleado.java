@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Empleado implements Serializable {
+public class Empleado {
  
-    private int id;
     private String dni;
     private String nombre;
     private String apellido1;
@@ -22,8 +21,7 @@ public class Empleado implements Serializable {
     public Empleado() {
     }
     
-    public Empleado(int id, String dni, String nombre, String apellido1, Date fechaNacimiento, Date fechaContratacion, String nacionalidad, String cargo, boolean baja) {
-        this.id = id;
+    public Empleado(String dni, String nombre, String apellido1, Date fechaNacimiento, Date fechaContratacion, String nacionalidad, String cargo, boolean baja) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -34,8 +32,7 @@ public class Empleado implements Serializable {
         this.baja = baja;
     }
 
-    public Empleado(int id, String dni, String nombre, String apellido1, Date fechaNacimiento, Date fechaContratacion, String nacionalidad, String cargo) {
-        this.id = id;
+    public Empleado(String dni, String nombre, String apellido1, Date fechaNacimiento, Date fechaContratacion, String nacionalidad, String cargo) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -49,14 +46,6 @@ public class Empleado implements Serializable {
         this.nombre = nombre;
         this.apellido1 = apellido1;
         this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getDni() {
@@ -129,6 +118,20 @@ public class Empleado implements Serializable {
 
     public void setListaEspectaculos(List<Espectaculo> listaEspectaculos) {
         this.listaEspectaculos = listaEspectaculos;
+    }
+    
+    public Empleado clonar(){
+        Empleado clon = new Empleado();
+        clon.setDni(dni);
+        clon.setNombre(nombre);
+        clon.setApellido1(apellido1);
+        clon.setFechaNacimiento(fechaNacimiento);
+        clon.setFechaContratacion(fechaContratacion);
+        clon.setNacionalidad(nacionalidad);
+        clon.setCargo(cargo);
+        clon.setBaja(baja);
+        clon.setListaEspectaculos(new ArrayList<>());
+        return clon;
     }
 
 }

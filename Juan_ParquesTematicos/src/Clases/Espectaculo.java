@@ -1,5 +1,6 @@
 package Clases;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Espectaculo {
@@ -84,6 +85,19 @@ public class Espectaculo {
     
     public String toString2(){
         return "- "+nombre+": "+descripcion+". En: "+lugar+" para "+aforo+" personas."+(baja ? " (de baja)":"");
+    }
+    
+    public Espectaculo clonar(){
+        Espectaculo clon = new Espectaculo();
+        clon.setId(getId());
+        clon.setNombre(getNombre());
+        clon.setAforo(getAforo());
+        clon.setDescripcion(getDescripcion());
+        clon.setLugar(getLugar());
+        clon.setBaja(isBaja());
+        clon.setEncargado(new Empleado());
+        clon.setListaClientes(new ArrayList<>());
+        return clon;
     }
     
 }

@@ -47,7 +47,7 @@ public class BD_INTERMEDIARIO {
                 clientes = SQLITE_ClienteBD.getAllClientes();
                 break;
             case Disney:
-                
+                clientes = DB4O_ClienteBD.getAllClientes();
                 break;
             }
         }catch(Exception ex){
@@ -68,7 +68,7 @@ public class BD_INTERMEDIARIO {
                 clientes = SQLITE_ClienteBD.getAllClientesWithEspectaculos();
                 break;
             case Disney:
-                
+                clientes = DB4O_ClienteBD.getAllClientesWithEspectaculos();
                 break;
             }
         }catch(Exception ex){
@@ -89,7 +89,7 @@ public class BD_INTERMEDIARIO {
                 clientes = SQLITE_ClienteBD.getAllClientesNoBajaConEspectaculos();
                 break;
             case Disney:
-                
+                clientes = DB4O_ClienteBD.getAllClientesNoBajaConEspectaculos();
                 break;
             }
         }catch(Exception ex){
@@ -110,7 +110,7 @@ public class BD_INTERMEDIARIO {
                 SQLITE_ClienteBD.insertCliente(cli);
                 break;
             case Disney:
-                
+                DB4O_ClienteBD.insertCliente(cli);
                 break;
             }
         }catch(SQLiteException ex){
@@ -150,7 +150,7 @@ public class BD_INTERMEDIARIO {
                 SQLITE_ClienteBD.updateCliente(cli);
                 break;
             case Disney:
-                
+                DB4O_ClienteBD.updateCliente(cli);
                 break;
             }
         }catch(Exception ex){
@@ -172,7 +172,7 @@ public class BD_INTERMEDIARIO {
                 SQLITE_ClienteBD.deleteCliente(cli);
                 break;
             case Disney:
-                
+                DB4O_ClienteBD.deleteCliente(cli);
                 break;
             }
         }catch(Exception ex){
@@ -194,7 +194,7 @@ public class BD_INTERMEDIARIO {
                 empleados = SQLITE_EmpleadoBD.getAllEmpleados();
                 break;
             case Disney:
-                
+                empleados = DB4O_EmpleadoBD.getAllEmpleados();
                 break;
             }
         }catch(Exception ex){
@@ -215,7 +215,7 @@ public class BD_INTERMEDIARIO {
                 empleados = SQLITE_EmpleadoBD.getAllEmpleadosWithEspectaculos();
                 break;
             case Disney:
-                
+                empleados = DB4O_EmpleadoBD.getAllEmpleadosWithEspectaculos();
                 break;
             }
         }catch(Exception ex){
@@ -236,7 +236,7 @@ public class BD_INTERMEDIARIO {
                 empleados = SQLITE_EmpleadoBD.getEmpleadosBajaFalse();
                 break;
             case Disney:
-                
+                empleados = DB4O_EmpleadoBD.getEmpleadosBajaFalse();
                 break;
             }
         }catch(Exception ex){
@@ -257,7 +257,7 @@ public class BD_INTERMEDIARIO {
                 SQLITE_EmpleadoBD.insertEmpleado(emple);
                 break;
             case Disney:
-                
+                DB4O_EmpleadoBD.insertEmpleado(emple);
                 break;
             }
         }catch(SQLiteException ex){
@@ -297,7 +297,7 @@ public class BD_INTERMEDIARIO {
                 SQLITE_EmpleadoBD.updateEmpleado(emple);
                 break;
             case Disney:
-                
+                DB4O_EmpleadoBD.updateEmpleado(emple);
                 break;
             }
         }catch(Exception ex){
@@ -319,7 +319,7 @@ public class BD_INTERMEDIARIO {
                 SQLITE_EmpleadoBD.deleteEmpleado(emple);
                 break;
             case Disney:
-                
+                DB4O_EmpleadoBD.deleteEmpleado(emple);
                 break;
             }
         }catch(Exception ex){
@@ -341,7 +341,7 @@ public class BD_INTERMEDIARIO {
                 SQLITE_EspectaculoBD.insertEspectaculo(espe);
                 break;
             case Disney:
-                
+                DB4O_EspectaculoBD.insertEspectaculo(espe);
                 break;
             }
         }catch(Exception ex){
@@ -363,7 +363,7 @@ public class BD_INTERMEDIARIO {
                 SQLITE_EspectaculoBD.updateEspectaculo(espe);
                 break;
             case Disney:
-                
+                DB4O_EspectaculoBD.updateEspectaculo(espe);
                 break;
             }
         }catch(Exception ex){
@@ -385,7 +385,7 @@ public class BD_INTERMEDIARIO {
                 SQLITE_EspectaculoBD.deleteEspectaculo(espe);
                 break;
             case Disney:
-                
+                DB4O_EspectaculoBD.deleteEspectaculo(espe);
                 break;
             }
         }catch(Exception ex){
@@ -407,7 +407,7 @@ public class BD_INTERMEDIARIO {
                 espectaculos = SQLITE_EspectaculoBD.getAllEspectaculos();
                 break;
             case Disney:
-                
+                espectaculos = DB4O_EspectaculoBD.getAllEspectaculos();
                 break;
             }
         }catch(Exception ex){
@@ -428,7 +428,7 @@ public class BD_INTERMEDIARIO {
                 espectaculos = SQLITE_EspectaculoBD.getAllEspectaculosWithClientes();
                 break;
             case Disney:
-                
+                espectaculos = DB4O_EspectaculoBD.getAllEspectaculosWithClientes();
                 break;
             }
         }catch(Exception ex){
@@ -449,7 +449,7 @@ public class BD_INTERMEDIARIO {
                 espectaculos = SQLITE_EspectaculoBD.getAllEspectaculosNoBajaWithClientes();
                 break;
             case Disney:
-                
+                espectaculos = DB4O_EspectaculoBD.getAllEspectaculosNoBajaWithClientes();
                 break;
             }
         }catch(Exception ex){
@@ -470,7 +470,7 @@ public class BD_INTERMEDIARIO {
                 SQLITE_EspectaculoClienteBD.insertEspectaculoCliente(espec,cli);
                 break;
             case Disney:
-                
+                DB4O_EspectaculoClienteBD.insertEspectaculoCliente(espec,cli);
                 break;
             }
         }catch(SQLiteException ex){
@@ -510,7 +510,7 @@ public class BD_INTERMEDIARIO {
                 SQLITE_EspectaculoClienteBD.deleteEspectaculoCliente(espec.getId(),cli.getDni());
                 break;
             case Disney:
-                
+                DB4O_EspectaculoClienteBD.deleteEspectaculoCliente(espec.getId(),cli.getDni());
                 break;
             }
         }catch(Exception ex){

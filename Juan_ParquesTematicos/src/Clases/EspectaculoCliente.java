@@ -1,19 +1,19 @@
 package Clases;
 
 public class EspectaculoCliente {
-    private int idCliente;
+    private String dniCliente;
     
     private int idEspectaculo;
 
     public EspectaculoCliente() {
     }
 
-    public int getIdCliente() {
-        return idCliente;
+    public String getDniCliente() {
+        return dniCliente;
     }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public void setDniCliente(String dniCliente) {
+        this.dniCliente = dniCliente;
     }
 
     public int getIdEspectaculo() {
