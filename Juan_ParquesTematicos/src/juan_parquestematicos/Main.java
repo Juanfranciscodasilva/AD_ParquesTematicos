@@ -330,7 +330,7 @@ public class Main {
     public static void abrirRetirarClienteEspectaculo(){
         try{
             List<Espectaculo> espectaculos = BD_INTERMEDIARIO.obtenerAllEspectaculosNoBajaConClientes();
-            List<Cliente> clientes = BD_INTERMEDIARIO.obtenerAllClientesNoBajaConEspectaculos();
+            List<Cliente> clientes = BD_INTERMEDIARIO.obtenerAllClientesConEspectaculos();
             if(vPrincipal != null){
                 vPrincipal.setVisible(false);
                 vPrincipal.dispose();
