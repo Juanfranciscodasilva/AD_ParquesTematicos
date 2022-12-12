@@ -10,7 +10,7 @@ La funcionalidad de la aplicación se basará en la gestión de los diferentes e
     * [Requerimientos](#requerimientos)
     * [Almacenamiento](#almacenamiento)
     * [A tener en cuenta](#a-tener-en-cuenta)
-* [Estructura](#estructura)
+* [Aplicación](#aplicación)
     * [Selección de parque](#selección-de-parque)
     * [Ventana principal](#ventana-principal)
         * [Pestaña espectáculos](#pestaña-espectáculos)
@@ -30,8 +30,8 @@ La funcionalidad de la aplicación se basará en la gestión de los diferentes e
             * [Modificar cliente](#modificar-cliente)
             * [Baja de cliente](#baja-de-cliente)
             * [Ver espectáculos del cliente](#ver-espectáculos-del-cliente)
-            * [Inscribir en espectáculo](#inscribir-en-espectaculo)
-            * [Retirar de espectáculo](#retirar-de-espectáculos)
+            * [Inscribir en espectáculo](#inscribir-en-espectáculo)
+            * [Retirar de espectáculo](#retirar-de-espectáculo)
         * [Pestaña parque](#pestaña-parque)
             * [Datos](#datos)
         * [Pestaña salir](#pestaña-salir)
@@ -49,6 +49,8 @@ La funcionalidad de la aplicación se basará en la gestión de los diferentes e
 * sqlite-jdbc-3.39.3.0.jar
 * mysql-connector-java-8.0.23.jar
 
+Se encuentran dentro del repositorio en un directorio llamado "libs"
+
 ## Almacenamiento
 
 Se lleva a cabo a través de diferentes motores de bases de datos para cada 1 de los parques.
@@ -61,10 +63,12 @@ El modelo relacional base del proyecto es el siguiente:
 ![MER](https://drive.google.com/uc?export=view&id=1Wuk9UXAK5IwR9Snz64kfQ1rjtLGeQcUR)
 
 ## A tener en cuenta
-Las vistas están hechas basadas en JFrame desde Netbeans, es posible que para visualizar de manera acertada su diseñador se necesite dicho IDE.
+* Las vistas están hechas basadas en JFrame desde Netbeans, es posible que para visualizar de manera acertada su diseñador se necesite dicho IDE.
+* Las respectivas configuraciones para la conexión con las bases de datos se encuentran como variables estáticas en el fichero genérico de cada respectivo SGBD, es decir, para MySql por ejemplo se encontrará en el paquete del proyecto "BBDD.mysql.MYSQL_BD.java".
+* En el repositorio se encontrará un directorio llamado "SQL" que contiene 2 scripts de creación de las tablas necesarias para la aplicación, estos scripts realmente no son necesarios ejecutarlos para poder hacer funcionar la aplicación ya que ella misma se encarga de crear dichas tablas en caso de no existir.
 
 ---
-# Estructura
+# Aplicación
 ---
 
 ## Selección de Parque
@@ -113,7 +117,7 @@ Al igual que en "Modificar Espectáculo" este enlace redirige a una ventana inte
 
 ![eliminar-espectaculo](https://drive.google.com/uc?export=view&id=1tqmc9AEcV2lK18cOiKmzVaN8w_FEJyB4)
 
-Una vez seleccionado un campamento se podrá dar a "Eliminar". Paso seguido aparecerá una ventana de confirmación que dará la opción de dar de baja y mantener los datos aún registrados en la aplicación, eliminar completamente el espectáculo o cancelar.
+Una vez seleccionado un espectáculo se podrá dar a "Dar de baja". Paso seguido aparecerá una ventana de confirmación que dará la opción de dar de baja y mantener los datos aún registrados en la aplicación, eliminar completamente el espectáculo o cancelar.
 
 ![confirmacion-eliminar-espectaculo](https://drive.google.com/uc?export=view&id=1zpwNT0oSJqLuTGk1mi87uaNImu4zmpvG)
 
@@ -137,7 +141,7 @@ Este enlace redirige a una ventada donde se puede seleccionar el espectáculo y 
 ![principal-empleados](https://drive.google.com/uc?export=view&id=1TF1KxF0WmsOsBaBTxzB96uS_thU_AzIq)
 
 ### Alta de empleado
-La ventana de crear personas consta de un formulario que recogerá datos de la persona:
+La ventana de alta de empleados consta de un formulario que recogerá datos del empleado:
 * DNI
 * Nombre
 * Apellido
@@ -157,7 +161,7 @@ Este enlace redirige a una ventana intermedia donde se seleccionará el empleado
 
 Una vez seleccionado un empleado se podrá dar a "Modificar" y llevará a la siguiente ventana.
 
-La siguiente ventana, como la de "Alta de Empleado" consta de los campos necesarios a rellenar para modificar el empleado.
+La siguiente ventana, como la de "Alta de Empleado" consta de los campos necesarios a rellenar para modificar el empleado, salvo el DNI que será fijo.
 
 Nuevamente se hacen las validaciones.
 
@@ -168,7 +172,7 @@ Al igual que en "Modificar Empleado" este enlace redirige a una ventana intermed
 
 ![eliminar-empleado](https://drive.google.com/uc?export=view&id=1LgeINQmXDQGoZKQgdz9CLLIhw_lMb-wI)
 
-Una vez seleccionado un campamento se podrá dar a "Eliminar". Paso seguido aparecerá una ventana de confirmación que dará la opción de dar de baja y mantener los datos aún registrados en la aplicación, eliminar completamente el espectáculo o cancelar.
+Una vez seleccionado un empleado se podrá dar a "Dar de baja". Paso seguido aparecerá una ventana de confirmación que dará la opción de dar de baja y mantener los datos aún registrados en la aplicación, eliminar completamente el empleado o cancelar.
 
 ![confirmacion-eliminar-empleado](https://drive.google.com/uc?export=view&id=1QSX3SV3LmPzo8oMeqRAs5GcirUWyW7rO)
 
@@ -179,64 +183,64 @@ Esta ventana, como ocurre con la de "Ver Clientes del Espectáculo" consta de un
 
 ## Pestaña Clientes
 
-![principal-clientes](https://drive.google.com/uc?export=view&id=14e8-dydd2kkVf7XLjCOEKE_Bknka)
+![principal-clientes](https://drive.google.com/uc?export=view&id=1cWoKJWoCfkMwVFrempnj8nHwGjKL1dH3)
 
 ### Alta de Cliente
-La ventana de crear personas consta de un formulario que recogerá datos de la persona:
+La ventana de alta de cliente consta de un formulario que recogerá datos del cliente:
 * DNI
 * Nombre
-* Primer apellido
-* Segundo apellido
+* Apellido
+* Nacimiento
 
-Esta ventana validará que no haya datos vacíos, y que el DNI no esté ya registrado. Para ello consta de etiquetas rojas que se mostrarán en función de las validaciones que no pase el formulario a la hora de crear a la persona.
+Esta ventana validará que no haya datos vacíos, que la fecha de nacimiento no sea posterior a la actual y que el DNI no esté ya registrado. Para ello consta de etiquetas rojas que se mostrarán en función de las validaciones que no pase el formulario a la hora de crear a la persona.
 
-![alta-cliente](https://drive.google.com/uc?export=view&id=1pb12WRkf1nveKrafMUG3H94tuiYya9)
+![alta-cliente](https://drive.google.com/uc?export=view&id=1TgPReDq0h7VDjXvRY10gp5c3qCO9W13q)
 
 ### Modificar Cliente
-Esta ventana está conformada por 2 bloques de datos.
+Este enlace redirige a una ventana intermedia donde se seleccionará el cliente a modificar. Dicha ventana está compuesta por un desplegable con los distintos clientes donde se puede seleccionar uno y se mostrarán sus datos. Contiene también un checkbox para poder mostrar o no los clientes dados de baja.
 
-El primero será el del campamento. Consta de un desplegable para seleccionar el campamento al que se inscribirá la persona seleccionada en el siguiente bloque, que de la misma manera que los campamentos, contiene un desplegable con el que se elegirá a la persona que se quiere inscribir.
+![modificar-cliente1](https://drive.google.com/uc?export=view&id=1eN9exBy7PWIEi9BgHnTLM-T4dMIkH5AE)
 
-Para poder realizar la inscripción será obligatorio tener un campamento y una persona seleccionada.
+Una vez seleccionado un cliente se podrá dar a "Modificar" y llevará a la siguiente ventana.
 
-![modificar-cliente](https://drive.google.com/uc?export=view&id=1nsnno8zP-V73Vuw5uJu-Gd9ClaD9xu)
+La siguiente ventana, como la de "Alta de Cliente" consta de los campos necesarios a rellenar para modificar el cliente, salvo el DNI que será fijo.
+
+Nuevamente se hacen las validaciones.
+
+![modificar-cliente2](https://drive.google.com/uc?export=view&id=1x3qsb8LYq17jidIjOvC5tW3b4gLFxzYV)
 
 ### Baja de Cliente
-Esta ventana, como la de inscripción, está conformada por 2 bloques de datos.
+Al igual que en "Modificar Cliente" este enlace redirige a una ventana intermedia donde se seleccionará el cliente a dar de baja o eliminar. Dicha ventana está compuesta por un desplegable con los distintos clientes donde se puede seleccionar uno y se mostrarán sus datos. Contiene también un checkbox para poder mostrar o no los clientes dados de baja.
 
-El primero será el de la persona. Consta de un desplegable para seleccionar la persona de la cual se quiere retirar de un campamento, que de la misma manera que en el primer bloque, se seleccionará a través de un desplegable relleno con los campamentos a los que está inscrita la persona seleccionada arriba.
+![eliminar-cliente](https://drive.google.com/uc?export=view&id=1iaeihLXSrtJJ_oiLCpMs7z_iLFIzFaer)
 
-Para poder realizar el proceso de retirar la inscripción será obligatorio tener una persona y un campamento seleccionado.
+Una vez seleccionado un cliente se podrá dar a "Dar de baja". Paso seguido aparecerá una ventana de confirmación que dará la opción de dar de baja y mantener los datos aún registrados en la aplicación, eliminar completamente el cliente o cancelar.
 
-![baja-de-cliente](https://drive.google.com/uc?export=view&id=1PZt8DtgKumoFxQcke8BXAMJAk_MuqN)
+![confirmacion-eliminar-cliente](https://drive.google.com/uc?export=view&id=1RlhQDtJGmmgeeEQXpTWsNtmSST5VOYdp)
 
 ### Ver Espectáculos del Cliente
-TODO
+Este enlace redirige a una ventana donde se seleccionará el cliente del que se quieren ver los datos y además los espectáculos en los que está inscrito. Dicha ventana está compuesta por un desplegable con los distintos clientes y un checkbox para poder ver también los clientes dados de baja.
 
-![ver-espectaculos-del-cliente](https://drive.google.com/uc?export=view&id=1PZt8DtgKumoFxQcke8BXAMJAk_MuqN)
+![ver-espectaculos-del-cliente](https://drive.google.com/uc?export=view&id=1LtpA4ps6UPnrB0xYZqGpBdtmJ7pJcmHA)
 
 ### Inscribir en Espectáculo
-TODO
-
-![inscribir-en-espectaculo](https://drive.google.com/uc?export=view&id=1PZt8DtgKumoFxQcke8BXAMJAk_MuqN)
+Este enlace redirige directamente a la misma ventana a la que redirige [Inscribir cliente en espectáculo](#inscribir-cliente-en-espectáculo) del menú de espectáculos.
 
 ### Retirar de Espectáculo
-TODO
-
-![retirar-de-espectaculo](https://drive.google.com/uc?export=view&id=1PZt8DtgKumoFxQcke8BXAMJAk_MuqN)
+Este enlace redirige directamente a la misma ventana a la que redirige [Retirar cliente de espectáculo](#retirar-cliente-de-espectáculo) del menú de espectáculos.
 
 ## Pestaña Parque
 
-![principal-parque](https://drive.google.com/uc?export=view&id=14e8-dydd2kkVf7XLjCBknka)
+![principal-parque](https://drive.google.com/uc?export=view&id=1Ev54cF2XUEIYPIrobsoDA2Sc-dgTpqkn)
 
 ### Datos
 Al hacer click en esta pestaña se abrirá una pestaña que contiene los datos del parque.
 
-![datos](https://drive.google.com/uc?export=view&id=14e8-dydd2kkVf7XLjCBknka)
+![datos](https://drive.google.com/uc?export=view&id=1xTRfhmAd7zdGzw-33Q0H3cqOOhnJxplf)
 
 ## Pestaña Salir
 
-![principal-salir](https://drive.google.com/uc?export=view&id=14e8-dydd2k7XLjCOEKE_Bknka)
+![principal-salir](https://drive.google.com/uc?export=view&id=1j4VVr_r6th0eBGRnFYI_rxJEHhbegCxN)
 
 ### Cerrar Sesión
 Al hacer click en esta pestaña se cerrará la sesión y se volverá al login de la aplicación.
