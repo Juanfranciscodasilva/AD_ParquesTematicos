@@ -283,19 +283,22 @@ public class VInscribirClienteEspectaculo extends javax.swing.JFrame {
 
     private void InscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InscribirActionPerformed
         if(this.espectaculoSeleccionado != null && this.clienteSeleccionado != null){
-            Response respuesta = null;
-            respuesta = Main.insertarInscripcionClienteEspectaculo(espectaculoSeleccionado, clienteSeleccionado);
-            if(respuesta != null){
-                if(respuesta.isCorrecto()){
-                    JOptionPane.showMessageDialog(null, "Se ha inscrito al cliente seleccionado en el espectáculo seleccionado.");
-                    Main.cerrarInscribirClienteEspectaculo();
-                }else{
-                    JOptionPane.showMessageDialog(null, respuesta.getMensajeError(),"", JOptionPane.ERROR_MESSAGE);
-                }
+            if(this.espectaculoSeleccionado.getListaClientes() != null && this.espectaculoSeleccionado.getListaClientes().size() >= this.espectaculoSeleccionado.getAforo()){
+                JOptionPane.showMessageDialog(null, "No se ha podido inscribir al cliente, el espectáculo seleccionado ha llegado al límite de clientes indicado en el aforo.","", JOptionPane.WARNING_MESSAGE);
             }else{
-                JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado. Intenalo de nuevo.","", JOptionPane.ERROR_MESSAGE);
+                Response respuesta = null;
+                respuesta = Main.insertarInscripcionClienteEspectaculo(espectaculoSeleccionado, clienteSeleccionado);
+                if(respuesta != null){
+                    if(respuesta.isCorrecto()){
+                        JOptionPane.showMessageDialog(null, "Se ha inscrito al cliente seleccionado en el espectáculo seleccionado.");
+                        Main.cerrarInscribirClienteEspectaculo();
+                    }else{
+                        JOptionPane.showMessageDialog(null, respuesta.getMensajeError(),"", JOptionPane.ERROR_MESSAGE);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado. Intenalo de nuevo.","", JOptionPane.ERROR_MESSAGE);
+                }
             }
-            
         }else{
             JOptionPane.showMessageDialog(null, "Tanto el espectáculo como el cliente son datos obligatorios.","", JOptionPane.WARNING_MESSAGE);
         }

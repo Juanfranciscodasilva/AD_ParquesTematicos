@@ -19,10 +19,10 @@ public class DB4O_BD {
         try{
             ObjectContainer db= conectarBD(DB4O_CONNECTIONS.parques);
             if(!comprobarExistenciaParque(db)){
-                System.out.print("DB4O: no se ha encontrado registrado el parque.");
+                System.out.println("DB4O: no se ha encontrado registrado el parque.");
                 Parque parque = new Parque(1,"Disney",new Date(),"Direccion de Disney");
                 db.store(parque);
-                System.out.print("DB4O: se ha registrado el parque.");
+                System.out.println("DB4O: se ha registrado el parque.");
             }
             db.close();
             db= conectarBD(DB4O_CONNECTIONS.clientes);
