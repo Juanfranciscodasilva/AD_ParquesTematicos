@@ -14,6 +14,7 @@ public class Main {
     public static VSeleccionParque vSeleccionParque;
     public static VPrincipal vPrincipal;
     public static VDatosParque vDatosParque;
+    public static VMetaData vMetaData;
     public static VCrearCliente vCrearCliente;
     public static VvmeCliente vVmeCliente;
     public static VCrearEmpleado vCrearEmpleado;
@@ -85,6 +86,26 @@ public class Main {
         vPrincipal.setVisible(true);
         vDatosParque.setVisible(false);
         vDatosParque.dispose();
+    }
+    
+    public static void abrirVentanaMetaDatos(){
+        MetaData meta = BD_INTERMEDIARIO.obtenerMetaData();
+        if(meta != null){
+            vPrincipal.setVisible(false);
+            vPrincipal.dispose();
+            vMetaData = new VMetaData(meta);
+            vMetaData.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null,"Ha ocurrido un error al obtener los metadatos de la BD","",JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }
+    
+    public static void cerrarVentanaMetaDatos(){
+        vPrincipal = new VPrincipal(parqueSeleccionado);
+        vPrincipal.setVisible(true);
+        vMetaData.setVisible(false);
+        vMetaData.dispose();
     }
     
     public static void abrirCrearCliente(){

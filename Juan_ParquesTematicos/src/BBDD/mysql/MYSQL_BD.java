@@ -1,5 +1,8 @@
 package BBDD.mysql;
 
+import Clases.MetaData;
+import Clases.MetaDataColumn;
+import Clases.MetaDataTable;
 import Clases.Parque;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -9,7 +12,8 @@ import java.sql.Statement;
 
 public class MYSQL_BD {
     
-    private static String url = "jdbc:mysql://localhost:3306/ad_parques_tematicos";
+    private static String schema = "ad_parques_tematicos";
+    private static String url = "jdbc:mysql://localhost:3306/"+schema;
     private static String username = "root";
     private static String password = "12345Abcde";
     
@@ -177,6 +181,51 @@ public class MYSQL_BD {
         }catch(Exception ex){
             System.out.println(ex.getMessage());
             throw ex;
+        }
+    }
+    
+    public static MetaData getMetaData(){
+        try{
+            Connection con = conectarBD();
+            DatabaseMetaData metaBD = con.getMetaData();
+            MetaData meta = new MetaData();
+            meta.setNombreBD(metaBD.getDatabaseProductName());
+            meta.setDriverBD(metaBD.getDriverName());
+            meta.setUrlDB(metaBD.getURL());
+            meta.setClienteDB(metaBD.getUserName());
+            ResultSet tables = metaBD.getTables(schema, null, null, new String[]{"TABLE"});
+            while(tables.next()){
+                MetaDataTable tabla = new MetaDataTable();
+                String nombreTabla = tables.getString("TABLE_NAME");
+                ResultSet primaryKeys = metaBD.getPrimaryKeys(schema, null, nombreTabla);
+                while(primaryKeys.next()){
+                    MetaDataColumn column = new MetaDataColumn();
+                    column.setNombre(primaryKeys.getString("COLUMN_NAME"));
+                    column.setPrimaryKey(true);
+                    tabla.getListaColumnas().add(column);
+                }
+                ResultSet columns = metaBD.getColumns(schema,null, nombreTabla, null);
+                while(columns.next()){ 
+                    String columnName = columns.getString("COLUMN_NAME");
+                    MetaDataColumn column = tabla.getListaColumnas().stream()
+                            .filter(c -> c.getNombre().equalsIgnoreCase(columnName))
+                            .findFirst()
+                            .orElse(null);
+                    if(column == null){
+                        column = new MetaDataColumn();
+                        column.setNombre(columnName);
+                        tabla.getListaColumnas().add(column);
+                    }
+                    column.setTipo(columns.getString("TYPE_NAME"));
+                    column.setPuedeNull(columns.getBoolean("NULLABLE"));
+                }
+                tabla.setNombre(nombreTabla);
+                tabla.setEsquema(schema);
+                meta.getListaTablas().add(tabla);
+            }
+            return meta;
+        }catch(Exception ex){
+            return null;
         }
     }
     

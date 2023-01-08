@@ -520,4 +520,23 @@ public class BD_INTERMEDIARIO {
         }
         return response;
     }
+    
+    public static MetaData obtenerMetaData(){
+        MetaData meta = new MetaData();
+        try{
+            switch(parqueSeleccionado){
+            case Warner:
+                meta = MYSQL_BD.getMetaData();
+                break;
+            case Universal:
+//                meta = SQLITE_EspectaculoClienteBD.deleteEspectaculoCliente(espec.getId(),cli.getDni());
+                break;
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            System.out.println("Ha ocurrido un error al obtener los metadatos");
+            return null;
+        }
+        return meta;
+    }
 }
