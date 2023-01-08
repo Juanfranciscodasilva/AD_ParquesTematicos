@@ -23,6 +23,7 @@ public class VPrincipal extends javax.swing.JFrame {
             eTitulo1.setText("Warner");
         }else if(agencia == PARQUES.Disney){
             eTitulo1.setText("Disney");
+            menuMetaData.setVisible(false);
         }else{
             eTitulo1.setText("Universal");
         }
@@ -57,7 +58,7 @@ public class VPrincipal extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         DatosAgencia = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        menuMetaData = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -241,13 +242,13 @@ public class VPrincipal extends javax.swing.JFrame {
         });
         DatosAgencia.add(jMenuItem3);
 
-        jMenuItem8.setText("BD MetaData");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        menuMetaData.setText("BD MetaData");
+        menuMetaData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                menuMetaDataActionPerformed(evt);
             }
         });
-        DatosAgencia.add(jMenuItem8);
+        DatosAgencia.add(menuMetaData);
 
         jMenuBar1.add(DatosAgencia);
 
@@ -390,9 +391,9 @@ public class VPrincipal extends javax.swing.JFrame {
         Main.abrirRetirarClienteEspectaculo();
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+    private void menuMetaDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMetaDataActionPerformed
         Main.abrirVentanaMetaDatos();
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
+    }//GEN-LAST:event_menuMetaDataActionPerformed
 
     /**
      * @param args the command line arguments
@@ -473,7 +474,7 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem menuMetaData;
     // End of variables declaration//GEN-END:variables
 
     public void NoCampamentos() {
