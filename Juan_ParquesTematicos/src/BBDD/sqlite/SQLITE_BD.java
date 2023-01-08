@@ -5,7 +5,8 @@ import java.sql.*;
 
 public class SQLITE_BD {
     
-    public final static String rutaLocalBD = "C:/sqlite/ad_parques_tematicos.db";
+    public final static String schema = "ad_parques_tematicos";
+    public final static String rutaLocalBD = "C:/sqlite/"+schema+".db";
     public final static String url = "jdbc:sqlite:"+rutaLocalBD;
     
     public SQLITE_BD(){
@@ -185,6 +186,51 @@ public class SQLITE_BD {
         }catch(Exception ex){
             System.out.println(ex.getMessage());
             throw ex;
+        }
+    }
+    
+    public static MetaData getMetaData(){
+        try{
+            Connection con = conectarBD();
+            DatabaseMetaData metaBD = con.getMetaData();
+            MetaData meta = new MetaData();
+            meta.setNombreBD(metaBD.getDatabaseProductName());
+            meta.setDriverBD(metaBD.getDriverName());
+            meta.setUrlDB(metaBD.getURL());
+            meta.setClienteDB(metaBD.getUserName());
+            ResultSet tables = metaBD.getTables(schema, null, null, new String[]{"TABLE"});
+            while(tables.next()){
+                MetaDataTable tabla = new MetaDataTable();
+                String nombreTabla = tables.getString("TABLE_NAME");
+                ResultSet primaryKeys = metaBD.getPrimaryKeys(schema, null, nombreTabla);
+                while(primaryKeys.next()){
+                    MetaDataColumn column = new MetaDataColumn();
+                    column.setNombre(primaryKeys.getString("COLUMN_NAME"));
+                    column.setPrimaryKey(true);
+                    tabla.getListaColumnas().add(column);
+                }
+                ResultSet columns = metaBD.getColumns(schema,null, nombreTabla, null);
+                while(columns.next()){ 
+                    String columnName = columns.getString("COLUMN_NAME");
+                    MetaDataColumn column = tabla.getListaColumnas().stream()
+                            .filter(c -> c.getNombre().equalsIgnoreCase(columnName))
+                            .findFirst()
+                            .orElse(null);
+                    if(column == null){
+                        column = new MetaDataColumn();
+                        column.setNombre(columnName);
+                        tabla.getListaColumnas().add(column);
+                    }
+                    column.setTipo(columns.getString("TYPE_NAME"));
+                    column.setPuedeNull(columns.getBoolean("NULLABLE"));
+                }
+                tabla.setNombre(nombreTabla);
+                tabla.setEsquema(schema);
+                meta.getListaTablas().add(tabla);
+            }
+            return meta;
+        }catch(Exception ex){
+            return null;
         }
     }
     

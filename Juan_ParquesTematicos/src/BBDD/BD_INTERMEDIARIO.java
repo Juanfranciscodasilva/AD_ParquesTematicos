@@ -529,7 +529,7 @@ public class BD_INTERMEDIARIO {
                 meta = MYSQL_BD.getMetaData();
                 break;
             case Universal:
-//                meta = SQLITE_EspectaculoClienteBD.deleteEspectaculoCliente(espec.getId(),cli.getDni());
+                meta = SQLITE_BD.getMetaData();
                 break;
             }
         }catch(Exception ex){
